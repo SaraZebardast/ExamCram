@@ -87,6 +87,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.721"
-        android:backgroundTint="@color/jungleGreen"/>
+        android:backgroundTint="@color/jungleGreen"
+        android:background="@drawable/roundedbutton"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
