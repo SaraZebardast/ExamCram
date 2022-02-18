@@ -2,13 +2,13 @@
     <!-- Base application theme. -->
     <style name="Theme.Examcram" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/rhythm</item>
-        <item name="colorPrimaryVariant">@color/lightPeriwinkle</item>
-        <item name="colorOnPrimary">@color/aliceBlue</item>
+        <item name="colorPrimary">@color/purple_200</item>
+        <item name="colorPrimaryVariant">@color/purple_500</item>
+        <item name="colorOnPrimary">@color/purple_700</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">@color/rhythm</item>
+        <item name="colorSecondaryVariant">@color/lightPeriwinkle</item>
+        <item name="colorOnSecondary">@color/aliceBlue</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
