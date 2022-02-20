@@ -10,15 +10,16 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="56dp"
         android:gravity="center"
         android:text="@string/new_here_create_an_account"
         android:textColor="@color/white"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.500"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/loginButton"
         app:layout_constraintVertical_bias="0.50" />
 
     <EditText
@@ -76,7 +77,7 @@
         app:layout_constraintVertical_bias="0.349" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/loginButton"
         android:layout_width="110dp"
         android:layout_height="50dp"
         android:backgroundTint="@color/jungleGreen"
