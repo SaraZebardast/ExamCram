@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    tools:context=".signupActivity">
-
+    tools:context=".SignUpActivity">
     <EditText
         android:id="@+id/passwordIN"
         android:layout_width="350dp"
@@ -98,7 +97,7 @@
         android:id="@+id/Agreement"
         android:layout_width="296dp"
         android:layout_height="33dp"
-        android:gravity=""
+        android:gravity="center_vertical"
         android:text="@string/agree"
         android:textColor="@color/white"
         android:textSize="15sp"
@@ -111,12 +110,12 @@
 
     <Button
         android:id="@+id/loginButton"
-        android:layout_width="130dp"
-        android:layout_height="48dp"
+        android:layout_width="121dp"
+        android:layout_height="51dp"
         android:layout_marginTop="50dp"
         android:backgroundTint="@color/jungleGreen"
         android:gravity="center"
-        android:onClick="onLogin"
+        android:onClick="onSignup"
         android:text="@string/create"
         android:textColor="@color/white"
         android:textSize="17sp"
@@ -130,7 +129,7 @@
         android:id="@+id/checkBox"
         android:layout_width="33dp"
         android:layout_height="33dp"
-        android:gravity="center"
+        android:gravity=""
         android:text=""
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -138,6 +137,5 @@
         app:layout_constraintStart_toEndOf="@+id/Agreement"
         app:layout_constraintTop_toBottomOf="@+id/passwordIN"
         app:layout_constraintVertical_bias="0.089" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

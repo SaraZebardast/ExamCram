@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
-public class loginActivity extends AppCompatActivity {
+public class LogInActivity extends AppCompatActivity {
 
     private EditText usernameInput, passwordInput, createUserName;
     private Button login;
@@ -39,7 +39,7 @@ public class loginActivity extends AppCompatActivity {
     }
     //Create account
     public void accountCreate (View view){
-        Intent intent = new Intent(this, signupActivity.class);
+        Intent intent = new Intent(this, SignUpActivity.class);
         startActivity(intent);
     }
 }
