@@ -5,4 +5,10 @@
     <string name="password">Password</string>
     <string name="new_here_create_an_account">New here? Create an account</string>
     <string name="username">Username</string>
+    <string name="agree">I agree to the terms and conditions...</string>
+    <string name="create">Create</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="email">Email</string>
+    <string name="last_name">Last Name</string>
+    <string name="first_name">First Name</string>
 </resources>

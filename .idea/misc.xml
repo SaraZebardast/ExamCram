@@ -10,8 +10,8 @@
         <entry key="app/src/main/res/drawable/roundedbutton.xml" value="0.2885" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/loading.xml" value="0.35625" />
-        <entry key="app/src/main/res/layout/login.xml" value="0.353125" />
-        <entry key="app/src/main/res/layout/signup.xml" value="0.7037484885126964" />
+        <entry key="app/src/main/res/layout/login.xml" value="0.6332970620239391" />
+        <entry key="app/src/main/res/layout/signup.xml" value="0.67" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.298" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.298" />
       </map>

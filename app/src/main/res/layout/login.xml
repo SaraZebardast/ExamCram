@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="56dp"
         android:gravity="center"
+        android:minHeight="48dp"
         android:onClick="accountCreate"
         android:text="@string/new_here_create_an_account"
         android:textColor="@color/white"
@@ -26,7 +27,6 @@
         android:id="@+id/passwordIN"
         android:layout_width="350dp"
         android:layout_height="50dp"
-        android:autofillHints=""
         android:background="@drawable/roundedbutton"
         android:gravity="center"
         android:hint="@string/password"
@@ -36,9 +36,11 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usernameIN"
-        app:layout_constraintVertical_bias="0.056" />
+        app:layout_constraintVertical_bias="0.025"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/usernameIN"
