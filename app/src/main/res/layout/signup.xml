@@ -101,8 +101,8 @@
 
     <TextView
         android:id="@+id/Agreement"
-        android:layout_width="305dp"
-        android:layout_height="40dp"
+        android:layout_width="253dp"
+        android:layout_height="33dp"
         android:gravity=""
         android:text="I agree to the terms and conditions..."
         android:textColor="@color/white"
@@ -116,8 +116,8 @@
 
     <Button
         android:id="@+id/loginButton"
-        android:layout_width="170dp"
-        android:layout_height="60dp"
+        android:layout_width="110dp"
+        android:layout_height="50dp"
         android:backgroundTint="@color/jungleGreen"
         android:gravity="center"
         android:onClick="onLogin"
@@ -135,13 +135,14 @@
         android:id="@+id/checkBox"
         android:layout_width="23dp"
         android:layout_height="22dp"
+        android:layout_marginTop="32dp"
         android:text=""
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.9"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.666" />
+        app:layout_constraintHorizontal_bias="0.207"
+        app:layout_constraintStart_toEndOf="@+id/Agreement"
+        app:layout_constraintTop_toBottomOf="@+id/passwordIN"
+        app:layout_constraintVertical_bias="0.004" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
