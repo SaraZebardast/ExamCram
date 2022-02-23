@@ -11,9 +11,9 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText usernameInput, passwordInput;
+    private EditText usernameInput, passwordInput, createUserName;
     private Button login;
-    private TextView incorrectInfo;
+    private TextView incorrectInfo ,createAccount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         passwordInput = findViewById(R.id.passwordIN);
         login = findViewById(R.id.loginButton);
         incorrectInfo = findViewById(R.id.textView);
-
+        createAccount = findViewById(R.id.createAccount);
     }
 
     public void onLogin(View view) { //login button onclick lister
@@ -35,7 +35,9 @@ public class MainActivity extends AppCompatActivity {
             incorrectInfo.setText("Incorrect username or password");
         }
 
-
-
+    }
+    //Create account
+    public void accountCreate (View view){
+        setContentView(R.layout.signup);
     }
 }
