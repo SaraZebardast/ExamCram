@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_gravity="center"
+    tools:context=".signupActivity">
 
     <EditText
         android:id="@+id/passwordIN"
@@ -110,8 +111,8 @@
 
     <Button
         android:id="@+id/loginButton"
-        android:layout_width="110dp"
-        android:layout_height="50dp"
+        android:layout_width="130dp"
+        android:layout_height="48dp"
         android:layout_marginTop="50dp"
         android:backgroundTint="@color/jungleGreen"
         android:gravity="center"
