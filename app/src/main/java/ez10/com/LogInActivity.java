@@ -39,7 +39,7 @@ public class LogInActivity extends AppCompatActivity {
     }
     //Create account
     public void accountCreate (View view){
-        Intent intent = new Intent(this, SignUpActivity.class);
+        Intent intent = new Intent(this, SelectCountryActivity.class);
         startActivity(intent);
     }
 }

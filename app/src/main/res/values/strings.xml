@@ -11,4 +11,11 @@
     <string name="email">Email</string>
     <string name="last_name">Last Name</string>
     <string name="first_name">First Name</string>
+    <string-array name="countries">
+        <item>Country</item>
+        <item>Turkey</item>
+        <item>China</item>
+        <item>North Korea</item>
+        <item>Ottoman Empire</item>
+    </string-array>
 </resources>
