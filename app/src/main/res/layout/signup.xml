@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     android:orientation="vertical"
     android:weightSum="4"
@@ -15,6 +16,7 @@
         android:layout_weight="1">
 
         <TextView
+            android:id="@+id/textinsignuppage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -22,6 +24,19 @@
             android:text="Sign up"
             android:textColor="@color/white"
             android:textSize="36dp"></TextView>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/welcomeAnim"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="40dp"
+            android:visibility="invisible"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="false"
+            app:lottie_rawRes="@raw/welcome">
+
+        </com.airbnb.lottie.LottieAnimationView>
     </RelativeLayout>
 
     <RelativeLayout
@@ -112,7 +127,7 @@
             android:textSize="20sp" />
 
         <Button
-            android:id="@+id/loginButton"
+            android:id="@+id/createButton"
             android:layout_width="110dp"
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
@@ -130,7 +145,7 @@
             android:id="@+id/tandc"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_above="@+id/loginButton"
+            android:layout_above="@+id/createButton"
             android:layout_marginBottom="60dp"
             android:gravity="center">
 

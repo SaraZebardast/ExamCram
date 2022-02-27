@@ -24,7 +24,7 @@ public class LogInActivity extends AppCompatActivity {
         setContentView(R.layout.login);
         usernameInput = findViewById(R.id.usernameIN);
         passwordInput = findViewById(R.id.passwordIN);
-        login = findViewById(R.id.loginButton);
+        login = findViewById(R.id.createButton);
         incorrectInfo = findViewById(R.id.textView);
         createAccount = findViewById(R.id.createAccount);
         welcomeBack = findViewById(R.id.welcomeback);

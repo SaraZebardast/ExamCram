@@ -27,7 +27,8 @@
             android:fontFamily="@font/regular"
             android:text="We missed you. Log back in!"
             android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/welcomeback"
@@ -40,7 +41,8 @@
             android:fontFamily="@font/fullbold"
             android:text="Welcome Back!"
             android:textColor="@color/white"
-            android:textSize="36sp" />
+            android:textSize="36sp"
+            tools:ignore="HardcodedText" />
     </RelativeLayout>
 
 
@@ -64,7 +66,8 @@
             android:gravity="center"
             android:text="Enter your Login information"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            tools:ignore="HardcodedText" />
 
         <EditText
             android:id="@+id/usernameIN"
@@ -90,7 +93,7 @@
             android:id="@+id/passwordIN"
             android:layout_width="350dp"
             android:layout_height="50dp"
-            android:layout_above="@+id/loginButton"
+            android:layout_above="@+id/createButton"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="77dp"
             android:autofillHints=""
@@ -108,7 +111,7 @@
             android:textSize="20sp" />
 
         <Button
-            android:id="@+id/loginButton"
+            android:id="@+id/createButton"
             android:layout_width="110dp"
             android:layout_height="50dp"
             android:layout_above="@+id/linearLayout"
