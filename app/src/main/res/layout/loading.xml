@@ -18,5 +18,6 @@
         app:layout_constraintVertical_bias="0.500"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
+        android:visibility="invisible"
         app:lottie_rawRes="@raw/loading_icon" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,15 +4,24 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.298" />
+        <entry key="app/src/main/res/drawable/email.xml" value="0.2965" />
         <entry key="app/src/main/res/drawable/greenroundedbutton.xml" value="0.2885" />
+        <entry key="app/src/main/res/drawable/ic_baseline_arrow_drop_down_24.xml" value="0.3545" />
         <entry key="app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.2885" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.298" />
+        <entry key="app/src/main/res/drawable/lock.xml" value="0.2965" />
+        <entry key="app/src/main/res/drawable/lock_icon.xml" value="0.2965" />
+        <entry key="app/src/main/res/drawable/roundedbackground.xml" value="0.2965" />
         <entry key="app/src/main/res/drawable/roundedbutton.xml" value="0.2885" />
+        <entry key="app/src/main/res/drawable/roundedspinner.xml" value="0.3545" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.353125" />
+        <entry key="app/src/main/res/layout/home.xml" value="0.353125" />
         <entry key="app/src/main/res/layout/loading.xml" value="0.35625" />
-        <entry key="app/src/main/res/layout/login.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/select_country.xml" value="0.2873708089192708" />
-        <entry key="app/src/main/res/layout/signup.xml" value="0.25166625976562507" />
+        <entry key="app/src/main/res/layout/login.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/select_country.xml" value="0.353125" />
+        <entry key="app/src/main/res/layout/signUp.xml" value="0.353125" />
+        <entry key="app/src/main/res/layout/signup.xml" value="0.5" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.298" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.298" />
       </map>
@@ -23,12 +32,5 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
-  </component>
-  <component name="VisualizationToolProject">
-    <option name="state">
-      <ProjectState>
-        <option name="scale" value="0.2879414876302083" />
-      </ProjectState>
-    </option>
   </component>
 </project>

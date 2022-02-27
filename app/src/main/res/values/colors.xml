@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="red">#be4d25</color>
-    <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+    <color name="black1">#111111</color>
+    <color name="black2">#1d1d1d</color>
+    <color name="darkGrey">#1f1f1f</color>
+
     <color name="white">#FFFFFFFF</color>
     <color name="faded_white">#CACACA</color>
     ## color palette for the app! [yohan you]
@@ -14,8 +13,6 @@
     <color name="rhythm">#767B91</color>
     <color name="lightPeriwinkle">#C7CCDB</color>
     <color name="aliceBlue">#E1E5EE</color>
-
-    <color name="darkGrey">#1f1f1f</color>
     <color name="jungleGreen">#31AF90</color>
 
 </resources>
