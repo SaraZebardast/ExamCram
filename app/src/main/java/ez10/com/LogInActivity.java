@@ -35,9 +35,8 @@ public class LogInActivity extends AppCompatActivity {
     public void onLogin(View view) { //login button onclick lister
         String usernameInputStr = usernameInput.getText().toString();
         String passwordInputStr = passwordInput.getText().toString();
-        if (usernameInputStr.equals("admin") && passwordInputStr.equals("admin") ) {
-            weMissedYou.setVisibility(View.INVISIBLE);
-            welcomeBack.setVisibility(View.INVISIBLE);
+        if (!usernameInputStr.equals("") && !passwordInputStr.equals("") ) {
+            login.setVisibility(View.INVISIBLE);
             animationView.setVisibility(View.VISIBLE);
 
         }
