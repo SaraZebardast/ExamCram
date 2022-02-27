@@ -14,14 +14,15 @@
         <entry key="app/src/main/res/drawable/roundedbackground.xml" value="0.2965" />
         <entry key="app/src/main/res/drawable/roundedbutton.xml" value="0.2885" />
         <entry key="app/src/main/res/drawable/roundedspinner.xml" value="0.3545" />
+        <entry key="app/src/main/res/drawable/user.xml" value="0.3175" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.353125" />
         <entry key="app/src/main/res/layout/home.xml" value="0.353125" />
         <entry key="app/src/main/res/layout/loading.xml" value="0.35625" />
-        <entry key="app/src/main/res/layout/login.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/select_country.xml" value="0.353125" />
+        <entry key="app/src/main/res/layout/login.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/select_country.xml" value="0.33" />
         <entry key="app/src/main/res/layout/signUp.xml" value="0.353125" />
-        <entry key="app/src/main/res/layout/signup.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/signup.xml" value="0.33" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.298" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.298" />
       </map>
