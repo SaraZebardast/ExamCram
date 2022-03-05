@@ -25,16 +25,17 @@
             android:textColor="@color/white"
             android:textSize="36dp"></TextView>
 
+
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/welcomeAnim"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:id="@+id/loading"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
             android:layout_centerInParent="true"
             android:layout_marginBottom="40dp"
             android:visibility="invisible"
             app:lottie_autoPlay="true"
-            app:lottie_loop="false"
-            app:lottie_rawRes="@raw/welcome">
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading_icon">
 
         </com.airbnb.lottie.LottieAnimationView>
     </RelativeLayout>
@@ -55,12 +56,12 @@
             android:background="@drawable/roundedbutton"
             android:drawableStart="@drawable/user"
             android:drawablePadding="10dp"
-            android:paddingLeft="20dp"
             android:drawableTint="@color/faded_white"
             android:fontFamily="@font/regular"
             android:gravity="center_vertical"
             android:hint="@string/first_name"
             android:inputType="text"
+            android:paddingLeft="20dp"
             android:textColor="@color/white"
             android:textColorHint="@color/faded_white"
             android:textSize="20sp" />
@@ -69,38 +70,38 @@
             android:id="@+id/LastName"
             android:layout_width="350dp"
             android:layout_height="50dp"
-            android:layout_above="@+id/Email"
+            android:layout_above="@+id/EmailIN"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="10dp"
+            android:background="@drawable/roundedbutton"
             android:drawableStart="@drawable/user"
             android:drawablePadding="10dp"
-            android:paddingLeft="20dp"
             android:drawableTint="@color/faded_white"
-            android:background="@drawable/roundedbutton"
             android:fontFamily="@font/regular"
             android:gravity="center_vertical"
             android:hint="@string/last_name"
             android:inputType="text"
+            android:paddingLeft="20dp"
             android:textColor="@color/white"
             android:textColorHint="@color/faded_white"
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/Email"
+            android:id="@+id/EmailIN"
             android:layout_width="350dp"
             android:layout_height="50dp"
-            android:drawableStart="@drawable/email"
-            android:drawablePadding="10dp"
-            android:paddingLeft="20dp"
-            android:drawableTint="@color/faded_white"
             android:layout_above="@+id/passwordIN"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="10dp"
             android:background="@drawable/roundedbutton"
+            android:drawableStart="@drawable/email"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/faded_white"
             android:fontFamily="@font/regular"
             android:gravity="center_vertical"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
+            android:paddingLeft="20dp"
             android:textColor="@color/white"
             android:textColorHint="@color/faded_white"
             android:textSize="20sp" />
@@ -112,16 +113,16 @@
             android:layout_above="@+id/tandc"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="20dp"
+            android:background="@drawable/roundedbutton"
             android:drawableStart="@drawable/lock"
             android:drawablePadding="10dp"
-            android:paddingLeft="20dp"
             android:drawableTint="@color/faded_white"
-            android:background="@drawable/roundedbutton"
             android:fontFamily="@font/regular"
             android:gravity="center_vertical"
             android:hint="@string/password"
             android:importantForAutofill="no"
             android:inputType="textPassword"
+            android:paddingLeft="20dp"
             android:textColor="@color/white"
             android:textColorHint="@color/faded_white"
             android:textSize="20sp" />
@@ -170,7 +171,7 @@
                 android:textSize="15sp" />
 
             <CheckBox
-                android:id="@+id/checkBox"
+                android:id="@+id/termsandconditions"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginLeft="40dp"
