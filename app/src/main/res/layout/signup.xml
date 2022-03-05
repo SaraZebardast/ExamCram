@@ -26,6 +26,8 @@
             android:textSize="36dp"></TextView>
 
 
+
+
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/loading"
             android:layout_width="75dp"
@@ -45,6 +47,23 @@
         android:layout_height="500dp"
         android:background="@drawable/roundedbackground"
         android:layout_weight="3">
+
+        <TextView
+            android:id="@+id/errorMessages"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/FirstName"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="20dp"
+            android:drawableRight="@drawable/ic_baseline_error_24"
+            android:fontFamily="@font/regular"
+            android:paddingRight="40dp"
+            android:gravity="center"
+            android:text="Sign up"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:visibility="invisible"></TextView>
 
         <EditText
             android:id="@+id/FirstName"
@@ -133,7 +152,7 @@
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="92dp"
+            android:layout_marginBottom="80dp"
             android:backgroundTint="@color/jungleGreen"
             android:fontFamily="@font/semibold"
             android:gravity="center"
@@ -147,7 +166,7 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_above="@+id/createButton"
-            android:layout_marginBottom="60dp"
+            android:layout_marginBottom="30dp"
             android:gravity="center">
 
             <TextView
