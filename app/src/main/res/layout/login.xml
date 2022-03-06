@@ -54,12 +54,40 @@
         android:background="@drawable/roundedbackground"
         android:elevation="30dp">
 
+        <LinearLayout
+            android:id="@+id/errorMessagesLayout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_above="@+id/textView"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="70dp"
+            android:gravity="center"
+            android:visibility="invisible">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_baseline_error_24"></ImageView>
+
+            <TextView
+                android:id="@+id/errorMessages"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_above="@+id/firstNameSignUp"
+                android:layout_marginLeft="5dp"
+                android:fontFamily="@font/semibold"
+                android:gravity="center_vertical"
+                android:text="Sign up"
+                android:textColor="@color/white"
+                android:textSize="15sp"></TextView>
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/usernameIN"
+            android:layout_above="@+id/emailLogIn"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="55dp"
             android:fontFamily="@font/fullbold"
@@ -70,10 +98,10 @@
             tools:ignore="HardcodedText" />
 
         <EditText
-            android:id="@+id/usernameIN"
+            android:id="@+id/emailLogIn"
             android:layout_width="350dp"
             android:layout_height="50dp"
-            android:layout_above="@+id/passwordIN"
+            android:layout_above="@+id/passwordSignUp"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="10dp"
             android:background="@drawable/roundedbutton"
@@ -90,12 +118,12 @@
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/passwordIN"
+            android:id="@+id/passwordSignUp"
             android:layout_width="350dp"
             android:layout_height="50dp"
-            android:layout_above="@+id/createButton"
+            android:layout_above="@+id/signUpButton"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="77dp"
+            android:layout_marginBottom="50dp"
             android:autofillHints=""
             android:background="@drawable/roundedbutton"
             android:drawableStart="@drawable/lock"
@@ -111,7 +139,7 @@
             android:textSize="20sp" />
 
         <Button
-            android:id="@+id/createButton"
+            android:id="@+id/signUpButton"
             android:layout_width="110dp"
             android:layout_height="50dp"
             android:layout_above="@+id/linearLayout"
@@ -120,13 +148,13 @@
             android:backgroundTint="@color/jungleGreen"
             android:fontFamily="@font/semibold"
             android:gravity="center"
-            android:onClick="onLogin"
+            android:onClick="onLogInButtonTap"
             android:text="LOGIN"
             android:textColor="@color/white"
             android:textSize="17sp" />
 
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animationView"
+            android:id="@+id/loadingLogIn"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_above="@+id/linearLayout"
@@ -159,13 +187,13 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/createAccount"
+                android:id="@+id/newHereCreateAccount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/semibold"
                 android:gravity="center"
                 android:minHeight="48dp"
-                android:onClick="accountCreate"
+                android:onClick="goToSignUp"
                 android:text="Create an account!"
                 android:textColor="@color/jungleGreen"
                 android:textSize="15sp" />

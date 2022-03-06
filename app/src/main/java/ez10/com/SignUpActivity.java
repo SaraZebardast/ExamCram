@@ -2,78 +2,80 @@ package ez10.com;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ProgressBar;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import android.os.Bundle;
-import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    Button button;
-    TextView text, errorMessages;
-    LottieAnimationView anim;
-    private FirebaseAuth mAuth;
-    EditText firstName, lastName, email, password;
-    CheckBox termsAndConditions;
+    private Button button;
+
+    private LottieAnimationView anim;
+    private EditText firstNameInput, lastNameInput, emailInput, passwordInput;
+    private TextView errorMessages;
+    private LinearLayout errorMessagesLayout;
+    private CheckBox termsAndConditions;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
-        mAuth = FirebaseAuth.getInstance();
-        button= findViewById(R.id.createButton);
-        anim = findViewById(R.id.loading);
-        firstName = findViewById(R.id.FirstName);
-        lastName = findViewById(R.id.LastName);
-        email = findViewById(R.id.EmailIN);
-        password = findViewById(R.id.passwordIN);
-        errorMessages = findViewById(R.id.errorMessages);
-        text = findViewById(R.id.textinsignuppage);
-    }
-    public void onSignup(View view) {
 
-        String emailStr = email.getText().toString().trim();
-        String passwordStr = password.getText().toString().trim();
-        String firstNameStr = firstName.getText().toString().trim();
-        String lastNameStr = lastName.getText().toString().trim();
+        button= findViewById(R.id.signUpButton);
+        anim = findViewById(R.id.loadingSignUp);
+        firstNameInput = findViewById(R.id.firstNameSignUp);
+        lastNameInput = findViewById(R.id.lastNameSignUp);
+        emailInput = findViewById(R.id.emailSignUp);
+        passwordInput = findViewById(R.id.passwordSignUp);
+        errorMessages = findViewById(R.id.errorMessages);
+        errorMessagesLayout = findViewById(R.id.errorMessagesLayout);
+    }
+
+
+
+    public void onCreateButtonTap(View view) {
+
+        String emailStr = emailInput.getText().toString().trim();
+        String passwordStr = passwordInput.getText().toString().trim();
+        String firstNameStr = firstNameInput.getText().toString().trim();
+        String lastNameStr = lastNameInput.getText().toString().trim();
 
         if(firstNameStr.isEmpty()) {
             errorMessages.setText("Your name cannot be empty");
-            errorMessages.setVisibility(View.VISIBLE);
-            firstName.requestFocus();
+            errorMessagesLayout.setVisibility(View.VISIBLE);
+            firstNameInput.requestFocus();
             return;
         }
         if(lastNameStr.isEmpty()) {
             errorMessages.setText("Your name cannot be empty");
-            errorMessages.setVisibility(View.VISIBLE);
-            lastName.requestFocus();
+            errorMessagesLayout.setVisibility(View.VISIBLE);
+            lastNameInput.requestFocus();
             return;
         }
-        if(emailStr.isEmpty()) {
+        if(emailStr.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(emailStr).matches()) {
             errorMessages.setText("Please enter a valid email.");
-            errorMessages.setVisibility(View.VISIBLE);
-            email.requestFocus();
+            errorMessagesLayout.setVisibility(View.VISIBLE);
+            emailInput.requestFocus();
             return;
         }
         if(passwordStr.isEmpty() || passwordStr.length()<8) {
             errorMessages.setText("Your password must be at least 8 characters long.");
-            errorMessages.setVisibility(View.VISIBLE);
-            password.requestFocus();
+            errorMessagesLayout.setVisibility(View.VISIBLE);
+            passwordInput.requestFocus();
             return;
         }
         //if (!termsAndConditions.isChecked()) {
@@ -82,29 +84,42 @@ public class SignUpActivity extends AppCompatActivity {
         //    return;
         //  }
 
-        text.setVisibility(View.INVISIBLE);
-        anim.setVisibility(View.VISIBLE);
 
-        mAuth.createUserWithEmailAndPassword(emailStr, passwordStr)
+
+        signUpUser(firstNameStr, lastNameStr, emailStr, passwordStr);
+
+
+    }
+
+
+
+    private void signUpUser(String firstNameStr, String lastNameStr, String emailStr, String passwordStr) {
+        button.setVisibility(View.INVISIBLE);
+        anim.setVisibility(View.VISIBLE);
+        SplashScreen.mAuth.createUserWithEmailAndPassword(emailStr, passwordStr)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
                             User user = new User(firstNameStr, lastNameStr, emailStr, passwordStr);
+                            FirebaseUser currentUser = SplashScreen.mAuth.getCurrentUser();
+                            button.setVisibility(View.VISIBLE);
+                            anim.setVisibility(View.INVISIBLE);
+                            goToWelcome();
 
-                            FirebaseDatabase.getInstance().getReference("Users")
-                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful()) {
-                                        Toast.makeText(SignUpActivity.this, "Welcome", Toast.LENGTH_LONG).show();
-                                    }
-                                }
-                            });
+                        } else {
+                            errorMessages.setText("An error occurred.");
+                            errorMessagesLayout.setVisibility(View.VISIBLE);
+                            button.setVisibility(View.VISIBLE);
+                            anim.setVisibility(View.INVISIBLE);
                         }
                     }
                 });
 
+    }
+
+    private void  goToWelcome() {
+        Intent intent = new Intent(this, HomePage.class);
+        startActivity(intent);
     }
 }

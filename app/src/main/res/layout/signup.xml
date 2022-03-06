@@ -27,19 +27,6 @@
 
 
 
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/loading"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_centerInParent="true"
-            android:layout_marginBottom="40dp"
-            android:visibility="invisible"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/loading_icon">
-
-        </com.airbnb.lottie.LottieAnimationView>
     </RelativeLayout>
 
     <RelativeLayout
@@ -48,28 +35,41 @@
         android:background="@drawable/roundedbackground"
         android:layout_weight="3">
 
-        <TextView
-            android:id="@+id/errorMessages"
+        <LinearLayout
+            android:id="@+id/errorMessagesLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/FirstName"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="20dp"
-            android:drawableRight="@drawable/ic_baseline_error_24"
-            android:fontFamily="@font/regular"
-            android:paddingRight="40dp"
+            android:layout_height="50dp"
+            android:layout_above="@+id/firstNameSignUp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="60dp"
             android:gravity="center"
-            android:text="Sign up"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            android:visibility="invisible"></TextView>
+            android:visibility="invisible">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_baseline_error_24"></ImageView>
+
+            <TextView
+                android:id="@+id/errorMessages"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_above="@+id/firstNameSignUp"
+                android:layout_marginLeft="5dp"
+                android:fontFamily="@font/semibold"
+                android:gravity="center_vertical"
+                android:text="Sign up"
+                android:textColor="@color/white"
+                android:textSize="15sp"></TextView>
+        </LinearLayout>
+
+
 
         <EditText
-            android:id="@+id/FirstName"
+            android:id="@+id/firstNameSignUp"
             android:layout_width="350dp"
             android:layout_height="50dp"
-            android:layout_above="@+id/LastName"
+            android:layout_above="@+id/lastNameSignUp"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="10dp"
             android:background="@drawable/roundedbutton"
@@ -86,10 +86,10 @@
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/LastName"
+            android:id="@+id/lastNameSignUp"
             android:layout_width="350dp"
             android:layout_height="50dp"
-            android:layout_above="@+id/EmailIN"
+            android:layout_above="@+id/emailSignUp"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="10dp"
             android:background="@drawable/roundedbutton"
@@ -106,10 +106,10 @@
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/EmailIN"
+            android:id="@+id/emailSignUp"
             android:layout_width="350dp"
             android:layout_height="50dp"
-            android:layout_above="@+id/passwordIN"
+            android:layout_above="@+id/passwordSignUp"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="10dp"
             android:background="@drawable/roundedbutton"
@@ -126,12 +126,12 @@
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/passwordIN"
+            android:id="@+id/passwordSignUp"
             android:layout_width="350dp"
             android:layout_height="50dp"
             android:layout_above="@+id/tandc"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="40dp"
             android:background="@drawable/roundedbutton"
             android:drawableStart="@drawable/lock"
             android:drawablePadding="10dp"
@@ -146,8 +146,22 @@
             android:textColorHint="@color/faded_white"
             android:textSize="20sp" />
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/loadingSignUp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="75dp"
+            android:visibility="invisible"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading_icon">
+
+        </com.airbnb.lottie.LottieAnimationView>
+
         <Button
-            android:id="@+id/createButton"
+            android:id="@+id/signUpButton"
             android:layout_width="110dp"
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
@@ -156,7 +170,7 @@
             android:backgroundTint="@color/jungleGreen"
             android:fontFamily="@font/semibold"
             android:gravity="center"
-            android:onClick="onSignup"
+            android:onClick="onCreateButtonTap"
             android:text="@string/create"
             android:textColor="@color/white"
             android:textSize="17sp" />
@@ -165,7 +179,7 @@
             android:id="@+id/tandc"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_above="@+id/createButton"
+            android:layout_above="@+id/signUpButton"
             android:layout_marginBottom="30dp"
             android:gravity="center">
 
