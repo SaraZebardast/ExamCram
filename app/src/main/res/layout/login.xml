@@ -58,9 +58,10 @@
             android:id="@+id/errorMessagesLayout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_above="@+id/textView"
+            android:layout_above="@+id/emailLogIn"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="55dp"
             android:layout_marginTop="40dp"
-            android:layout_marginBottom="70dp"
             android:gravity="center"
             android:visibility="invisible">
 
@@ -94,8 +95,7 @@
             android:gravity="center"
             android:text="Enter your Login information"
             android:textColor="@color/white"
-            android:textSize="20sp"
-            tools:ignore="HardcodedText" />
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/emailLogIn"

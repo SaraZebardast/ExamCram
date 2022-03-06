@@ -20,7 +20,7 @@ public class LogInActivity extends AppCompatActivity {
     private Button login;
     private TextView incorrectInfo ,createAccount;
     private LottieAnimationView animationView;
-    private TextView errorMessages;
+    private TextView errorMessages, banner;
     private LinearLayout errorMessagesLayout;
 
     @Override
@@ -35,6 +35,7 @@ public class LogInActivity extends AppCompatActivity {
         createAccount = findViewById(R.id.newHereCreateAccount);
         animationView = findViewById(R.id.loadingLogIn);
         errorMessages = findViewById(R.id.errorMessages);
+        banner = findViewById(R.id.textView);
         errorMessagesLayout = findViewById(R.id.errorMessagesLayout);
 
     }
@@ -46,11 +47,13 @@ public class LogInActivity extends AppCompatActivity {
 
         if(emailStr.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(emailStr).matches()) {
             errorMessages.setText("Please enter a valid email.");
+            banner.setVisibility(View.INVISIBLE);
             errorMessagesLayout.setVisibility(View.VISIBLE);
             emailInput.requestFocus();
             return;
         }
         if(passwordStr.isEmpty() || passwordStr.length()<8) {
+            banner.setVisibility(View.INVISIBLE);
             errorMessages.setText("Please enter a valid password.");
             errorMessagesLayout.setVisibility(View.VISIBLE);
             passwordInput.requestFocus();
