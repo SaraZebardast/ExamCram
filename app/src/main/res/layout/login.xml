@@ -147,7 +147,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/linearLayout"
             android:gravity="center"
-            android:layout_marginBottom="50dp">
+            android:layout_marginBottom="30dp">
 
             <Button
                 android:id="@+id/resetButton"
@@ -173,7 +173,7 @@
                 android:fontFamily="@font/semibold"
                 android:gravity="center"
                 android:minHeight="48dp"
-                android:onClick="goToSignUp"
+                android:onClick="goToForgotPassword"
                 android:text="Forgot password?"
                 android:textColor="@color/jungleGreen"
                 android:textSize="15sp" />

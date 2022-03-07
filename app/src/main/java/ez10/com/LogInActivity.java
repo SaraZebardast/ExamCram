@@ -104,4 +104,9 @@ public class LogInActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SelectCountryActivity.class);
         startActivity(intent);
     }
+
+    public void goToForgotPassword(View view){
+        Intent intent = new Intent(this, forgotPassword.class);
+        startActivity(intent);
+    }
 }
