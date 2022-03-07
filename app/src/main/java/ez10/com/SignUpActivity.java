@@ -103,9 +103,8 @@ public class SignUpActivity extends AppCompatActivity {
                         if(task.isSuccessful()) {
                             User user = new User(firstNameStr, lastNameStr, emailStr, passwordStr);
                             FirebaseUser currentUser = SplashScreen.mAuth.getCurrentUser();
-                            button.setVisibility(View.VISIBLE);
-                            anim.setVisibility(View.INVISIBLE);
-                            goToWelcome();
+                            startActivity(new Intent(SignUpActivity.this, HomePage.class));
+                            finish();
 
                         } else {
                             errorMessages.setText("An error occurred.");

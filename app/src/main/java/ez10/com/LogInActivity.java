@@ -1,5 +1,6 @@
 package ez10.com;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,6 +13,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseUser;
 
 
 public class LogInActivity extends AppCompatActivity {
@@ -19,7 +24,7 @@ public class LogInActivity extends AppCompatActivity {
     private EditText emailInput, passwordInput;
     private Button login;
     private TextView incorrectInfo ,createAccount;
-    private LottieAnimationView animationView;
+    private LottieAnimationView anim;
     private TextView errorMessages, banner;
     private LinearLayout errorMessagesLayout;
 
@@ -33,7 +38,7 @@ public class LogInActivity extends AppCompatActivity {
         login = findViewById(R.id.signUpButton);
         incorrectInfo = findViewById(R.id.textView);
         createAccount = findViewById(R.id.newHereCreateAccount);
-        animationView = findViewById(R.id.loadingLogIn);
+        anim = findViewById(R.id.loadingLogIn);
         errorMessages = findViewById(R.id.errorMessages);
         banner = findViewById(R.id.textView);
         errorMessagesLayout = findViewById(R.id.errorMessagesLayout);
@@ -58,7 +63,39 @@ public class LogInActivity extends AppCompatActivity {
             errorMessagesLayout.setVisibility(View.VISIBLE);
             passwordInput.requestFocus();
             return;
+
         }
+
+        signInUser(emailStr, passwordStr);
+
+
+
+    }
+
+    private void signInUser(String emailStr, String passwordStr) {
+        login.setVisibility(View.INVISIBLE);
+        anim.setVisibility(View.VISIBLE);
+        SplashScreen.mAuth.signInWithEmailAndPassword(emailStr, passwordStr)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()) {
+                            FirebaseUser currentUser = SplashScreen.mAuth.getCurrentUser();
+                            startActivity(new Intent(LogInActivity.this, HomePage.class));
+                            login.setVisibility(View.VISIBLE);
+                            anim.setVisibility(View.INVISIBLE);
+                            finish();
+
+                        } else {
+                            errorMessages.setText("Your email or password is incorrect");
+                            banner.setVisibility(View.INVISIBLE);
+                            errorMessagesLayout.setVisibility(View.VISIBLE);
+                            login.setVisibility(View.VISIBLE);
+                            anim.setVisibility(View.INVISIBLE);
+
+                        }
+                    }
+                });
 
     }
 
