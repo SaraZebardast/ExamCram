@@ -124,7 +124,7 @@
             android:id="@+id/passwordSignUp"
             android:layout_width="350dp"
             android:layout_height="50dp"
-            android:layout_above="@+id/signUpButton"
+            android:layout_above="@+id/loginAndForget"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="50dp"
             android:autofillHints=""
@@ -141,32 +141,57 @@
             android:textColorHint="@color/faded_white"
             android:textSize="20sp" />
 
-        <Button
-            android:id="@+id/signUpButton"
-            android:layout_width="110dp"
-            android:layout_height="50dp"
+        <RelativeLayout
+            android:id="@+id/loginAndForget"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_above="@+id/linearLayout"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="60dp"
-            android:backgroundTint="@color/jungleGreen"
-            android:fontFamily="@font/semibold"
             android:gravity="center"
-            android:onClick="onLogInButtonTap"
-            android:text="LOGIN"
-            android:textColor="@color/white"
-            android:textSize="17sp" />
+            android:layout_marginBottom="50dp">
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/loadingLogIn"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_above="@+id/linearLayout"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="56dp"
-            android:visibility="invisible"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/loading_icon" />
+            <Button
+                android:id="@+id/signUpButton"
+                android:layout_width="110dp"
+                android:layout_height="50dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="60dp"
+                android:backgroundTint="@color/jungleGreen"
+                android:fontFamily="@font/semibold"
+                android:gravity="center"
+                android:onClick="onLogInButtonTap"
+                android:text="LOGIN"
+                android:textColor="@color/white"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/passwordForgot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="34dp"
+                android:layout_marginBottom="59dp"
+                android:layout_toEndOf="@+id/signUpButton"
+                android:fontFamily="@font/semibold"
+                android:gravity="center"
+                android:minHeight="48dp"
+                android:onClick="goToSignUp"
+                android:text="Forgot password?"
+                android:textColor="@color/jungleGreen"
+                android:textSize="15sp" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/loadingLogIn"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="56dp"
+                android:visibility="invisible"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/loading_icon" />
+
+        </RelativeLayout>
+
+
 
         <LinearLayout
             android:id="@+id/linearLayout"
