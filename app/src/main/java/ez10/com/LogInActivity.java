@@ -33,7 +33,7 @@ public class LogInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-        emailInput = findViewById(R.id.emailLogIn);
+        emailInput = findViewById(R.id.emailReset);
         passwordInput = findViewById(R.id.passwordSignUp);
         login = findViewById(R.id.resetButton);
         incorrectInfo = findViewById(R.id.textView);

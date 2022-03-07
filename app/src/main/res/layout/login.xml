@@ -58,7 +58,7 @@
             android:id="@+id/errorMessagesLayout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_above="@+id/emailLogIn"
+            android:layout_above="@+id/emailReset"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="80dp"
@@ -89,7 +89,7 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/emailLogIn"
+            android:layout_above="@+id/emailReset"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="80dp"
@@ -101,7 +101,7 @@
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/emailLogIn"
+            android:id="@+id/emailReset"
             android:layout_width="350dp"
             android:layout_height="50dp"
             android:layout_above="@+id/passwordSignUp"
@@ -146,8 +146,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/linearLayout"
-            android:gravity="center"
-            android:layout_marginBottom="30dp">
+            android:layout_marginBottom="30dp"
+            android:gravity="center">
 
             <Button
                 android:id="@+id/resetButton"
