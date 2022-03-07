@@ -18,10 +18,11 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.353125" />
         <entry key="app/src/main/res/layout/activity_welcome.xml" value="0.353125" />
+        <entry key="app/src/main/res/layout/forgot_passward.xml" value="0.3267608642578126" />
         <entry key="app/src/main/res/layout/home.xml" value="0.353125" />
         <entry key="app/src/main/res/layout/home_page.xml" value="0.28974358974358977" />
         <entry key="app/src/main/res/layout/loading.xml" value="0.35625" />
-        <entry key="app/src/main/res/layout/login.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/login.xml" value="0.28251617431640624" />
         <entry key="app/src/main/res/layout/select_country.xml" value="0.33" />
         <entry key="app/src/main/res/layout/signUp.xml" value="0.353125" />
         <entry key="app/src/main/res/layout/signup.xml" value="0.25" />

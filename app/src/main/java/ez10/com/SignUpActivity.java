@@ -35,7 +35,7 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
 
-        button= findViewById(R.id.signUpButton);
+        button= findViewById(R.id.resetButton);
         anim = findViewById(R.id.loadingSignUp);
         firstNameInput = findViewById(R.id.firstNameSignUp);
         lastNameInput = findViewById(R.id.lastNameSignUp);

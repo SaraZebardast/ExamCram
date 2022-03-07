@@ -150,7 +150,7 @@
             android:layout_marginBottom="50dp">
 
             <Button
-                android:id="@+id/signUpButton"
+                android:id="@+id/resetButton"
                 android:layout_width="110dp"
                 android:layout_height="50dp"
                 android:layout_centerHorizontal="true"
@@ -169,7 +169,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="34dp"
                 android:layout_marginBottom="59dp"
-                android:layout_toEndOf="@+id/signUpButton"
+                android:layout_toEndOf="@+id/resetButton"
                 android:fontFamily="@font/semibold"
                 android:gravity="center"
                 android:minHeight="48dp"

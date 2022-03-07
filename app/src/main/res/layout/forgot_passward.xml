@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:weightSum="4"
+    tools:context=".forgotPassword"
+    android:background="@color/black">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_weight="1"
+        android:background="@color/black">
+
+        <TextView
+            android:id="@+id/enterEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/forgotPassword"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="140dp"
+            android:layout_marginBottom="-20dp"
+            android:fontFamily="@font/regular"
+            android:text="Enter your email to reset."
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/forgotPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="70dp"
+            android:layout_marginBottom="75dp"
+            android:fontFamily="@font/fullbold"
+            android:text="Forgot Password ?"
+            android:textColor="@color/white"
+            android:textSize="36sp" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/main_relative"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_weight="3"
+        android:background="@drawable/roundedbackground"
+        android:elevation="30dp">
+
+        <LinearLayout
+            android:id="@+id/errorMessagesLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/emailLogIn"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="80dp"
+            android:gravity="center"
+            android:visibility="invisible">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_baseline_error_24"></ImageView>
+
+            <TextView
+                android:id="@+id/errorMessages"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_above="@+id/firstNameSignUp"
+                android:layout_marginLeft="5dp"
+                android:fontFamily="@font/semibold"
+                android:gravity="center_vertical"
+                android:text="Sign up"
+                android:textColor="@color/white"
+                android:textSize="15sp"></TextView>
+        </LinearLayout>
+
+
+        <EditText
+            android:id="@+id/emailLogIn"
+            android:layout_width="350dp"
+            android:layout_height="50dp"
+            android:layout_above="@+id/resetButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="150dp"
+            android:background="@drawable/roundedbutton"
+            android:drawableStart="@drawable/email"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/faded_white"
+            android:fontFamily="@font/regular"
+            android:gravity="center_vertical"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:paddingLeft="20dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/faded_white"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/resetButton"
+            android:layout_width="110dp"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="100dp"
+            android:backgroundTint="@color/jungleGreen"
+            android:fontFamily="@font/semibold"
+            android:gravity="center"
+            android:text="RESET"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/loadingLogIn"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="95dp"
+            android:visibility="invisible"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading_icon" />
+
+    </RelativeLayout>
+
+</LinearLayout>

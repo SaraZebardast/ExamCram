@@ -35,7 +35,7 @@ public class LogInActivity extends AppCompatActivity {
 
         emailInput = findViewById(R.id.emailLogIn);
         passwordInput = findViewById(R.id.passwordSignUp);
-        login = findViewById(R.id.signUpButton);
+        login = findViewById(R.id.resetButton);
         incorrectInfo = findViewById(R.id.textView);
         createAccount = findViewById(R.id.newHereCreateAccount);
         anim = findViewById(R.id.loadingLogIn);
