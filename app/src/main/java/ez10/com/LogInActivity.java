@@ -35,7 +35,7 @@ public class LogInActivity extends AppCompatActivity {
 
         emailInput = findViewById(R.id.emailReset);
         passwordInput = findViewById(R.id.passwordSignUp);
-        login = findViewById(R.id.resetButton);
+        login = findViewById(R.id.createAccountButton);
         incorrectInfo = findViewById(R.id.textView);
         createAccount = findViewById(R.id.newHereCreateAccount);
         anim = findViewById(R.id.loadingLogIn);
@@ -84,7 +84,7 @@ public class LogInActivity extends AppCompatActivity {
                             startActivity(new Intent(LogInActivity.this, HomePage.class));
                             login.setVisibility(View.VISIBLE);
                             anim.setVisibility(View.INVISIBLE);
-                            finish();
+                            finishAffinity();
 
                         } else {
                             errorMessages.setText("Your email or password is incorrect");

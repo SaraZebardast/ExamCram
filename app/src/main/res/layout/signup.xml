@@ -162,7 +162,7 @@
         </com.airbnb.lottie.LottieAnimationView>
 
         <Button
-            android:id="@+id/resetButton"
+            android:id="@+id/createAccountButton"
             android:layout_width="110dp"
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
@@ -180,7 +180,7 @@
             android:id="@+id/tandc"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_above="@+id/resetButton"
+            android:layout_above="@+id/createAccountButton"
             android:layout_marginBottom="30dp"
             android:gravity="center">
 
@@ -205,7 +205,7 @@
                 android:textSize="15sp" />
 
             <CheckBox
-                android:id="@+id/termsandconditions"
+                android:id="@+id/termm"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginLeft="40dp"

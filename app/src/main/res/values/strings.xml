@@ -18,9 +18,12 @@
         <item>North Korea</item>
         <item>Ottoman Empire</item>
     </string-array>
-    <string-array name="unis">
+    <string-array name="turk_unis">
         <item>University</item>
         <item>Bilkent University</item>
         <item>Metu</item>
+    </string-array>
+    <string-array name="uni">
+        <item>University</item>
     </string-array>
 </resources>

@@ -13,6 +13,8 @@
         android:layout_height="200dp"
         android:layout_weight="1">
 
+
+
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
@@ -41,34 +43,88 @@
         android:layout_weight="3"
         android:background="@drawable/roundedbackground">
 
-        <Spinner
-            android:id="@+id/country"
-            android:layout_width="350dp"
-            android:layout_height="50dp"
-            android:layout_above="@+id/resetButton"
+        <LinearLayout
+            android:id="@+id/errorMessagesLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/country_layout"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="125dp"
-            android:background="@drawable/roundedbutton"
-            android:entries="@array/unis"
-            android:popupBackground="@drawable/roundedbutton"
-            android:popupElevation="10dp"
-            android:textAlignment="center"></Spinner>
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="60dp"
+            android:gravity="center"
+            android:visibility="invisible">
 
-        <Spinner
-            android:id="@+id/university"
-            android:layout_width="350dp"
-            android:layout_height="50dp"
-            android:layout_above="@+id/country"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="125dp"
-            android:background="@drawable/roundedbutton"
-            android:entries="@array/countries"
-            android:popupBackground="@drawable/roundedbutton"
-            android:popupElevation="10dp"
-            android:textAlignment="center"></Spinner>
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_baseline_error_24"></ImageView>
+
+            <TextView
+                android:id="@+id/errorMessages"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_above="@+id/firstNameSignUp"
+                android:layout_marginLeft="5dp"
+                android:fontFamily="@font/semibold"
+                android:gravity="center_vertical"
+                android:text="Sign up"
+                android:textColor="@color/white"
+                android:textSize="15sp"></TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/country_layout"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_above="@+id/university_layout"
+            android:layout_marginBottom="75dp"
+            android:gravity="center">
+
+            <Spinner
+                android:id="@+id/country"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:background="@drawable/roundedbutton"
+                android:popupBackground="@drawable/roundedbutton"
+                android:popupElevation="10dp"></Spinner>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_arrow_drop_down_24"></ImageView>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/university_layout"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_above="@+id/createAccountButton"
+            android:layout_marginBottom="75dp"
+            android:gravity="center">
+
+            <Spinner
+                android:id="@+id/university"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:background="@drawable/roundedbutton"
+                android:popupBackground="@drawable/roundedbutton"
+                android:popupElevation="10dp"></Spinner>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_arrow_drop_down_24"></ImageView>
+
+
+        </LinearLayout>
+
 
         <Button
-            android:id="@+id/resetButton"
+            android:id="@+id/createAccountButton"
             android:layout_width="110dp"
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"

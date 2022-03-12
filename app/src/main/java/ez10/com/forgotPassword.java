@@ -5,17 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseUser;
 
 public class forgotPassword extends AppCompatActivity {
 
@@ -32,7 +32,7 @@ public class forgotPassword extends AppCompatActivity {
         setContentView(R.layout.forgot_password);
         anim = findViewById(R.id.loading);
         email = findViewById(R.id.emailReset);
-        resetButton = findViewById(R.id.resetButton);
+        resetButton = findViewById(R.id.createAccountButton);
         errorMessages = findViewById(R.id.errorMessages);
         errorMessagesLayout = findViewById(R.id.errorMessagesLayout);
     }
@@ -40,12 +40,25 @@ public class forgotPassword extends AppCompatActivity {
     public void sendPasswordReset(View view) {
         String emailStr = email.getText().toString().trim();
 
+        if(emailStr.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(emailStr).matches()) {
+            errorMessages.setText("Please enter a valid email.");
+            errorMessagesLayout.setVisibility(View.VISIBLE);
+            email.requestFocus();
+            return;
+        }
+
+        resetButton.setVisibility(View.INVISIBLE);
+        anim.setVisibility(View.VISIBLE);
+
         SplashScreen.mAuth.sendPasswordResetEmail(emailStr)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()) {
+                            Toast.makeText(forgotPassword.this, "Password reset sent to your email.", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(forgotPassword.this, LogInActivity.class));
+
+
                             finish();
                         }
 

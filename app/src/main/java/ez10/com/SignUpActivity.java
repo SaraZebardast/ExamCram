@@ -18,6 +18,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -28,6 +30,7 @@ public class SignUpActivity extends AppCompatActivity {
     private TextView errorMessages;
     private LinearLayout errorMessagesLayout;
     private CheckBox termsAndConditions;
+    private static String country, university;
 
 
     @Override
@@ -35,14 +38,21 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
 
-        button= findViewById(R.id.resetButton);
+        button= findViewById(R.id.createAccountButton);
         anim = findViewById(R.id.loadingSignUp);
         firstNameInput = findViewById(R.id.firstNameSignUp);
         lastNameInput = findViewById(R.id.lastNameSignUp);
         emailInput = findViewById(R.id.emailSignUp);
         passwordInput = findViewById(R.id.passwordSignUp);
+        termsAndConditions = findViewById(R.id.termm);
         errorMessages = findViewById(R.id.errorMessages);
         errorMessagesLayout = findViewById(R.id.errorMessagesLayout);
+
+    }
+
+    public static void setLocation(String Country, String University) {
+        country = Country;
+        university = University;
     }
 
 
@@ -78,11 +88,11 @@ public class SignUpActivity extends AppCompatActivity {
             passwordInput.requestFocus();
             return;
         }
-        //if (!termsAndConditions.isChecked()) {
-        //    errorMessages.setText("You must agree to terms and conditions to continue.");
-        //    errorMessages.setVisibility(View.VISIBLE);
-        //    return;
-        //  }
+        if (!termsAndConditions.isChecked()) {
+            errorMessages.setText("You must agree to terms and conditions.");
+            errorMessagesLayout.setVisibility(View.VISIBLE);
+            return;
+        }
 
 
 
@@ -101,12 +111,22 @@ public class SignUpActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
-                            User user = new User(firstNameStr, lastNameStr, emailStr, passwordStr);
-                            FirebaseUser currentUser = SplashScreen.mAuth.getCurrentUser();
-                            startActivity(new Intent(SignUpActivity.this, HomePage.class));
-                            finish();
 
-                        } else {
+                            FirebaseUser currentUser = SplashScreen.mAuth.getCurrentUser();
+                            FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+
+                            DatabaseReference reference = rootNode.getReference("Registered Users");
+
+                            UserInfo user = new UserInfo(emailStr, firstNameStr, lastNameStr, country, university);
+
+                            reference.child(currentUser.getUid()).setValue(user);
+
+                            Intent intent = new Intent(SignUpActivity.this, HomePage.class);
+
+                            finishAffinity();
+                            startActivity(intent);
+                        }
+                        else {
                             errorMessages.setText("An error occurred.");
                             errorMessagesLayout.setVisibility(View.VISIBLE);
                             button.setVisibility(View.VISIBLE);

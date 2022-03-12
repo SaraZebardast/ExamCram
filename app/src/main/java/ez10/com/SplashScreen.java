@@ -30,9 +30,9 @@ public class SplashScreen extends AppCompatActivity {
                 else {
                     startActivity(new Intent(SplashScreen.this, HomePage.class));
                 }
-                finish();
+                finishAffinity();
             }
-        }, 3000);
+        }, 2000);
 
 
 
