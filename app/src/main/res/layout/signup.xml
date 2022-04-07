@@ -32,8 +32,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="500dp"
-        android:background="@drawable/roundedbackground"
-        android:layout_weight="3">
+        android:layout_weight="3"
+        android:background="@drawable/roundedbackground">
 
         <LinearLayout
             android:id="@+id/errorMessagesLayout"
@@ -63,7 +63,6 @@
                 android:textColor="@color/white"
                 android:textSize="15sp"></TextView>
         </LinearLayout>
-
 
 
         <EditText
