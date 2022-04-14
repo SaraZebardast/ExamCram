@@ -89,23 +89,20 @@
 
         </com.airbnb.lottie.LottieAnimationView>
 
-        <HorizontalScrollView
-            android:id="@+id/horizontalScrollView"
+        <ImageSwitcher
             android:layout_width="match_parent"
-            android:layout_height="239dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="48dp"
-            android:layout_marginBottom="238dp">
+            android:layout_height="match_parent"
+            android:id="@+id/imageSwitcher"
+            android:layout_marginTop="15dp"/>
 
-
-            <CheckBox
-                android:id="@+id/checkBox"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:text="CheckBox" />
-
-        </HorizontalScrollView>
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="Next"
+                android:gravity="center"
+                android:textStyle="bold" />
 
     </RelativeLayout>
 
