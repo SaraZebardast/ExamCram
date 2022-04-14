@@ -4,11 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Pelin/Documentation/ExamCram/app/src/main/res/layout/login.xml" value="0.1" />
-        <entry key="..\:/Users/Pelin/Documentation/ExamCram/app/src/main/res/layout/profileselection.xml" value="0.1" />
+        <entry key="..\:/Users/Pelin/Documentation/ExamCram/app/src/main/res/layout/profileselection.xml" value="0.22" />
         <entry key="..\:/Users/Pelin/Documentation/ExamCram/app/src/main/res/layout/signup.xml" value="0.4466666666666667" />
       </map>
     </option>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
 </project>
