@@ -12,7 +12,7 @@ import android.widget.ViewSwitcher;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class profileselection extends AppCompatActivity implements View.onClickListener{
+public class profileselection extends AppCompatActivity implements View.OnClickListener {
     private ImageSwitcher imageSwitcher;
     private MaterialButton nextButton;
     private Integer ListImage[] = {R.drawable.steve, R.drawable.marya, R.drawable.einstein};
@@ -26,12 +26,37 @@ public class profileselection extends AppCompatActivity implements View.onClickL
 
         imageSwitcher = findViewById(R.id.imageSwitcher);
         nextButton = findViewById(R.id.nextButton);
+        nextButton.setOnClickListener(this); {
 
+        @Override
         public View makeView() {
+            ImageView imageView = new ImageView(getApplicationContext());
 
-        });
+            imageView.setLayoutParams(new ImageSwitcher.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT
+                    , ActionBar.LayoutParams.WRAP_CONTENT));
+
+            imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            imageView.setImageResource(R.drawable.steve);
+
+            return imageView;
+        }
+    });
+
+    Animation out = AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right);
+    Animation in = AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left);
+
+        switchImageView.setOutAnimation(out);
+        switchImageView.setInAnimation(in);
     }
-    protected void onClick(View view){
 
+    public void onClick(View view){
+        counter++;
+
+        if (counter == imageLength) {
+            counter =0;
+            switchImageView.setImageResource(ListImage[counter]);
+        } else {
+            switchImageView.setImageResource(ListImage[counter]);
+        }
     }
 }
