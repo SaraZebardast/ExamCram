@@ -14,9 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class profileselection extends AppCompatActivity implements View.OnClickListener {
     private ImageSwitcher switchImageView;
-    private MaterialButton nextButton;
-    private Integer ListImage[] = {R.drawable.steve, R.drawable.marya, R.drawable.einstein};
-    private Integer imageLength = ListImage.length;
+    private final Integer[] ListImage = {R.drawable.steve, R.drawable.marya, R.drawable.einstein};
+    private final Integer imageLength = ListImage.length;
     private Integer counter = -1;
 
     @Override
@@ -25,10 +24,11 @@ public class profileselection extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.profileselection);
 
         switchImageView = findViewById(R.id.imageSwitcher);
-        nextButton = findViewById(R.id.nextButton);
+        MaterialButton nextButton = findViewById(R.id.nextButton);
         nextButton.setOnClickListener(this);
 
         switchImageView.setFactory(new ViewSwitcher.ViewFactory() {
+
             @Override
             public View makeView() {
                 ImageView imageView = new ImageView(getApplicationContext());
@@ -49,15 +49,14 @@ public class profileselection extends AppCompatActivity implements View.OnClickL
         switchImageView.setOutAnimation(out);
         switchImageView.setInAnimation(in);
     }
-
+    @Override
     public void onClick(View view){
         counter++;
 
-        if (counter == imageLength) {
+        if (counter.equals(imageLength)) {
             counter =0;
             switchImageView.setImageResource(ListImage[counter]);
-        } else {
-            switchImageView.setImageResource(ListImage[counter]);
         }
+        switchImageView.setImageResource(ListImage[counter]);
     }
 }

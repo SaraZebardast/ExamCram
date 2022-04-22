@@ -32,7 +32,7 @@
             android:gravity="center"
             android:text="How do you want others to see you?"
             android:textColor="@color/white"
-            android:textSize="30dp"
+            android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -66,53 +66,33 @@
             android:backgroundTint="@color/jungleGreen"
             android:fontFamily="@font/semibold"
             android:gravity="center"
-            android:text="CHOOSE"
+            android:text="@string/choose"
             android:textColor="@color/white"
             android:textSize="17sp" />
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/loadingSignUp"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="175dp"
-            android:layout_marginTop="408dp"
-            android:layout_marginEnd="175dp"
-            android:layout_marginBottom="55dp"
-            android:visibility="invisible"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/loading_icon">
-
-        </com.airbnb.lottie.LottieAnimationView><![CDATA[
-
-        android:layout_height="239dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="48dp"
-            android:layout_marginBottom="238dp">
-
-            ]]>
 
         <ImageSwitcher
             android:id="@+id/imageSwitcher"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="15dp" >
+            android:layout_height="200dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginVertical="20dp"
+            android:layout_marginTop="15dp">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/nextButton"
-                android:layout_width="71dp"
-                android:layout_height="71dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:gravity="center"
-                android:text="Next"
-                android:textStyle="bold" />
         </ImageSwitcher>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/nextButton"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="200dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="@string/NEXT"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/semibold"
+            />
 
     </RelativeLayout>
 

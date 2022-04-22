@@ -11,6 +11,9 @@
     <string name="email">Email</string>
     <string name="last_name">Last Name</string>
     <string name="first_name">First Name</string>
+    <string name="next">Next</string>
+    <string name="choose">CHOOSE</string>
+    <string name="NEXT">NEXT</string>
     <string-array name="countries">
         <item>Country</item>
         <item>Turkey</item>
