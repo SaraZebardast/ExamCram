@@ -123,8 +123,9 @@ public class SignUpActivity extends AppCompatActivity {
 
                             Intent intent = new Intent(SignUpActivity.this, SelectProfilePictureActivity.class);
 
-                            finishAffinity();
+
                             startActivity(intent);
+                            finishAffinity();
                         }
                         else {
                             errorMessages.setText("An error occurred.");

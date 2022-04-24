@@ -20,20 +20,10 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:fontFamily="@font/fullbold"
-            android:text="Where do you go to school?"
+            android:text="What courses are you taking?"
             android:textColor="@color/white"
-            android:textSize="25dp"></TextView>
+            android:textSize="27dp"></TextView>
 
-        <TextView
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/title"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="7dp"
-            android:fontFamily="@font/regular"
-            android:text="*you will prompted to enter your school email to confirm your identity."
-            android:textColor="@color/white"
-            android:textSize="12dp"></TextView>
     </RelativeLayout>
 
     <RelativeLayout
@@ -43,11 +33,39 @@
         android:background="@drawable/roundedbackground">
 
         <LinearLayout
+            android:id="@+id/errorMessagesLayout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:visibility="invisible">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_baseline_error_24"></ImageView>
+
+            <TextView
+                android:id="@+id/errorMessages"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_above="@+id/firstNameSignUp"
+                android:layout_marginLeft="5dp"
+                android:fontFamily="@font/semibold"
+                android:gravity="center_vertical"
+                android:text="Sign up"
+                android:textColor="@color/white"
+                android:textSize="15sp"></TextView>
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/country_layout"
             android:layout_width="match_parent"
             android:layout_height="75dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="20dp"
+            android:layout_below="@id/errorMessagesLayout"
+            android:layout_marginTop="10dp"
             android:gravity="center">
 
             <Spinner
@@ -55,9 +73,9 @@
                 android:layout_width="300dp"
                 android:layout_height="50dp"
                 android:background="@drawable/roundedbutton"
+                android:entries="@array/courses"
                 android:popupBackground="@drawable/roundedbutton"
-                android:popupElevation="10dp"
-                android:spinnerMode="dialog"></Spinner>
+                android:popupElevation="10dp"></Spinner>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -67,6 +85,156 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/course1"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/country_layout"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="70dp"
+            android:background="@drawable/roundedbutton"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/course1_name"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="90dp"
+                android:fontFamily="@font/semibold"
+                android:text="Empty"
+                android:textColor="@color/faded_white"
+                android:textSize="17sp"></TextView>
+
+            <ImageView
+                android:id="@+id/remove1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="removeFirstCourse"
+                android:src="@drawable/ic_baseline_remove_24"
+                android:visibility="invisible"></ImageView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/course2"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/course1"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="70dp"
+            android:background="@drawable/roundedbutton"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/course2_name"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="90dp"
+                android:fontFamily="@font/semibold"
+                android:text="Empty"
+                android:textColor="@color/faded_white"
+                android:textSize="17sp"></TextView>
+
+            <ImageView
+                android:id="@+id/remove2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="removeSecondCourse"
+                android:src="@drawable/ic_baseline_remove_24"
+                android:visibility="invisible"></ImageView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/course3"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/course2"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="70dp"
+            android:background="@drawable/roundedbutton"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/course3_name"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="90dp"
+                android:fontFamily="@font/semibold"
+                android:text="Empty"
+                android:textColor="@color/faded_white"
+                android:textSize="17sp"></TextView>
+
+            <ImageView
+                android:id="@+id/remove3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="removeThirdCourse"
+                android:src="@drawable/ic_baseline_remove_24"
+                android:visibility="invisible"></ImageView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/course4"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/course3"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="70dp"
+            android:background="@drawable/roundedbutton"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/course4_name"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="90dp"
+                android:fontFamily="@font/semibold"
+                android:text="Empty"
+                android:textColor="@color/faded_white"
+                android:textSize="17sp"></TextView>
+
+            <ImageView
+                android:id="@+id/remove4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="removeFourthCourse"
+                android:src="@drawable/ic_baseline_remove_24"
+                android:visibility="invisible"></ImageView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/course5"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/course4"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="70dp"
+            android:background="@drawable/roundedbutton"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/course5_name"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="90dp"
+                android:fontFamily="@font/semibold"
+                android:text="Empty"
+                android:textColor="@color/faded_white"
+                android:textSize="17sp"></TextView>
+
+            <ImageView
+                android:id="@+id/remove5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="removeFifthCourse"
+                android:src="@drawable/ic_baseline_remove_24"
+                android:visibility="invisible"></ImageView>
+        </LinearLayout>
+
 
         <Button
             android:id="@+id/createAccountButton"
@@ -74,7 +242,7 @@
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="75dp"
+            android:layout_marginBottom="70dp"
             android:backgroundTint="@color/jungleGreen"
             android:fontFamily="@font/semibold"
             android:gravity="center"
