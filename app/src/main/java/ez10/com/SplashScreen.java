@@ -25,7 +25,7 @@ public class SplashScreen extends AppCompatActivity {
             @Override
             public void run() {
                 if(currentUser==null) {
-                    startActivity(new Intent(SplashScreen.this, SelectCoursesActivity.class)); //change back to loginactivity
+                    startActivity(new Intent(SplashScreen.this, LogInActivity.class)); //change back to loginactivity
                 }
                 else {
                     startActivity(new Intent(SplashScreen.this, SelectCoursesActivity.class));
