@@ -33,6 +33,9 @@
         <entry key="app/src/main/res/layout/select_country.xml" value="0.2" />
         <entry key="app/src/main/res/layout/select_courses.xml" value="0.28974358974358977" />
         <entry key="app/src/main/res/layout/select_profile_picture.xml" value="0.25" />
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
         <entry key="app/src/main/res/layout/signUp.xml" value="0.353125" />
         <entry key="app/src/main/res/layout/signup.xml" value="0.25" />
