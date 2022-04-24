@@ -1,8 +1,5 @@
 package ez10.com;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -12,6 +9,9 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -121,7 +121,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                             reference.child(currentUser.getUid()).setValue(user);
 
-                            Intent intent = new Intent(SignUpActivity.this, HomePage.class);
+                            Intent intent = new Intent(SignUpActivity.this, SelectProfilePictureActivity.class);
 
                             finishAffinity();
                             startActivity(intent);

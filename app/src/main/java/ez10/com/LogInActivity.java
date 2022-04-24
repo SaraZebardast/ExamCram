@@ -1,8 +1,5 @@
 package ez10.com;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -11,6 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -81,7 +81,7 @@ public class LogInActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
                             FirebaseUser currentUser = SplashScreen.mAuth.getCurrentUser();
-                            startActivity(new Intent(LogInActivity.this, HomePage.class));
+                            startActivity(new Intent(LogInActivity.this, HomePage.class)); //change back to home
                             login.setVisibility(View.VISIBLE);
                             anim.setVisibility(View.INVISIBLE);
                             finishAffinity();

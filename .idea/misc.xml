@@ -7,6 +7,7 @@
         <entry key="app/src/main/res/drawable/email.xml" value="0.2965" />
         <entry key="app/src/main/res/drawable/greenroundedbutton.xml" value="0.2885" />
         <entry key="app/src/main/res/drawable/ic_baseline_arrow_drop_down_24.xml" value="0.3545" />
+        <entry key="app/src/main/res/drawable/ic_baseline_error_24.xml" value="0.256" />
         <entry key="app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.2885" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.298" />
         <entry key="app/src/main/res/drawable/lock.xml" value="0.2965" />
@@ -23,9 +24,16 @@
         <entry key="app/src/main/res/layout/home.xml" value="0.353125" />
         <entry key="app/src/main/res/layout/home_page.xml" value="0.28974358974358977" />
         <entry key="app/src/main/res/layout/loading.xml" value="0.35625" />
+<<<<<<< Updated upstream
         <entry key="app/src/main/res/layout/login.xml" value="0.2502899169921875" />
         <entry key="app/src/main/res/layout/profileselection.xml" value="0.21050037887861148" />
         <entry key="app/src/main/res/layout/select_country.xml" value="0.2571182250976563" />
+=======
+        <entry key="app/src/main/res/layout/login.xml" value="0.5875190258751902" />
+        <entry key="app/src/main/res/layout/select_country.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/select_courses.xml" value="0.28974358974358977" />
+        <entry key="app/src/main/res/layout/select_profile_picture.xml" value="0.25" />
+>>>>>>> Stashed changes
         <entry key="app/src/main/res/layout/signUp.xml" value="0.353125" />
         <entry key="app/src/main/res/layout/signup.xml" value="0.25" />
         <entry key="app/src/main/res/layout/spinner_layout.xml" value="0.1" />

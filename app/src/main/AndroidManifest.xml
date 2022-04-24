@@ -13,6 +13,12 @@
             android:name=".profileselection"
             android:exported="false" />
         <activity
+            android:name=".SelectCoursesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SelectProfilePictureActivity"
+            android:exported="false" />
+        <activity
             android:name=".forgotPassword"
             android:exported="false" />
         <activity
