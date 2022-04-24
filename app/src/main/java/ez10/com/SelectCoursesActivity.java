@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -21,6 +22,8 @@ public class SelectCoursesActivity extends AppCompatActivity {
     ArrayAdapter<CharSequence> coursesAdapter;
     TextView course1, course2, course3, course4, course5;
     ImageView remove1, remove2, remove3, remove4, remove5;
+    private TextView errorMessages;
+    private LinearLayout errorMessagesLayout;
     String[] courses = new String[5];
 
 
@@ -41,11 +44,15 @@ public class SelectCoursesActivity extends AppCompatActivity {
         remove4 = findViewById(R.id.remove4);
         remove5 = findViewById(R.id.remove5);
 
-        courses[0]= "0";
+        courses[0]= "0"; //0 means null, null probably breaks database im scared to use it
         courses[1]= "0";
         courses[2]= "0";
         courses[3]= "0";
         courses[4]= "0";
+
+        errorMessages = findViewById(R.id.errorMessages);
+        errorMessagesLayout = findViewById(R.id.errorMessagesLayout);
+
 
         courseChoices = findViewById(R.id.courses_select);
         coursesAdapter = ArrayAdapter.createFromResource(this, R.array.courses, R.layout.spinner_layout);
@@ -97,19 +104,26 @@ public class SelectCoursesActivity extends AppCompatActivity {
     }
 
     public void onNext(View view) {
-        FirebaseUser currentUser = SplashScreen.mAuth.getCurrentUser();
-        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
 
-        DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/userCourses");
+        if (!isEmpty()) {
+            FirebaseUser currentUser = SplashScreen.mAuth.getCurrentUser();
+            FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
 
-        for (int i=0; i<courses.length; i++) {
-            reference.child("course" + i).setValue(courses[i]);
+            DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/userCourses");
+
+            for (int i=0; i<courses.length; i++) {
+                reference.child("course" + i).setValue(courses[i]);
+            }
+
+            Intent intent = new Intent(this, HomePage.class);
+
+            finishAffinity();
+            startActivity(intent);
         }
-
-        Intent intent = new Intent(this, HomePage.class);
-
-        finishAffinity();
-        startActivity(intent);
+        else {
+            errorMessages.setText("You should have atleast one course");
+            errorMessagesLayout.setVisibility(View.VISIBLE);
+        }
     }
     public void removeFirstCourse(View view) {
         course1.setText("Empty");
@@ -147,5 +161,12 @@ public class SelectCoursesActivity extends AppCompatActivity {
             if (courses[i].equals(a)) return true;
         }
         return false;
+    }
+
+    public boolean isEmpty() {
+        for (int i=0; i<courses.length; i++) {
+            if (!courses[i].equals("0")) return false;
+        }
+        return true;
     }
 }
