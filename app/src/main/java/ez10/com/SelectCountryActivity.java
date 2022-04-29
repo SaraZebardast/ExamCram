@@ -1,10 +1,7 @@
 package ez10.com;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,11 +9,16 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.airbnb.lottie.LottieAnimationView;
+
 public class SelectCountryActivity extends AppCompatActivity {
 
     private TextView errorMessages, spinnerFormat;
     private LinearLayout errorMessagesLayout;
     Spinner universityChoices, countryChoices;
+    private LottieAnimationView anim;
     ArrayAdapter<CharSequence> universityAdapter, countryAdapter;
 
     @Override
@@ -27,6 +29,7 @@ public class SelectCountryActivity extends AppCompatActivity {
         errorMessagesLayout = findViewById(R.id.errorMessagesLayout);
         countryChoices = findViewById(R.id.country);
         spinnerFormat = findViewById(R.id.spinner_format);
+        anim = findViewById(R.id.animationlocation);
 
 
         countryAdapter = ArrayAdapter.createFromResource(this, R.array.countries, R.layout.spinner_layout);
@@ -48,6 +51,27 @@ public class SelectCountryActivity extends AppCompatActivity {
                     universityChoices.setClickable(true);
                     universityChoices.setEnabled(true);
                     universityAdapter = ArrayAdapter.createFromResource(SelectCountryActivity.this, R.array.turk_unis, R.layout.spinner_layout);
+                    universityChoices.setAdapter(universityAdapter);
+
+                } else if (selectedCountry.equals("USA")) {
+
+                    universityChoices.setClickable(true);
+                    universityChoices.setEnabled(true);
+                    universityAdapter = ArrayAdapter.createFromResource(SelectCountryActivity.this, R.array.usa_unis, R.layout.spinner_layout);
+                    universityChoices.setAdapter(universityAdapter);
+
+                } else if (selectedCountry.equals("United Kingdom")) {
+
+                    universityChoices.setClickable(true);
+                    universityChoices.setEnabled(true);
+                    universityAdapter = ArrayAdapter.createFromResource(SelectCountryActivity.this, R.array.uk_unis, R.layout.spinner_layout);
+                    universityChoices.setAdapter(universityAdapter);
+
+                } else if (selectedCountry.equals("Germany")) {
+
+                    universityChoices.setClickable(true);
+                    universityChoices.setEnabled(true);
+                    universityAdapter = ArrayAdapter.createFromResource(SelectCountryActivity.this, R.array.germany_unis, R.layout.spinner_layout);
                     universityChoices.setAdapter(universityAdapter);
 
                 }
@@ -81,6 +105,7 @@ public class SelectCountryActivity extends AppCompatActivity {
         }
         else {
             errorMessages.setText("Please enter valid info.");
+            anim.setVisibility(View.INVISIBLE);
             errorMessagesLayout.setVisibility(View.VISIBLE);
             return;
         }

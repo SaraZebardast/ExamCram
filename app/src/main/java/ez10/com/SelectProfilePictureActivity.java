@@ -61,9 +61,8 @@ public class SelectProfilePictureActivity extends AppCompatActivity {
 
         reference.child("profilePictureID").setValue(profilePictureChoice);
 
-        Intent intent = new Intent(this, SelectCoursesActivity.class);
-
+        startActivity(new Intent(this, SelectCoursesActivity.class));
         finishAffinity();
-        startActivity(intent);
+
     }
 }

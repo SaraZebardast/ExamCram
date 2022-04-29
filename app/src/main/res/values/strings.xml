@@ -13,18 +13,23 @@
     <string name="first_name">First Name</string>
     <string-array name="countries">
         <item>Country</item>
+        <item>USA</item>
+        <item>United Kingdom</item>
         <item>Turkey</item>
-        <item>China</item>
-        <item>North Korea</item>
-        <item>Ottoman Empire</item>
+        <item>Germany</item>
     </string-array>
     <string-array name="courses">
         <item>Select Courses</item>
         <item>MATH 101</item>
         <item>MATH 102</item>
+        <item>MATH 132</item>
+        <item>PHYS 101</item>
+        <item>PHYS 102</item>
         <item>CS 101</item>
         <item>CS 102</item>
         <item>CS 115</item>
+        <item>CS 201</item>
+        <item>CS 202</item>
         <item>ENG 101</item>
         <item>ENG 102</item>
     </string-array>
@@ -32,6 +37,20 @@
         <item>University</item>
         <item>Bilkent University</item>
         <item>Metu</item>
+    </string-array>
+    <string-array name="usa_unis">
+        <item>University</item>
+        <item>Harvard University</item>
+        <item>Colombia University</item>
+    </string-array>
+    <string-array name="uk_unis">
+        <item>University</item>
+        <item>Oxford University</item>
+        <item>London University</item>
+    </string-array>
+    <string-array name="germany_unis">
+        <item>University</item>
+        <item>Munich University</item>
     </string-array>
     <string-array name="uni">
         <item>University</item>
