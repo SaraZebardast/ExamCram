@@ -19,7 +19,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseUser;
 
 
-public class LogInActivity extends AppCompatActivity {
+public class Login extends AppCompatActivity {
 
     private EditText emailInput, passwordInput;
     private Button login;
@@ -81,7 +81,7 @@ public class LogInActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
                             FirebaseUser currentUser = SplashScreen.mAuth.getCurrentUser();
-                            startActivity(new Intent(LogInActivity.this, HomePage.class));
+                            startActivity(new Intent(Login.this, HomePage.class));
                             login.setVisibility(View.VISIBLE);
                             anim.setVisibility(View.INVISIBLE);
                             finishAffinity();
@@ -101,12 +101,12 @@ public class LogInActivity extends AppCompatActivity {
 
 
     public void goToSignUp(View view){
-        Intent intent = new Intent(this, SelectCountryActivity.class);
+        Intent intent = new Intent(this, SelectUniversity.class);
         startActivity(intent);
     }
 
     public void goToForgotPassword(View view){
-        Intent intent = new Intent(this, forgotPassword.class);
+        Intent intent = new Intent(this, ForgotPassword.class);
         startActivity(intent);
     }
 }

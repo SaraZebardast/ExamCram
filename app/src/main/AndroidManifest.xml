@@ -10,13 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Examcram">
         <activity
-            android:name=".SelectCoursesActivity"
+            android:name=".SelectCourses"
             android:exported="false" />
         <activity
-            android:name=".SelectProfilePictureActivity"
+            android:name=".SelectProfilePicture"
             android:exported="false" />
         <activity
-            android:name=".forgotPassword"
+            android:name=".ForgotPassword"
             android:exported="false" />
         <activity
             android:name=".SplashScreen"
@@ -31,13 +31,13 @@
             android:name=".HomePage"
             android:exported="false" />
         <activity
-            android:name=".SelectCountryActivity"
+            android:name=".SelectUniversity"
             android:exported="false" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".SignUp"
             android:exported="false" />
         <activity
-            android:name=".LogInActivity"
+            android:name=".Login"
             android:exported="false" />
     </application>
 

@@ -16,7 +16,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class SelectCoursesActivity extends AppCompatActivity {
+public class SelectCourses extends AppCompatActivity {
 
     Spinner courseChoices;
     ArrayAdapter<CharSequence> coursesAdapter;
@@ -115,7 +115,7 @@ public class SelectCoursesActivity extends AppCompatActivity {
                 reference.child("course" + i).setValue(courses[i]);
             }
 
-            startActivity(new Intent(SelectCoursesActivity.this, HomePage.class));
+            startActivity(new Intent(SelectCourses.this, HomePage.class));
 
             finishAffinity();
         }

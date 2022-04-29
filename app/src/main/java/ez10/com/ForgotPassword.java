@@ -1,8 +1,5 @@
 package ez10.com;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -13,11 +10,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-public class forgotPassword extends AppCompatActivity {
+public class ForgotPassword extends AppCompatActivity {
 
     EditText email;
     Button resetButton;
@@ -55,8 +55,8 @@ public class forgotPassword extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()) {
-                            Toast.makeText(forgotPassword.this, "Password reset sent to your email.", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(forgotPassword.this, LogInActivity.class));
+                            Toast.makeText(ForgotPassword.this, "Password reset sent to your email.", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(ForgotPassword.this, Login.class));
 
 
                             finish();

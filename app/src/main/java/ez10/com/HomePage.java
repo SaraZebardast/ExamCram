@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +23,9 @@ public class HomePage extends AppCompatActivity {
     private TextView username;
     private TextView noOfPeopleOnCampus;
     private ImageView profilePicture;
-    String userUniversity;
+    private String userUniversity;
+    private Switch onCampusStatusSwitch;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +34,35 @@ public class HomePage extends AppCompatActivity {
         profilePicture = findViewById(R.id.profilepic);
         username = findViewById(R.id.name);
         noOfPeopleOnCampus = findViewById(R.id.textpeopleoncampus);
+        onCampusStatusSwitch = findViewById(R.id.switch1);
+
+        onCampusStatusSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (onCampusStatusSwitch.isActivated()) {
+                    setOnCampus();
+                }
+                else {
+                    setOffCampus();
+                }
+            }
+        });
         loadUserData();
+    }
+
+    public void setOnCampus() {
+        Toast.makeText(HomePage.this, userUniversity + "", Toast.LENGTH_SHORT).show();
+    }
+
+    public void setOffCampus() {
+        Toast.makeText(HomePage.this, userUniversity + "", Toast.LENGTH_SHORT).show();
+
     }
 
     public void onSignOutButtonTap(View view) {
         SplashScreen.mAuth.signOut();
         SplashScreen.currentUser = null;
-        startActivity(new Intent(this, LogInActivity.class));
+        startActivity(new Intent(this, Login.class));
         finishAffinity();
     }
 
@@ -78,8 +104,7 @@ public class HomePage extends AppCompatActivity {
             }
         });
 
-
-        reference = rootNode.getReference("Bilkent University NoOfPeopleOnCampus");
+        reference = rootNode.getReference("" + userUniversity +" NoOfPeopleOnCampus");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -94,6 +119,24 @@ public class HomePage extends AppCompatActivity {
             }
         });
 
+    }
+
+    void loadUserUniversity() {
+        FirebaseUser currentUser = SplashScreen.mAuth.getCurrentUser();
+        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+        DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/university");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String value = "" + dataSnapshot.getValue();
+                userUniversity = value;
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
 }

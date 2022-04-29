@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:weightSum="4"
     android:background="@color/black"
-    tools:context=".SignUpActivity">
+    tools:context=".SignUp">
 
     <RelativeLayout
         android:layout_width="match_parent"

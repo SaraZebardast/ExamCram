@@ -7,7 +7,7 @@
     android:background="@color/black"
     android:weightSum="4"
     android:orientation="vertical"
-    tools:context=".SelectCountryActivity">
+    tools:context=".SelectUniversity">
 
     <RelativeLayout
         android:layout_width="match_parent"

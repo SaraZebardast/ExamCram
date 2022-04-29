@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.airbnb.lottie.LottieAnimationView;
 
-public class SelectCountryActivity extends AppCompatActivity {
+public class SelectUniversity extends AppCompatActivity {
 
     private TextView errorMessages, spinnerFormat;
     private LinearLayout errorMessagesLayout;
@@ -50,35 +50,35 @@ public class SelectCountryActivity extends AppCompatActivity {
 
                     universityChoices.setClickable(true);
                     universityChoices.setEnabled(true);
-                    universityAdapter = ArrayAdapter.createFromResource(SelectCountryActivity.this, R.array.turk_unis, R.layout.spinner_layout);
+                    universityAdapter = ArrayAdapter.createFromResource(SelectUniversity.this, R.array.turk_unis, R.layout.spinner_layout);
                     universityChoices.setAdapter(universityAdapter);
 
                 } else if (selectedCountry.equals("USA")) {
 
                     universityChoices.setClickable(true);
                     universityChoices.setEnabled(true);
-                    universityAdapter = ArrayAdapter.createFromResource(SelectCountryActivity.this, R.array.usa_unis, R.layout.spinner_layout);
+                    universityAdapter = ArrayAdapter.createFromResource(SelectUniversity.this, R.array.usa_unis, R.layout.spinner_layout);
                     universityChoices.setAdapter(universityAdapter);
 
                 } else if (selectedCountry.equals("United Kingdom")) {
 
                     universityChoices.setClickable(true);
                     universityChoices.setEnabled(true);
-                    universityAdapter = ArrayAdapter.createFromResource(SelectCountryActivity.this, R.array.uk_unis, R.layout.spinner_layout);
+                    universityAdapter = ArrayAdapter.createFromResource(SelectUniversity.this, R.array.uk_unis, R.layout.spinner_layout);
                     universityChoices.setAdapter(universityAdapter);
 
                 } else if (selectedCountry.equals("Germany")) {
 
                     universityChoices.setClickable(true);
                     universityChoices.setEnabled(true);
-                    universityAdapter = ArrayAdapter.createFromResource(SelectCountryActivity.this, R.array.germany_unis, R.layout.spinner_layout);
+                    universityAdapter = ArrayAdapter.createFromResource(SelectUniversity.this, R.array.germany_unis, R.layout.spinner_layout);
                     universityChoices.setAdapter(universityAdapter);
 
                 }
                 else {
                     universityChoices.setClickable(false);
                     universityChoices.setEnabled(false);
-                    universityAdapter = ArrayAdapter.createFromResource(SelectCountryActivity.this, R.array.uni, R.layout.spinner_layout);
+                    universityAdapter = ArrayAdapter.createFromResource(SelectUniversity.this, R.array.uni, R.layout.spinner_layout);
                     universityChoices.setAdapter(universityAdapter);
                 }
 
@@ -100,8 +100,8 @@ public class SelectCountryActivity extends AppCompatActivity {
         String selectedCountry = countryChoices.getSelectedItem().toString().trim();
         String selectedUniversity = universityChoices.getSelectedItem().toString().trim();
         if (!(selectedCountry.equals(null) || selectedCountry.equals("Country") || selectedCountry.equals(null) || selectedUniversity.equals("University"))) {
-            SignUpActivity.setLocation(selectedCountry, selectedUniversity);
-            startActivity(new Intent(this, SignUpActivity.class));
+            SignUp.setLocation(selectedCountry, selectedUniversity);
+            startActivity(new Intent(this, SignUp.class));
         }
         else {
             errorMessages.setText("Please enter valid info.");

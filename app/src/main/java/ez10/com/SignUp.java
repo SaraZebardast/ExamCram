@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class SignUpActivity extends AppCompatActivity {
+public class SignUp extends AppCompatActivity {
 
     private Button button;
 
@@ -121,7 +121,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                             reference.child(currentUser.getUid()).setValue(user);
 
-                            Intent intent = new Intent(SignUpActivity.this, SelectProfilePictureActivity.class);
+                            Intent intent = new Intent(SignUp.this, SelectProfilePicture.class);
 
 
                             startActivity(intent);

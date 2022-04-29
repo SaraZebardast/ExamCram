@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class SelectProfilePictureActivity extends AppCompatActivity {
+public class SelectProfilePicture extends AppCompatActivity {
 
     private Button nextButton;
     private int profilePictureChoice;
@@ -61,7 +61,7 @@ public class SelectProfilePictureActivity extends AppCompatActivity {
 
         reference.child("profilePictureID").setValue(profilePictureChoice);
 
-        startActivity(new Intent(this, SelectCoursesActivity.class));
+        startActivity(new Intent(this, SelectCourses.class));
         finishAffinity();
 
     }
