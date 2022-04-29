@@ -3,7 +3,6 @@ package ez10.com;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,27 +18,30 @@ import com.google.firebase.database.ValueEventListener;
 
 public class HomePage extends AppCompatActivity {
 
-    private Button signOutButton;
     private TextView username;
+    private TextView noOfPeopleOnCampus;
     private ImageView profilePicture;
-    private String UID = SplashScreen.currentUser.getUid();
+    String userUniversity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_page);
-        signOutButton = findViewById(R.id.signOutButton);
         profilePicture = findViewById(R.id.profilepic);
         username = findViewById(R.id.name);
-        displayUserData();
+        noOfPeopleOnCampus = findViewById(R.id.textpeopleoncampus);
+
+        loadUserData();
     }
 
     public void onSignOutButtonTap(View view) {
         SplashScreen.mAuth.signOut();
         SplashScreen.currentUser = null;
         startActivity(new Intent(this, LogInActivity.class));
+        finishAffinity();
     }
 
-    public void displayUserData() {
+    public void loadUserData() {
 
         FirebaseUser currentUser = SplashScreen.mAuth.getCurrentUser();
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
@@ -47,7 +49,7 @@ public class HomePage extends AppCompatActivity {
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String value = (String) dataSnapshot.getValue();
+                String value = "" + dataSnapshot.getValue();
                 if (value.equals("0")) {
                     profilePicture.setImageResource(R.drawable.steve);
                 }
@@ -70,6 +72,21 @@ public class HomePage extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String value = (String) dataSnapshot.getValue();
                 username.setText(value);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+        reference = rootNode.getReference("Bilkent University NoOfPeopleOnCampus");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String value = "" + dataSnapshot.getValue();
+                noOfPeopleOnCampus.setText(value + " people on campus right now");
+
 
             }
             @Override

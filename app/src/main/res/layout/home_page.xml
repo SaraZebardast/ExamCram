@@ -11,7 +11,7 @@
     android:background="@color/black">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="15dp"
         android:layout_weight="1">
 
         <TextView
@@ -31,6 +31,7 @@
             android:layout_height="60dp"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="10dp"
+            android:onClick="onSignOutButtonTap"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="15dp"
@@ -50,10 +51,11 @@
             android:id="@+id/lookforastudypartner"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="50dp"
             android:fontFamily="@font/fullbold"
+            android:gravity="center"
             android:text="Look for a study partner!"
             android:textColor="@color/white"
             android:textSize="25sp"></TextView>
@@ -98,27 +100,29 @@
             android:backgroundTint="@color/jungleGreen"
             android:fontFamily="@font/semibold"
             android:gravity="center"
-            android:onClick="onSignOutButtonTap"
             android:text="Search"
             android:textColor="@color/white"
             android:textSize="17sp" />
     </RelativeLayout>
 
-
-
-    <Button
-        android:id="@+id/signOutButton"
+    <TextView
+        android:id="@+id/setstatus"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/regular"
+        android:text="Set status"
+        android:textColor="@color/faded_white"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="30dp"
+        android:textSize="13sp"></TextView>
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:visibility="invisible"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="60dp"
-        android:backgroundTint="@color/jungleGreen"
-        android:layout_centerInParent="true"
-        android:fontFamily="@font/semibold"
-        android:gravity="center"
-        android:onClick="onSignOutButtonTap"
-        android:text="LOGOUT"
-        android:textColor="@color/white"
-        android:textSize="17sp" />
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="10dp"
+        android:background="@drawable/roundedbackground2"
+        android:layout_weight="1">
+
+    </RelativeLayout>
+
 </LinearLayout>

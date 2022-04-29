@@ -41,7 +41,8 @@ public class UserInfo {
         this.university = university;
     }
 
-    String email, firstName, lastName, country, university;
+    String email, firstName, lastName, country, university, profilePictureID;
+    String[] userCourses;
 
     public UserInfo(String email, String firstName, String lastName, String country, String university) {
         this.email = email;
@@ -49,5 +50,7 @@ public class UserInfo {
         this.lastName = lastName;
         this.country= country;
         this.university = university;
+        profilePictureID = "0";
+        userCourses = new String[5];
     }
 }

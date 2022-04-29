@@ -115,10 +115,9 @@ public class SelectCoursesActivity extends AppCompatActivity {
                 reference.child("course" + i).setValue(courses[i]);
             }
 
-            Intent intent = new Intent(this, HomePage.class);
+            startActivity(new Intent(SelectCoursesActivity.this, HomePage.class));
 
             finishAffinity();
-            startActivity(intent);
         }
         else {
             errorMessages.setText("You should have atleast one course");
