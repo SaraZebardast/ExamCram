@@ -2,11 +2,11 @@ package ez10.com;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +25,7 @@ public class HomePage extends AppCompatActivity {
     private ImageView profilePicture;
     private String userUniversity;
     private Switch onCampusStatusSwitch;
+    private int noOfPeopleOnCampusCounter;
 
 
     @Override
@@ -36,10 +37,16 @@ public class HomePage extends AppCompatActivity {
         noOfPeopleOnCampus = findViewById(R.id.textpeopleoncampus);
         onCampusStatusSwitch = findViewById(R.id.switch1);
 
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+            }
+        }, 20000);
+
         onCampusStatusSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (onCampusStatusSwitch.isActivated()) {
+                if (onCampusStatusSwitch.isChecked()) {
                     setOnCampus();
                 }
                 else {
@@ -47,16 +54,23 @@ public class HomePage extends AppCompatActivity {
                 }
             }
         });
+
         loadUserData();
+
     }
 
     public void setOnCampus() {
-        Toast.makeText(HomePage.this, userUniversity + "", Toast.LENGTH_SHORT).show();
+        FirebaseUser currentUser = SplashScreen.mAuth.getCurrentUser();
+        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+        DatabaseReference reference = rootNode.getReference(userUniversity + " NoOfPeopleOnCampus");
+        reference.setValue(noOfPeopleOnCampusCounter+1);
     }
 
     public void setOffCampus() {
-        Toast.makeText(HomePage.this, userUniversity + "", Toast.LENGTH_SHORT).show();
-
+        FirebaseUser currentUser = SplashScreen.mAuth.getCurrentUser();
+        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+        DatabaseReference reference = rootNode.getReference(userUniversity + " NoOfPeopleOnCampus");
+        reference.setValue(noOfPeopleOnCampusCounter-1);
     }
 
     public void onSignOutButtonTap(View view) {
@@ -104,39 +118,33 @@ public class HomePage extends AppCompatActivity {
             }
         });
 
-        reference = rootNode.getReference("" + userUniversity +" NoOfPeopleOnCampus");
+        reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/university");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String value = "" + dataSnapshot.getValue();
-                noOfPeopleOnCampus.setText(value + " people on campus right now");
-
-
+                userUniversity = "" + dataSnapshot.getValue();
+                DatabaseReference reference = rootNode.getReference("" + userUniversity +" NoOfPeopleOnCampus");
+                reference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String value = "" + dataSnapshot.getValue();
+                        noOfPeopleOnCampus.setText(value + " people on campus right now");
+                        noOfPeopleOnCampusCounter= Integer.parseInt(value);
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
 
+
     }
 
-    void loadUserUniversity() {
-        FirebaseUser currentUser = SplashScreen.mAuth.getCurrentUser();
-        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-        DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/university");
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String value = "" + dataSnapshot.getValue();
-                userUniversity = value;
-
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
 
 }
