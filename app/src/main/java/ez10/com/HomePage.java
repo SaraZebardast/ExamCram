@@ -30,7 +30,6 @@ public class HomePage extends AppCompatActivity {
         profilePicture = findViewById(R.id.profilepic);
         username = findViewById(R.id.name);
         noOfPeopleOnCampus = findViewById(R.id.textpeopleoncampus);
-
         loadUserData();
     }
 
