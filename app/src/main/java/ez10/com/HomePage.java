@@ -1,7 +1,6 @@
 package ez10.com;
 
 import android.content.Intent;
-import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -83,23 +82,56 @@ public class HomePage extends AppCompatActivity {
         DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/studying");
         reference.setValue(true);
         reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/startStudyStreakTime");
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-        String str = sdf.format(new Date());
-        reference.setValue(str);
+        reference.setValue(System.currentTimeMillis());
     }
 
     public void endStudyCounter() {
         DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/studying");
         reference.setValue(false);
         reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/endStudyStreakTime");
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-        String str = sdf.format(new Date());
-        reference.setValue(str);
+        reference.setValue(System.currentTimeMillis());
         calculateHoursStudied();
     }
 
     public void calculateHoursStudied() {
-        DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/studying");
+        DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/startStudyStreakTime");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                long startStudyStreakTime = (long) dataSnapshot.getValue();
+                DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/endStudyStreakTime");
+                reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        long endStudyStreakTime = (long) dataSnapshot.getValue();
+                        DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/timeStudied");
+                        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                String temp = "" + dataSnapshot.getValue();
+                                double currentTimeStudied = Double.parseDouble(temp);
+                                double totalStudied = (endStudyStreakTime-startStudyStreakTime)/3600000.0; //converting millis to hours
+
+                                currentTimeStudied += totalStudied;
+                                DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/timeStudied");
+                                reference.setValue(currentTimeStudied);
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
 
@@ -123,7 +155,6 @@ public class HomePage extends AppCompatActivity {
     public void onSignOutButtonTap(View view) {
         SplashScreen.mAuth.signOut();
         SplashScreen.currentUser = null;
-        setOffCampus();
         startActivity(new Intent(this, Login.class));
         finishAffinity();
     }

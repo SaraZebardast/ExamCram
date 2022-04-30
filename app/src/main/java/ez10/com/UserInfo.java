@@ -50,27 +50,27 @@ public class UserInfo {
         this.profilePictureID = profilePictureID;
     }
 
-    public String getEndStudyStreakTime() {
+    public long getEndStudyStreakTime() {
         return endStudyStreakTime;
     }
 
-    public void setEndStudyStreakTime(String endStudyStreakTime) {
+    public void setEndStudyStreakTime(long endStudyStreakTime) {
         this.endStudyStreakTime = endStudyStreakTime;
     }
 
-    public String getStartStudyStreakTime() {
+    public long getStartStudyStreakTime() {
         return startStudyStreakTime;
     }
 
-    public void setStartStudyStreakTime(String startStudyStreakTime) {
+    public void setStartStudyStreakTime(long startStudyStreakTime) {
         this.startStudyStreakTime = startStudyStreakTime;
     }
 
-    public String getTimeStudied() {
+    public int getTimeStudied() {
         return timeStudied;
     }
 
-    public void setTimeStudied(String timeStudied) {
+    public void setTimeStudied(int timeStudied) {
         this.timeStudied = timeStudied;
     }
 
@@ -91,7 +91,8 @@ public class UserInfo {
     }
 
     String email, firstName, lastName, country, university, profilePictureID;
-    String endStudyStreakTime, startStudyStreakTime, timeStudied;
+    long endStudyStreakTime, startStudyStreakTime;
+    int timeStudied;
     boolean onCampus, studying;
 
     public UserInfo(String email, String firstName, String lastName, String country, String university) {
@@ -101,9 +102,9 @@ public class UserInfo {
         this.country= country;
         this.university = university;
         profilePictureID = "0";
-        startStudyStreakTime = "00:00";
-        timeStudied = "00:00";
-        endStudyStreakTime = "00:00";
+        startStudyStreakTime = 0;
+        timeStudied = 0;
+        endStudyStreakTime = 0;
         onCampus = false;
         studying = false;
     }
