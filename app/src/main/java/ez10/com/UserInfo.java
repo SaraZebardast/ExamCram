@@ -1,7 +1,5 @@
 package ez10.com;
 
-import java.util.ArrayList;
-
 public class UserInfo {
 
     public String getEmail() {
@@ -44,41 +42,55 @@ public class UserInfo {
         this.university = university;
     }
 
-    public String getProfilePictureID() { return profilePictureID; }
+    public String getProfilePictureID() {
+        return profilePictureID;
+    }
 
-    public void setProfilePictureID(String profilePictureID) { this.profilePictureID = profilePictureID; }
+    public void setProfilePictureID(String profilePictureID) {
+        this.profilePictureID = profilePictureID;
+    }
 
-    public String[] getUserCourses() { return userCourses; }
+    public String getEndStudyStreakTime() {
+        return endStudyStreakTime;
+    }
 
-    public void setUserCourses(String[] userCourses) { this.userCourses = userCourses; }
+    public void setEndStudyStreakTime(String endStudyStreakTime) {
+        this.endStudyStreakTime = endStudyStreakTime;
+    }
 
-    public ArrayList<String> getFriends() { return friends; }
+    public String getStartStudyStreakTime() {
+        return startStudyStreakTime;
+    }
 
-    public void setFriends(ArrayList<String> friends) { this.friends = friends; }
+    public void setStartStudyStreakTime(String startStudyStreakTime) {
+        this.startStudyStreakTime = startStudyStreakTime;
+    }
 
-    public String getEndStudyStreakTime() { return endStudyStreakTime; }
+    public String getTimeStudied() {
+        return timeStudied;
+    }
 
-    public void setEndStudyStreakTime(String endStudyStreakTime) { this.endStudyStreakTime = endStudyStreakTime; }
+    public void setTimeStudied(String timeStudied) {
+        this.timeStudied = timeStudied;
+    }
 
-    public String getStartStudyStreakTime() { return startStudyStreakTime; }
+    public boolean isOnCampus() {
+        return onCampus;
+    }
 
-    public void setStartStudyStreakTime(String startStudyStreakTime) { this.startStudyStreakTime = startStudyStreakTime; }
+    public void setOnCampus(boolean onCampus) {
+        this.onCampus = onCampus;
+    }
 
-    public String getTimeStudied() { return timeStudied; }
+    public boolean isStudying() {
+        return studying;
+    }
 
-    public void setTimeStudied(String timeStudied) { this.timeStudied = timeStudied; }
-
-    public boolean isOnCampus() { return onCampus; }
-
-    public void setOnCampus(boolean onCampus) { this.onCampus = onCampus; }
-
-    public boolean isStudying() { return studying; }
-
-    public void setStudying(boolean studying) { this.studying = studying; }
+    public void setStudying(boolean studying) {
+        this.studying = studying;
+    }
 
     String email, firstName, lastName, country, university, profilePictureID;
-    String[] userCourses;
-    ArrayList<String> friends;
     String endStudyStreakTime, startStudyStreakTime, timeStudied;
     boolean onCampus, studying;
 
@@ -89,17 +101,10 @@ public class UserInfo {
         this.country= country;
         this.university = university;
         profilePictureID = "0";
-        userCourses = new String[5];
-        userCourses[0] = "-";
-        userCourses[1] = "-";
-        userCourses[2] = "-";
-        userCourses[3] = "-";
-        userCourses[4] = "-";
         startStudyStreakTime = "00:00";
         timeStudied = "00:00";
         endStudyStreakTime = "00:00";
         onCampus = false;
         studying = false;
-        friends.add("-");
     }
 }
