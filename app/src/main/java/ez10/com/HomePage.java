@@ -1,6 +1,7 @@
 package ez10.com;
 
 import android.content.Intent;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -81,12 +82,26 @@ public class HomePage extends AppCompatActivity {
     public void startStudyCounter() {
         DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/studying");
         reference.setValue(true);
+        reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/startStudyStreakTime");
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        String str = sdf.format(new Date());
+        reference.setValue(str);
     }
 
     public void endStudyCounter() {
         DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/studying");
         reference.setValue(false);
+        reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/endStudyStreakTime");
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        String str = sdf.format(new Date());
+        reference.setValue(str);
+        calculateHoursStudied();
     }
+
+    public void calculateHoursStudied() {
+        DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/studying");
+    }
+
 
     public void setOnCampus() {
 
