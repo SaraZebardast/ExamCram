@@ -2,7 +2,6 @@ package ez10.com;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Switch;
@@ -18,14 +17,21 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class HomePage extends AppCompatActivity {
 
     private TextView username;
     private TextView noOfPeopleOnCampus;
     private ImageView profilePicture;
     private String userUniversity;
-    private Switch onCampusStatusSwitch;
+    private Switch onCampusStatusSwitch, currentlyStudyingSwitch;
     private int noOfPeopleOnCampusCounter;
+    private Date currentTime;
+    private FirebaseUser currentUser;
+    private FirebaseDatabase rootNode;
+    private boolean onCampus;
 
 
     @Override
@@ -36,12 +42,13 @@ public class HomePage extends AppCompatActivity {
         username = findViewById(R.id.name);
         noOfPeopleOnCampus = findViewById(R.id.textpeopleoncampus);
         onCampusStatusSwitch = findViewById(R.id.switch1);
+        currentlyStudyingSwitch = findViewById(R.id.switch2);
+        currentUser = SplashScreen.mAuth.getCurrentUser();
+        rootNode = FirebaseDatabase.getInstance();
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-            }
-        }, 20000);
+        currentTime = Calendar.getInstance().getTime();
+
+        loadUserData();
 
         onCampusStatusSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,41 +56,65 @@ public class HomePage extends AppCompatActivity {
                 if (onCampusStatusSwitch.isChecked()) {
                     setOnCampus();
                 }
-                else {
+                else if (!onCampusStatusSwitch.isChecked()) {
                     setOffCampus();
                 }
             }
         });
 
-        loadUserData();
+        currentlyStudyingSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (currentlyStudyingSwitch.isChecked()) {
+                    startStudyCounter();
+                }
+                else if (!currentlyStudyingSwitch.isChecked()) {
+                     endStudyCounter();
+                }
+            }
+        });
 
+
+
+    }
+
+    public void startStudyCounter() {
+        DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/studying");
+        reference.setValue(true);
+    }
+
+    public void endStudyCounter() {
+        DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/studying");
+        reference.setValue(false);
     }
 
     public void setOnCampus() {
-        FirebaseUser currentUser = SplashScreen.mAuth.getCurrentUser();
-        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+
         DatabaseReference reference = rootNode.getReference(userUniversity + " NoOfPeopleOnCampus");
         reference.setValue(noOfPeopleOnCampusCounter+1);
+        reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/onCampus");
+        reference.setValue(true);
+
     }
 
     public void setOffCampus() {
-        FirebaseUser currentUser = SplashScreen.mAuth.getCurrentUser();
-        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+
         DatabaseReference reference = rootNode.getReference(userUniversity + " NoOfPeopleOnCampus");
         reference.setValue(noOfPeopleOnCampusCounter-1);
+        reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/onCampus");
+        reference.setValue(false);
     }
 
     public void onSignOutButtonTap(View view) {
         SplashScreen.mAuth.signOut();
         SplashScreen.currentUser = null;
+        setOffCampus();
         startActivity(new Intent(this, Login.class));
         finishAffinity();
     }
 
     public void loadUserData() {
 
-        FirebaseUser currentUser = SplashScreen.mAuth.getCurrentUser();
-        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/profilePictureID");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -135,6 +166,40 @@ public class HomePage extends AppCompatActivity {
                     public void onCancelled(@NonNull DatabaseError error) {
                     }
                 });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/onCampus");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if ((boolean)dataSnapshot.getValue()) {
+                    onCampusStatusSwitch.setChecked(true);
+                }
+                else onCampusStatusSwitch.setChecked(false);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/studying");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if ((boolean)dataSnapshot.getValue()) {
+                    currentlyStudyingSwitch.setChecked(true);
+                }
+                else currentlyStudyingSwitch.setChecked(false);
+
             }
 
             @Override
