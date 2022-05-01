@@ -14,21 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_weight="1"
+        android:gravity="center"
         android:background="@color/black">
-
-        <TextView
-            android:id="@+id/wemissedyou"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/welcomeback"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="131dp"
-            android:layout_marginBottom="-20dp"
-            android:fontFamily="@font/regular"
-            android:text="We missed you. Log back in!"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/welcomeback"
@@ -36,10 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginEnd="104dp"
-            android:layout_marginBottom="75dp"
             android:fontFamily="@font/fullbold"
-            android:text="Welcome Back!"
+            android:text="Login"
             android:textColor="@color/white"
             android:textSize="36sp"
             tools:ignore="HardcodedText" />
@@ -51,7 +36,8 @@
         android:layout_width="match_parent"
         android:layout_height="500dp"
         android:layout_weight="3"
-        android:background="@drawable/roundedbackground"
+        android:layout_margin="10dp"
+        android:background="@drawable/roundedbackground2"
         android:elevation="30dp">
 
         <LinearLayout
@@ -92,7 +78,7 @@
             android:layout_above="@+id/emailReset"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="70dp"
             android:layout_marginBottom="80dp"
             android:fontFamily="@font/fullbold"
             android:gravity="center"

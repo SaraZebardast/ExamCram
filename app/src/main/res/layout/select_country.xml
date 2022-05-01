@@ -44,7 +44,8 @@
         android:layout_width="match_parent"
         android:layout_height="500dp"
         android:layout_weight="3"
-        android:background="@drawable/roundedbackground">
+        android:layout_margin="10dp"
+        android:background="@drawable/roundedbackground2">
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animationlocation"
@@ -52,7 +53,7 @@
             android:layout_height="100dp"
             android:layout_above="@+id/country_layout"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="35dp"
             android:visibility="visible"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
@@ -65,8 +66,8 @@
             android:layout_above="@+id/country_layout"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="60dp"
-            android:layout_marginBottom="60dp"
+            android:layout_marginTop="55dp"
+            android:layout_marginBottom="55dp"
             android:gravity="center"
             android:visibility="invisible">
 
@@ -93,7 +94,7 @@
             android:layout_width="match_parent"
             android:layout_height="75dp"
             android:layout_above="@+id/university_layout"
-            android:layout_marginBottom="75dp"
+            android:layout_marginBottom="70dp"
             android:gravity="center">
 
             <Spinner

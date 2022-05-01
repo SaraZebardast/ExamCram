@@ -32,7 +32,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="500dp"
-        android:background="@drawable/roundedbackground"
+        android:background="@drawable/roundedbackground2"
+        android:layout_margin="10dp"
         android:layout_weight="3">
 
         <LinearLayout
@@ -201,6 +202,7 @@
                 android:fontFamily="@font/fullbold"
                 android:gravity="center_vertical"
                 android:text="terms and conditions"
+                android:onClick="showTermsAndConditions"
                 android:textColor="@color/jungleGreen"
                 android:textSize="15sp" />
 

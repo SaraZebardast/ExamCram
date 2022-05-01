@@ -1,9 +1,15 @@
 package ez10.com;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Patterns;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -34,6 +40,7 @@ public class SignUp extends AppCompatActivity {
     private LinearLayout errorMessagesLayout;
     private CheckBox termsAndConditions;
     private static String country, university;
+    Dialog dialog;
 
 
     @Override
@@ -165,8 +172,17 @@ public class SignUp extends AppCompatActivity {
 
     }
 
-    private void  goToWelcome() {
-        Intent intent = new Intent(this, HomePage.class);
-        startActivity(intent);
+
+    public void showTermsAndConditions(View view) {
+        if (dialog!=null) dialog.hide();
+        dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.terms_conditions);
+
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.getWindow().setGravity(Gravity.CENTER);
     }
 }
