@@ -1,9 +1,16 @@
 package ez10.com;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -17,8 +24,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Calendar;
-import java.util.Date;
 
 public class HomePage extends AppCompatActivity {
 
@@ -28,10 +33,15 @@ public class HomePage extends AppCompatActivity {
     private String userUniversity;
     private Switch onCampusStatusSwitch, currentlyStudyingSwitch;
     private int noOfPeopleOnCampusCounter;
-    private Date currentTime;
     private FirebaseUser currentUser;
     private FirebaseDatabase rootNode;
     private boolean onCampus;
+
+    private RelativeLayout[] friendsLayout;
+    private ImageView[] friendsProfilePic;
+    private TextView[] friendsNames;
+    private TextView[] friendsStatus;
+    private final int MAX_NO_OF_FRIENDS = 3;
 
 
     @Override
@@ -46,7 +56,25 @@ public class HomePage extends AppCompatActivity {
         currentUser = SplashScreen.mAuth.getCurrentUser();
         rootNode = FirebaseDatabase.getInstance();
 
-        currentTime = Calendar.getInstance().getTime();
+        friendsLayout = new RelativeLayout[MAX_NO_OF_FRIENDS];
+        friendsProfilePic = new ImageView[MAX_NO_OF_FRIENDS];
+        friendsNames = new TextView[MAX_NO_OF_FRIENDS];
+        friendsStatus = new TextView[MAX_NO_OF_FRIENDS];
+
+        friendsLayout[0] = findViewById(R.id.friend0);
+        friendsProfilePic[0] = findViewById(R.id.profilepicfriend0);
+        friendsNames[0] = findViewById(R.id.friendname0);
+        friendsStatus[0] = findViewById(R.id.friendstatus0);
+
+        friendsLayout[1] = findViewById(R.id.friend1);
+        friendsProfilePic[1] = findViewById(R.id.profilepicfriend1);
+        friendsNames[1] = findViewById(R.id.friendname1);
+        friendsStatus[1] = findViewById(R.id.friendstatus1);
+
+        friendsLayout[2] = findViewById(R.id.friend2);
+        friendsProfilePic[2] = findViewById(R.id.profilepicfriend2);
+        friendsNames[2] = findViewById(R.id.friendname2);
+        friendsStatus[2] = findViewById(R.id.friendstatus2);
 
         loadUserData();
 
@@ -74,7 +102,7 @@ public class HomePage extends AppCompatActivity {
             }
         });
 
-
+        //loadUserFriends();
 
     }
 
@@ -132,6 +160,55 @@ public class HomePage extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void displaySettings(View view) {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.settings);
+
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.getWindow().setGravity(Gravity.CENTER);
+
+    }
+
+    public void loadUserFriends() {
+        DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/userFriends");
+        for (int i=0; i<MAX_NO_OF_FRIENDS; i++) {
+            reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/userFriends/friend" + i);
+            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String friendUID = "" + dataSnapshot.getValue();
+                    if (friendUID.equals("-")) return;
+                    DatabaseReference reference = rootNode.getReference("Registered Users/" + friendUID + "/studying");
+                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            boolean friendStudying = (boolean) dataSnapshot.getValue();
+                            if (!friendStudying) {
+                               // friendsStatus[].setText("Not Studying"); //todo
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+
+            });
+        }
+
+
     }
 
 
