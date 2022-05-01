@@ -124,7 +124,7 @@ public class SignUp extends AppCompatActivity {
                             reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/userFriends");
 
                             for (int i=0; i<5; i++) {
-                                reference.child("friend" + i).setValue("friend" + i);
+                                reference.child("friend" + i).setValue("-");
                             }
 
                             Intent intent = new Intent(SignUp.this, SelectProfilePicture.class);

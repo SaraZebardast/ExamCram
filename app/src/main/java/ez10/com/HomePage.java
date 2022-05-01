@@ -17,6 +17,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,6 +38,8 @@ public class HomePage extends AppCompatActivity {
     private String userUniversity;
     private Switch onCampusStatusSwitch, currentlyStudyingSwitch;
     Dialog dialog;
+    private LottieAnimationView anim;
+    private TextView noFriendsTxt;
 
     private int noOfPeopleOnCampusCounter;
     private FirebaseUser currentUser;
@@ -60,6 +63,8 @@ public class HomePage extends AppCompatActivity {
         currentlyStudyingSwitch = findViewById(R.id.switch2);
         currentUser = SplashScreen.mAuth.getCurrentUser();
         rootNode = FirebaseDatabase.getInstance();
+        anim = findViewById(R.id.noFriends);
+        noFriendsTxt = findViewById(R.id.noFriendstxt);
 
         friendsLayout = new RelativeLayout[MAX_NO_OF_FRIENDS];
         friendsProfilePic = new ImageView[MAX_NO_OF_FRIENDS];
@@ -110,8 +115,9 @@ public class HomePage extends AppCompatActivity {
         });
 
         for (int i=0; i<MAX_NO_OF_FRIENDS; i++) {
-            loadUserFriends(0);
+            loadUserFriends(i);
         }
+
 
     }
 
@@ -192,6 +198,8 @@ public class HomePage extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String friendUID = "" + dataSnapshot.getValue();
                 if (friendUID.equals("-")) return;
+                anim.setVisibility(View.INVISIBLE);
+                noFriendsTxt.setVisibility(View.INVISIBLE);
                 friendsLayout[i].setVisibility(View.VISIBLE);
                 DatabaseReference reference = rootNode.getReference("Registered Users/" + friendUID + "/studying");
                 reference.addValueEventListener(new ValueEventListener() {
@@ -264,6 +272,7 @@ public class HomePage extends AppCompatActivity {
                 });
             }
 
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
@@ -275,7 +284,7 @@ public class HomePage extends AppCompatActivity {
 
     public void setOnCampus() {
 
-        DatabaseReference reference = rootNode.getReference(userUniversity + " NoOfPeopleOnCampus");
+        DatabaseReference reference = rootNode.getReference("Registered Universities/" + userUniversity + "/NoOfPeopleOnCampus");
         reference.setValue(noOfPeopleOnCampusCounter+1);
         reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/onCampus");
         reference.setValue(true);
@@ -283,8 +292,7 @@ public class HomePage extends AppCompatActivity {
     }
 
     public void setOffCampus() {
-
-        DatabaseReference reference = rootNode.getReference(userUniversity + " NoOfPeopleOnCampus");
+        DatabaseReference reference = rootNode.getReference("Registered Universities/" + userUniversity + "/NoOfPeopleOnCampus");
         reference.setValue(noOfPeopleOnCampusCounter-1);
         reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/onCampus");
         reference.setValue(false);
@@ -339,7 +347,7 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 userUniversity = "" + dataSnapshot.getValue();
-                DatabaseReference reference = rootNode.getReference("" + userUniversity +" NoOfPeopleOnCampus");
+                DatabaseReference reference = rootNode.getReference("Registered Universities/" + userUniversity + "/NoOfPeopleOnCampus");
                 reference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
