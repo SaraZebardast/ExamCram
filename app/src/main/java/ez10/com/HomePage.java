@@ -35,7 +35,6 @@ public class HomePage extends AppCompatActivity {
     private int noOfPeopleOnCampusCounter;
     private FirebaseUser currentUser;
     private FirebaseDatabase rootNode;
-    private boolean onCampus;
 
     private RelativeLayout[] friendsLayout;
     private ImageView[] friendsProfilePic;
@@ -176,7 +175,7 @@ public class HomePage extends AppCompatActivity {
     }
 
     public void loadUserFriends() {
-        DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/userFriends");
+        DatabaseReference reference;
         for (int i=0; i<MAX_NO_OF_FRIENDS; i++) {
             reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/userFriends/friend" + i);
             reference.addListenerForSingleValueEvent(new ValueEventListener() {
