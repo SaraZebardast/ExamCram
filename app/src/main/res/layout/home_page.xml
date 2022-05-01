@@ -333,9 +333,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            app:menu="@menu/bottom_nav_menu"
+            android:animateLayoutChanges="true"
             android:background="@color/black"
-            android:animateLayoutChanges="true" />
+            app:itemIconTint="@drawable/selector"
+            app:itemTextColor="@drawable/selector"
+            app:menu="@menu/bottom_nav_menu" />
+
+
 
     </RelativeLayout>
 
