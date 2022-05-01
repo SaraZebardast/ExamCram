@@ -36,6 +36,8 @@ public class HomePage extends AppCompatActivity {
     private ImageView profilePicture;
     private String userUniversity;
     private Switch onCampusStatusSwitch, currentlyStudyingSwitch;
+    Dialog dialog;
+
     private int noOfPeopleOnCampusCounter;
     private FirebaseUser currentUser;
     private FirebaseDatabase rootNode;
@@ -80,6 +82,8 @@ public class HomePage extends AppCompatActivity {
         friendsStatus[2] = findViewById(R.id.friendstatus2);
 
         loadUserData();
+
+        SelectProfilePicture.whereToDirectTo=0; //this has to be here
 
         onCampusStatusSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,7 +172,8 @@ public class HomePage extends AppCompatActivity {
     }
 
     public void displaySettings(View view) {
-        final Dialog dialog = new Dialog(this);
+        if (dialog!=null) dialog.hide();
+        dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.settings);
 
@@ -286,6 +291,7 @@ public class HomePage extends AppCompatActivity {
     }
 
     public void onSignOutButtonTap(View view) {
+        dialog.hide();
         SplashScreen.mAuth.signOut();
         SplashScreen.currentUser = null;
         startActivity(new Intent(this, Login.class));
@@ -390,5 +396,18 @@ public class HomePage extends AppCompatActivity {
 
     }
 
+
+    public void changeProfilePicture(View view) {
+        dialog.hide();
+        SelectProfilePicture.whereToDirectTo=1;
+        startActivity(new Intent(this, SelectProfilePicture.class));
+
+    }
+
+    public void changeCourses(View view) {
+        dialog.hide();
+        startActivity(new Intent(this, SelectCourses.class));
+
+    }
 
 }

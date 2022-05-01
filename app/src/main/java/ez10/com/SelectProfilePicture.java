@@ -18,6 +18,7 @@ public class SelectProfilePicture extends AppCompatActivity {
     private Button nextButton;
     private int profilePictureChoice;
     private TextView mainText;
+    static int whereToDirectTo = 0; //0 normal, 1 is homepage
 
 
     @Override
@@ -61,7 +62,14 @@ public class SelectProfilePicture extends AppCompatActivity {
 
         reference.child("profilePictureID").setValue(profilePictureChoice);
 
-        startActivity(new Intent(this, SelectCourses.class));
+        if (whereToDirectTo==1) {
+            startActivity(new Intent(this, HomePage.class));
+
+        }
+        else {
+            startActivity(new Intent(this, SelectCourses.class));
+
+        }
         finishAffinity();
 
     }
