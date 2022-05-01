@@ -69,7 +69,7 @@ public class SignUp extends AppCompatActivity {
 
     public void onCreateButtonTap(View view) {
 
-        String emailStr = emailInput.getText().toString().trim();
+        String emailStr = emailInput.getText().toString().trim().toLowerCase();
         String passwordStr = passwordInput.getText().toString().trim();
         String firstNameStr = firstNameInput.getText().toString().trim();
         String lastNameStr = lastNameInput.getText().toString().trim();
@@ -92,6 +92,12 @@ public class SignUp extends AppCompatActivity {
             emailInput.requestFocus();
             return;
         }
+        if (!emailMatchesUni(emailStr)) {
+            errorMessages.setText("Please enter your university educational email.");
+            errorMessagesLayout.setVisibility(View.VISIBLE);
+            emailInput.requestFocus();
+            return;
+        }
         if(passwordStr.isEmpty() || passwordStr.length()<8) {
             errorMessages.setText("Your password must be at least 8 characters long.");
             errorMessagesLayout.setVisibility(View.VISIBLE);
@@ -109,6 +115,35 @@ public class SignUp extends AppCompatActivity {
         signUpUser(firstNameStr, lastNameStr, emailStr, passwordStr);
 
 
+    }
+
+    private boolean emailMatchesUni(String emailStr) {
+        String croppedMail = "";
+        for (int i=0; i<emailStr.length(); i++) {
+            if (emailStr.charAt(i)=='@') {
+                croppedMail = emailStr.substring(i+1,emailStr.length());
+                break;
+            }
+        }
+        if (croppedMail.equals("ug.bilkent.edu.tr") && university.equals("Bilkent University")) {
+            return true;
+        }
+        else if (croppedMail.equals("hms.harvard.edu") && university.equals("Harvard University")) {
+            return true;
+        }
+        else if (croppedMail.equals("metu.edu.tr") && university.equals("Metu")) {
+            return true;
+        }
+        else if (croppedMail.equals("lionmail.columbia.edu") && university.equals("Columbia University")) {
+            return true;
+        }
+        else if (croppedMail.equals("ox.ac.uk") && university.equals("Oxford University")) {
+            return true;
+        }
+        else if (croppedMail.equals("lmu.de") && university.equals("Munich University")) {
+            return true;
+        }
+        return false;
     }
 
 
