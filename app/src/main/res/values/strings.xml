@@ -18,7 +18,7 @@
         <item>Turkey</item>
         <item>Germany</item>
     </string-array>
-    <string-array name="courses">
+    <string-array name="bilkent_courses">
         <item>Select Courses</item>
         <item>MATH 101</item>
         <item>MATH 102</item>
@@ -33,6 +33,24 @@
         <item>ENG 101</item>
         <item>ENG 102</item>
     </string-array>
+
+    <string-array name="harvard_courses">
+        <item>Select Courses</item>
+        <item>CALC 1000</item>
+        <item>CALC 2000</item>
+        <item>CS 77</item>
+        <item>CS 32</item>
+        <item>PHYS 1029</item>
+        <item>CS 1011</item>
+        <item>CS 1026</item>
+        <item>CS 1155</item>
+        <item>CS 2010</item>
+        <item>CS 2024</item>
+        <item>ENG 00</item>
+        <item>ENG 01</item>
+    </string-array>
+
+
     <string-array name="turk_unis">
         <item>University</item>
         <item>Bilkent University</item>

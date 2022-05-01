@@ -65,6 +65,10 @@ public class SignUp extends AppCompatActivity {
         university = University;
     }
 
+    public static String getLocation() {
+        return university;
+    }
+
 
 
     public void onCreateButtonTap(View view) {

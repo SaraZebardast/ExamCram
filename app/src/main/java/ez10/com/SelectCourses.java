@@ -25,6 +25,7 @@ public class SelectCourses extends AppCompatActivity {
     private TextView errorMessages;
     private LinearLayout errorMessagesLayout;
     String[] courses = new String[5];
+    static int comingFrom = 0; //0 normal, 1 homepage
 
 
     @Override
@@ -55,7 +56,23 @@ public class SelectCourses extends AppCompatActivity {
 
 
         courseChoices = findViewById(R.id.courses_select);
-        coursesAdapter = ArrayAdapter.createFromResource(this, R.array.courses, R.layout.spinner_layout);
+        if (comingFrom==0) {
+            if (SignUp.getLocation().equals("Bilkent University")) {
+                coursesAdapter = ArrayAdapter.createFromResource(this, R.array.bilkent_courses, R.layout.spinner_layout);
+
+            } else if (SignUp.getLocation().equals("Harvard University")) {
+                coursesAdapter = ArrayAdapter.createFromResource(this, R.array.harvard_courses, R.layout.spinner_layout);
+            }
+        }
+        else {
+            if (HomePage.getLocation().equals("Bilkent University")) {
+                coursesAdapter = ArrayAdapter.createFromResource(this, R.array.bilkent_courses, R.layout.spinner_layout);
+
+            } else if (HomePage.getLocation().equals("Harvard University")) {
+                coursesAdapter = ArrayAdapter.createFromResource(this, R.array.harvard_courses, R.layout.spinner_layout);
+            }
+        }
+
         courseChoices.setAdapter(coursesAdapter);
 
         courseChoices.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

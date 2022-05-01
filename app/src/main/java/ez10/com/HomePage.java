@@ -35,7 +35,7 @@ public class HomePage extends AppCompatActivity {
     private TextView username;
     private TextView noOfPeopleOnCampus;
     private ImageView profilePicture;
-    private String userUniversity;
+    private static String userUniversity;
     private Switch onCampusStatusSwitch, currentlyStudyingSwitch;
     Dialog dialog;
     private LottieAnimationView anim;
@@ -413,9 +413,14 @@ public class HomePage extends AppCompatActivity {
     }
 
     public void changeCourses(View view) {
+        SelectCourses.comingFrom=1;
         dialog.hide();
         startActivity(new Intent(this, SelectCourses.class));
 
+    }
+
+    public static String getLocation() {
+        return userUniversity;
     }
 
 }
