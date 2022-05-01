@@ -24,6 +24,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+
 
 public class HomePage extends AppCompatActivity {
 
@@ -101,7 +105,9 @@ public class HomePage extends AppCompatActivity {
             }
         });
 
-        //loadUserFriends();
+        for (int i=0; i<MAX_NO_OF_FRIENDS; i++) {
+            loadUserFriends(0);
+        }
 
     }
 
@@ -174,38 +180,89 @@ public class HomePage extends AppCompatActivity {
 
     }
 
-    public void loadUserFriends() {
-        DatabaseReference reference;
-        for (int i=0; i<MAX_NO_OF_FRIENDS; i++) {
-            reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/userFriends/friend" + i);
-            reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    String friendUID = "" + dataSnapshot.getValue();
-                    if (friendUID.equals("-")) return;
-                    DatabaseReference reference = rootNode.getReference("Registered Users/" + friendUID + "/studying");
-                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            boolean friendStudying = (boolean) dataSnapshot.getValue();
-                            if (!friendStudying) {
-                               // friendsStatus[].setText("Not Studying"); //todo
-                            }
+    public void loadUserFriends(int i) {
+        DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/userFriends/friend" + i);
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String friendUID = "" + dataSnapshot.getValue();
+                if (friendUID.equals("-")) return;
+                friendsLayout[i].setVisibility(View.VISIBLE);
+                DatabaseReference reference = rootNode.getReference("Registered Users/" + friendUID + "/studying");
+                reference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String temp = "" + snapshot.getValue();
+                        boolean friendStudying = Boolean.parseBoolean(temp);
+                        if (!friendStudying) {
+                            friendsStatus[i].setText("Not Studying");
+                            friendsStatus[i].setTextColor(getColor(R.color.faded_white));
                         }
+                        else {
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
+                            DatabaseReference reference = rootNode.getReference("Registered Users/" + friendUID + "/startStudyStreakTime");
+                            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    String temp = "" + snapshot.getValue();
+                                    Long time = Long.parseLong(temp);
+                                    String studyStatus = "Studying since ";
 
+                                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                                        LocalDateTime date =
+                                                LocalDateTime.ofInstant(Instant.ofEpochMilli(time), ZoneId.systemDefault());
+                                        studyStatus += date.toString().substring(11,16);
+                                    }
+                                    friendsStatus[i].setText(studyStatus);
+                                    friendsStatus[i].setTextColor(getColor(R.color.jungleGreen));
+
+                                }
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                }
+                            });
                         }
-                    });
-                }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+                reference = rootNode.getReference("Registered Users/" + friendUID + "/firstName");
+                reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String temp = "" + snapshot.getValue();
+                        friendsNames[i].setText(temp);
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+                reference = rootNode.getReference("Registered Users/" + friendUID + "/profilePictureID");
+                reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String value = "" + snapshot.getValue();
+                        if (value.equals("0")) {
+                            friendsProfilePic[i].setImageResource(R.drawable.steve);
+                        }
+                        else if (value.equals("1")) {
+                            friendsProfilePic[i].setImageResource(R.drawable.rosan);
+                        }
+                        else {
+                            friendsProfilePic[i].setImageResource(R.drawable.isac);
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+            }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                }
-
-            });
-        }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
 
 
     }
