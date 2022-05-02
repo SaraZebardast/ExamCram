@@ -28,7 +28,7 @@ public class SplashScreen extends AppCompatActivity {
                     startActivity(new Intent(SplashScreen.this, Login.class)); //change back to loginactivity
                 }
                 else {
-                    startActivity(new Intent(SplashScreen.this, HomePage.class));
+                    startActivity(new Intent(SplashScreen.this, Main.class));
                 }
                 finishAffinity();
             }

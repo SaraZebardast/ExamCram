@@ -81,7 +81,7 @@ public class Login extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
                             FirebaseUser currentUser = SplashScreen.mAuth.getCurrentUser();
-                            startActivity(new Intent(Login.this, HomePage.class));
+                            startActivity(new Intent(Login.this, Main.class));
                             login.setVisibility(View.VISIBLE);
                             anim.setVisibility(View.INVISIBLE);
                             finishAffinity();

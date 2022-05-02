@@ -63,7 +63,7 @@ public class SelectProfilePicture extends AppCompatActivity {
         reference.child("profilePictureID").setValue(profilePictureChoice);
 
         if (whereToDirectTo==1) {
-            startActivity(new Intent(this, HomePage.class));
+            startActivity(new Intent(this, Main.class));
 
         }
         else {

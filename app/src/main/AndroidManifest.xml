@@ -10,9 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Examcram">
         <activity
-            android:name=".CourseSelect"
-            android:exported="false" />
-        <activity
             android:name=".SelectCourses"
             android:exported="false" />
         <activity
@@ -31,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".HomePage"
+            android:name=".Main"
             android:exported="false" />
         <activity
             android:name=".SelectUniversity"

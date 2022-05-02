@@ -65,10 +65,10 @@ public class SelectCourses extends AppCompatActivity {
             }
         }
         else {
-            if (HomePage.getLocation().equals("Bilkent University")) {
+            if ("HomePage.getLocation()".equals("Bilkent University")) { //change back to HomePage.getLocation()
                 coursesAdapter = ArrayAdapter.createFromResource(this, R.array.bilkent_courses, R.layout.spinner_layout);
 
-            } else if (HomePage.getLocation().equals("Harvard University")) {
+            } else if ("HomePage.getLocation()".equals("Harvard University")) {
                 coursesAdapter = ArrayAdapter.createFromResource(this, R.array.harvard_courses, R.layout.spinner_layout);
             }
         }
@@ -132,7 +132,7 @@ public class SelectCourses extends AppCompatActivity {
                 reference.child("course" + i).setValue(courses[i]);
             }
 
-            startActivity(new Intent(SelectCourses.this, HomePage.class));
+            startActivity(new Intent(SelectCourses.this, Main.class));
 
             finishAffinity();
         }

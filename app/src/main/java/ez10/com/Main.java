@@ -1,0 +1,157 @@
+package ez10.com;
+
+import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.view.Gravity;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+
+public class Main extends AppCompatActivity {
+
+    private TextView username;
+    private ImageView profilePicture;
+    Dialog dialog;
+    private FirebaseUser currentUser = SplashScreen.mAuth.getCurrentUser();
+    private FirebaseDatabase rootNode;
+    private BottomNavigationView bottomNav;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+        profilePicture = findViewById(R.id.profilepic);
+        username = findViewById(R.id.name);
+        rootNode = FirebaseDatabase.getInstance();
+        bottomNav = findViewById(R.id.bottomNav);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, new Homepage()).commit();
+        bottomNav.setSelectedItemId(R.id.homeNav);
+
+        bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Fragment fragment = null; //todo make it so that it doesnt start from 0 every time
+
+                switch (item.getItemId()){
+                    case R.id.homeNav:
+                        if (fragment==null) fragment = new Homepage();
+                        break;
+                    case R.id.chatsNav:
+                        break;
+                    case R.id.achievementsNav:
+                        fragment = new Achievements();
+
+                        break;
+                }
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, fragment).commit();
+
+                return true;
+            }
+        });
+
+        loadUserData();
+
+        SelectProfilePicture.whereToDirectTo=0; //this has to be here
+
+    }
+
+
+
+    public void displaySettings(View view) {
+        if (dialog!=null) dialog.hide();
+        dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.settings);
+
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.getWindow().setGravity(Gravity.CENTER);
+
+    }
+
+
+    public void onSignOutButtonTap(View view) {
+        dialog.hide();
+        SplashScreen.mAuth.signOut();
+        SplashScreen.currentUser = null;
+        startActivity(new Intent(this, Login.class));
+        finishAffinity();
+    }
+
+    public void loadUserData() {
+
+        DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/profilePictureID");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String value = "" + dataSnapshot.getValue();
+                if (value.equals("0")) {
+                    profilePicture.setImageResource(R.drawable.steve);
+                }
+                else if (value.equals("1")) {
+                    profilePicture.setImageResource(R.drawable.rosan);
+                }
+                else {
+                    profilePicture.setImageResource(R.drawable.isac);
+                }
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/firstName");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String value = (String) dataSnapshot.getValue();
+                username.setText(value);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+
+    }
+
+
+
+
+    public void changeProfilePicture(View view) {
+        dialog.hide();
+        SelectProfilePicture.whereToDirectTo=1;
+        startActivity(new Intent(this, SelectProfilePicture.class));
+
+    }
+
+
+
+}

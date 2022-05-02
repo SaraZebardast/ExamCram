@@ -1,21 +1,18 @@
 package ez10.com;
 
-import android.app.Dialog;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,16 +27,13 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 
-public class HomePage extends AppCompatActivity {
+public class Homepage extends Fragment {
 
-    private TextView username;
+
     private TextView noOfPeopleOnCampus;
-    private ImageView profilePicture;
     private static String userUniversity;
     private Switch onCampusStatusSwitch, currentlyStudyingSwitch;
-    Dialog dialog;
-    private LottieAnimationView anim;
-    private TextView noFriendsTxt;
+
 
     private int noOfPeopleOnCampusCounter;
     private FirebaseUser currentUser;
@@ -49,46 +43,68 @@ public class HomePage extends AppCompatActivity {
     private ImageView[] friendsProfilePic;
     private TextView[] friendsNames;
     private TextView[] friendsStatus;
-    private final int MAX_NO_OF_FRIENDS = 3;
+    private TextView noFriendsTxt;
+    private LottieAnimationView anim;
+    private final int MAX_NO_OF_FRIENDS = 4;
+
+
+
+    public Homepage() {
+        // Required empty public constructor
+    }
+
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_page);
-        profilePicture = findViewById(R.id.profilepic);
-        username = findViewById(R.id.name);
-        noOfPeopleOnCampus = findViewById(R.id.textpeopleoncampus);
-        onCampusStatusSwitch = findViewById(R.id.switch1);
-        currentlyStudyingSwitch = findViewById(R.id.switch2);
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.homepage, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        noOfPeopleOnCampus = view.findViewById(R.id.textpeopleoncampus);
+        onCampusStatusSwitch = view.findViewById(R.id.switch1);
+        currentlyStudyingSwitch = view.findViewById(R.id.switch2);
         currentUser = SplashScreen.mAuth.getCurrentUser();
         rootNode = FirebaseDatabase.getInstance();
-        anim = findViewById(R.id.noFriends);
-        noFriendsTxt = findViewById(R.id.noFriendstxt);
+        anim = view.findViewById(R.id.noFriends);
+        noFriendsTxt = view.findViewById(R.id.noFriendstxt);
 
         friendsLayout = new RelativeLayout[MAX_NO_OF_FRIENDS];
         friendsProfilePic = new ImageView[MAX_NO_OF_FRIENDS];
         friendsNames = new TextView[MAX_NO_OF_FRIENDS];
         friendsStatus = new TextView[MAX_NO_OF_FRIENDS];
 
-        friendsLayout[0] = findViewById(R.id.friend0);
-        friendsProfilePic[0] = findViewById(R.id.profilepicfriend0);
-        friendsNames[0] = findViewById(R.id.friendname0);
-        friendsStatus[0] = findViewById(R.id.friendstatus0);
+        friendsLayout[0] = view.findViewById(R.id.friend0);
+        friendsProfilePic[0] = view.findViewById(R.id.profilepicfriend0);
+        friendsNames[0] = view.findViewById(R.id.friendname0);
+        friendsStatus[0] = view.findViewById(R.id.friendstatus0);
 
-        friendsLayout[1] = findViewById(R.id.friend1);
-        friendsProfilePic[1] = findViewById(R.id.profilepicfriend1);
-        friendsNames[1] = findViewById(R.id.friendname1);
-        friendsStatus[1] = findViewById(R.id.friendstatus1);
+        friendsLayout[1] = view.findViewById(R.id.friend1);
+        friendsProfilePic[1] = view.findViewById(R.id.profilepicfriend1);
+        friendsNames[1] = view.findViewById(R.id.friendname1);
+        friendsStatus[1] = view.findViewById(R.id.friendstatus1);
 
-        friendsLayout[2] = findViewById(R.id.friend2);
-        friendsProfilePic[2] = findViewById(R.id.profilepicfriend2);
-        friendsNames[2] = findViewById(R.id.friendname2);
-        friendsStatus[2] = findViewById(R.id.friendstatus2);
+        friendsLayout[2] = view.findViewById(R.id.friend2);
+        friendsProfilePic[2] = view.findViewById(R.id.profilepicfriend2);
+        friendsNames[2] = view.findViewById(R.id.friendname2);
+        friendsStatus[2] = view.findViewById(R.id.friendstatus2);
 
-        loadUserData();
+        friendsLayout[3] = view.findViewById(R.id.friend3);
+        friendsProfilePic[3] = view.findViewById(R.id.profilepicfriend3);
+        friendsNames[3] = view.findViewById(R.id.friendname3);
+        friendsStatus[3] = view.findViewById(R.id.friendstatus3);
 
-        SelectProfilePicture.whereToDirectTo=0; //this has to be here
+        loadUserDataForHomePage();
+
 
         onCampusStatusSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,7 +125,7 @@ public class HomePage extends AppCompatActivity {
                     startStudyCounter();
                 }
                 else if (!currentlyStudyingSwitch.isChecked()) {
-                     endStudyCounter();
+                    endStudyCounter();
                 }
             }
         });
@@ -117,8 +133,6 @@ public class HomePage extends AppCompatActivity {
         for (int i=0; i<MAX_NO_OF_FRIENDS; i++) {
             loadUserFriends(i);
         }
-
-
     }
 
     public void startStudyCounter() {
@@ -177,23 +191,9 @@ public class HomePage extends AppCompatActivity {
         });
     }
 
-    public void displaySettings(View view) {
-        if (dialog!=null) dialog.hide();
-        dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.settings);
-
-        dialog.show();
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-        dialog.getWindow().setGravity(Gravity.CENTER);
-
-    }
-
-    public void loadUserFriends(int i) {
+    private void loadUserFriends(int i) {
         DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/userFriends/friend" + i);
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String friendUID = "" + dataSnapshot.getValue();
@@ -209,25 +209,26 @@ public class HomePage extends AppCompatActivity {
                         boolean friendStudying = Boolean.parseBoolean(temp);
                         if (!friendStudying) {
                             friendsStatus[i].setText("Not Studying");
-                            friendsStatus[i].setTextColor(getColor(R.color.faded_white));
+                            //friendsStatus[i].setTextColor(getActivity().getBaseContext().getColor(R.color.faded_white));
+
                         }
                         else {
 
                             DatabaseReference reference = rootNode.getReference("Registered Users/" + friendUID + "/startStudyStreakTime");
-                            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            reference.addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                     String temp = "" + snapshot.getValue();
                                     Long time = Long.parseLong(temp);
                                     String studyStatus = "Studying since ";
 
-                                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                         LocalDateTime date =
                                                 LocalDateTime.ofInstant(Instant.ofEpochMilli(time), ZoneId.systemDefault());
                                         studyStatus += date.toString().substring(11,16);
                                     }
                                     friendsStatus[i].setText(studyStatus);
-                                    friendsStatus[i].setTextColor(getColor(R.color.jungleGreen));
+                                    //friendsStatus[i].setTextColor(getActivity().getBaseContext().getColor(R.color.faded_white));
 
                                 }
                                 @Override
@@ -281,7 +282,6 @@ public class HomePage extends AppCompatActivity {
 
     }
 
-
     public void setOnCampus() {
 
         DatabaseReference reference = rootNode.getReference("Registered Universities/" + userUniversity + "/NoOfPeopleOnCampus");
@@ -298,51 +298,8 @@ public class HomePage extends AppCompatActivity {
         reference.setValue(false);
     }
 
-    public void onSignOutButtonTap(View view) {
-        dialog.hide();
-        SplashScreen.mAuth.signOut();
-        SplashScreen.currentUser = null;
-        startActivity(new Intent(this, Login.class));
-        finishAffinity();
-    }
-
-    public void loadUserData() {
-
-        DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/profilePictureID");
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String value = "" + dataSnapshot.getValue();
-                if (value.equals("0")) {
-                    profilePicture.setImageResource(R.drawable.steve);
-                }
-                else if (value.equals("1")) {
-                    profilePicture.setImageResource(R.drawable.rosan);
-                }
-                else {
-                    profilePicture.setImageResource(R.drawable.isac);
-                }
-
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-        reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/firstName");
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String value = (String) dataSnapshot.getValue();
-                username.setText(value);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/university");
+    void loadUserDataForHomePage() {
+        DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/university");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -400,27 +357,5 @@ public class HomePage extends AppCompatActivity {
 
             }
         });
-
-
     }
-
-
-    public void changeProfilePicture(View view) {
-        dialog.hide();
-        SelectProfilePicture.whereToDirectTo=1;
-        startActivity(new Intent(this, SelectProfilePicture.class));
-
-    }
-
-    public void changeCourses(View view) {
-        SelectCourses.comingFrom=1;
-        dialog.hide();
-        startActivity(new Intent(this, SelectCourses.class));
-
-    }
-
-    public static String getLocation() {
-        return userUniversity;
-    }
-
 }
