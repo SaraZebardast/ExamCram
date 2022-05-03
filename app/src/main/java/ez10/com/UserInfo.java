@@ -66,11 +66,11 @@ public class UserInfo {
         this.startStudyStreakTime = startStudyStreakTime;
     }
 
-    public int getTimeStudied() {
+    public double getTimeStudied() {
         return timeStudied;
     }
 
-    public void setTimeStudied(int timeStudied) {
+    public void setTimeStudied(double timeStudied) {
         this.timeStudied = timeStudied;
     }
 
@@ -92,7 +92,7 @@ public class UserInfo {
 
     String email, firstName, lastName, country, university, profilePictureID;
     long endStudyStreakTime, startStudyStreakTime;
-    int timeStudied;
+    double timeStudied;
     boolean onCampus, studying;
 
     public UserInfo(String email, String firstName, String lastName, String country, String university) {
@@ -103,7 +103,7 @@ public class UserInfo {
         this.university = university;
         profilePictureID = "0";
         startStudyStreakTime = 0;
-        timeStudied = 0;
+        timeStudied = 0.0000001;
         endStudyStreakTime = 0;
         onCampus = false;
         studying = false;

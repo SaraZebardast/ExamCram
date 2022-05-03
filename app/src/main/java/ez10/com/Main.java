@@ -30,7 +30,9 @@ public class Main extends AppCompatActivity {
 
     private TextView username;
     private ImageView profilePicture;
-    Dialog dialog;
+    public static String userUniversity;
+
+    private Dialog dialog;
     private FirebaseUser currentUser = SplashScreen.mAuth.getCurrentUser();
     private FirebaseDatabase rootNode;
     private BottomNavigationView bottomNav;
@@ -48,23 +50,35 @@ public class Main extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, new Homepage()).commit();
         bottomNav.setSelectedItemId(R.id.homeNav);
 
+
         bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment fragment = null; //todo make it so that it doesnt start from 0 every time
-
-                switch (item.getItemId()){
-                    case R.id.homeNav:
-                        if (fragment==null) fragment = new Homepage();
-                        break;
-                    case R.id.chatsNav:
-                        break;
-                    case R.id.achievementsNav:
-                        fragment = new Achievements();
-
-                        break;
+                Fragment fragment = null;
+                if (item.getItemId()==R.id.homeNav && bottomNav.getSelectedItemId()!=R.id.homeNav) {
+                    fragment = new Homepage();
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_in_left)
+                            .replace(R.id.fragmentContainerView, fragment)
+                            .addToBackStack(null).commit();
                 }
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, fragment).commit();
+                else if (item.getItemId()==R.id.chatsNav && bottomNav.getSelectedItemId()!=R.id.homeNav) {
+                    fragment = new Achievements();
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_in_left)
+                            .replace(R.id.fragmentContainerView, fragment)
+                            .addToBackStack(null).commit();
+                }
+                else if (item.getItemId()==R.id.achievementsNav && bottomNav.getSelectedItemId()!=R.id.achievementsNav) {
+                    fragment = new Achievements();
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                            .replace(R.id.fragmentContainerView, fragment)
+                            .addToBackStack(null).commit();
+                }
 
                 return true;
             }
@@ -114,8 +128,14 @@ public class Main extends AppCompatActivity {
                 else if (value.equals("1")) {
                     profilePicture.setImageResource(R.drawable.rosan);
                 }
-                else {
+                else if (value.equals("2")){
                     profilePicture.setImageResource(R.drawable.isac);
+                }
+                else if (value.equals("3")){
+                    profilePicture.setImageResource(R.drawable.davinci);
+                }
+                else if (value.equals("4")){
+                    profilePicture.setImageResource(R.drawable.einstien);
                 }
 
             }
@@ -137,8 +157,18 @@ public class Main extends AppCompatActivity {
             }
         });
 
+        reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/university");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String value = "" + dataSnapshot.getValue();
+                userUniversity = value;
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-
+            }
+        });
 
     }
 
@@ -149,6 +179,14 @@ public class Main extends AppCompatActivity {
         dialog.hide();
         SelectProfilePicture.whereToDirectTo=1;
         startActivity(new Intent(this, SelectProfilePicture.class));
+
+    }
+
+
+    public void changeCourses(View view) {
+        dialog.hide();
+        SelectCourses.comingFrom=1;
+        startActivity(new Intent(this, SelectCourses.class));
 
     }
 

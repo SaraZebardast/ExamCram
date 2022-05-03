@@ -12,9 +12,7 @@
         android:id="@+id/nextUnlockLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/roundedbackground2">
@@ -36,8 +34,9 @@
             android:layout_width="175dp"
             android:layout_height="175dp"
             android:layout_below="@id/hoursStudiedSoFartxt"
+            android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/steve"></ImageView>
+            android:src="@drawable/davinci"></ImageView>
 
         <ProgressBar
             android:id="@+id/progressbar"
@@ -95,8 +94,8 @@
             android:id="@+id/noFriendstxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="30dp"
             android:layout_below="@+id/noFriends"
+            android:layout_marginHorizontal="30dp"
             android:layout_marginTop="-27dp"
             android:fontFamily="@font/regular"
             android:gravity="center"
@@ -104,9 +103,51 @@
             android:textColor="@color/white"
             android:textSize="14sp"></TextView>
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/firstTXT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/fullbold"
+            android:visibility="invisible"
+            android:text="1st"
+            android:textColor="@color/gold"
+            android:textSize="15sp"></TextView>
+
+        <TextView
+            android:id="@+id/secondTXT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/firstTXT"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/fullbold"
+            android:visibility="invisible"
+
+            android:text="2nd"
+            android:textColor="@color/faded_white"
+            android:textSize="15sp"></TextView>
+
+        <TextView
+            android:id="@+id/thirdTXT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/secondTXT"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/fullbold"
+            android:visibility="invisible"
+            android:text="3rd"
+            android:textColor="@color/bronze"
+            android:textSize="15sp"></TextView>
+
+        <LinearLayout
+            android:id="@+id/friendslayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="50dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -151,7 +192,8 @@
                     android:layout_marginStart="65dp"
                     android:layout_marginEnd="25dp"
                     android:fontFamily="@font/regular"
-                    android:text="Studying since 24:00"
+                    android:text="
+"
                     android:textColor="@color/jungleGreen"
                     android:textSize="16sp"></TextView>
             </RelativeLayout>
@@ -198,8 +240,8 @@
                     android:layout_marginStart="65dp"
                     android:layout_marginEnd="25dp"
                     android:fontFamily="@font/regular"
-                    android:text="Not studying"
-                    android:textColor="@color/faded_white"
+                    android:text="-"
+                    android:textColor="@color/jungleGreen"
                     android:textSize="16sp"></TextView>
             </RelativeLayout>
 
@@ -244,8 +286,8 @@
                     android:layout_marginStart="65dp"
                     android:layout_marginEnd="25dp"
                     android:fontFamily="@font/regular"
-                    android:text="Not studying"
-                    android:textColor="@color/faded_white"
+                    android:text="-"
+                    android:textColor="@color/jungleGreen"
                     android:textSize="16sp"></TextView>
             </RelativeLayout>
 
@@ -283,6 +325,52 @@
 
                 <TextView
                     android:id="@+id/friendstatus3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="65dp"
+                    android:layout_marginEnd="25dp"
+                    android:fontFamily="@font/regular"
+                    android:text="Not studying"
+                    android:textColor="@color/faded_white"
+                    android:textSize="16sp"></TextView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/friend4"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/roundedbackground2"
+                android:visibility="invisible">
+
+                <ImageView
+                    android:id="@+id/profilepicfriend4"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/steve"></ImageView>
+
+                <TextView
+                    android:id="@+id/friendname4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_toEndOf="@+id/profilepicfriend4"
+                    android:fontFamily="@font/semibold"
+                    android:text="Name"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"></TextView>
+
+
+                <TextView
+                    android:id="@+id/friendstatus4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"

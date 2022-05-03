@@ -10,10 +10,10 @@ import androidx.viewpager.widget.PagerAdapter;
 
 public class ImageAdapter extends PagerAdapter {
     private Context mContext;
-    private int[] mImageIds = new int[]{R.drawable.steve, R.drawable.rosan, R.drawable.isac};
+    private int[] mImageIds = new int[]{R.drawable.steve, R.drawable.rosan, R.drawable.isac, R.drawable.davinci, R.drawable.einstien};
 
 
-            ImageAdapter(Context context) {
+    ImageAdapter(Context context) {
         mContext = context;
     }
 
@@ -34,6 +34,12 @@ public class ImageAdapter extends PagerAdapter {
         imageView.setImageResource(mImageIds[position]);
         container.addView(imageView, 0);
         return imageView;
+    }
+
+    void setAvailableProfilePics(int i) {
+        if (i==0) mImageIds = new int[]{R.drawable.steve, R.drawable.rosan, R.drawable.isac};
+        else if (i==1) mImageIds = new int[]{R.drawable.steve, R.drawable.rosan, R.drawable.isac, R.drawable.davinci};
+        else if (i==2) mImageIds = new int[]{R.drawable.steve, R.drawable.rosan, R.drawable.isac, R.drawable.davinci, R.drawable.einstien};
     }
 
     @Override
