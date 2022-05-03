@@ -13,7 +13,6 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-
 import java.util.ArrayList;
 
 
