@@ -35,6 +35,8 @@ public class Homepage extends Fragment {
     private Switch onCampusStatusSwitch, currentlyStudyingSwitch;
 
 
+    private View viewMain;
+
     private int noOfPeopleOnCampusCounter;
     private FirebaseUser currentUser;
     private FirebaseDatabase rootNode;
@@ -64,6 +66,9 @@ public class Homepage extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        viewMain = inflater.inflate(R.layout.homepage, container, false);
+
         return inflater.inflate(R.layout.homepage, container, false);
     }
 
@@ -209,7 +214,7 @@ public class Homepage extends Fragment {
                         boolean friendStudying = Boolean.parseBoolean(temp);
                         if (!friendStudying) {
                             friendsStatus[i].setText("Not Studying");
-                            //friendsStatus[i].setTextColor(getActivity().getBaseContext().getColor(R.color.faded_white));
+                            friendsStatus[i].setTextColor(viewMain.getResources().getColor(R.color.faded_white));
 
                         }
                         else {
@@ -228,7 +233,8 @@ public class Homepage extends Fragment {
                                         studyStatus += date.toString().substring(11,16);
                                     }
                                     friendsStatus[i].setText(studyStatus);
-                                    //friendsStatus[i].setTextColor(getActivity().getBaseContext().getColor(R.color.faded_white));
+                                    friendsStatus[i].setTextColor(viewMain.getResources().getColor(R.color.jungleGreen));
+
 
                                 }
                                 @Override
@@ -263,8 +269,14 @@ public class Homepage extends Fragment {
                         else if (value.equals("1")) {
                             friendsProfilePic[i].setImageResource(R.drawable.rosan);
                         }
-                        else {
+                        else if (value.equals("2")){
                             friendsProfilePic[i].setImageResource(R.drawable.isac);
+                        }
+                        else if (value.equals("3")){
+                            friendsProfilePic[i].setImageResource(R.drawable.einstien);
+                        }
+                        else if (value.equals("4")){
+                            friendsProfilePic[i].setImageResource(R.drawable.davinci);
                         }
                     }
                     @Override

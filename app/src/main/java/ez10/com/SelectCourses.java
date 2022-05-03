@@ -65,10 +65,10 @@ public class SelectCourses extends AppCompatActivity {
             }
         }
         else {
-            if ("HomePage.getLocation()".equals("Bilkent University")) { //change back to HomePage.getLocation()
+            if (Main.userUniversity.equals("Bilkent University")) {
                 coursesAdapter = ArrayAdapter.createFromResource(this, R.array.bilkent_courses, R.layout.spinner_layout);
 
-            } else if ("HomePage.getLocation()".equals("Harvard University")) {
+            } else if (Main.userUniversity.equals("Harvard University")) {
                 coursesAdapter = ArrayAdapter.createFromResource(this, R.array.harvard_courses, R.layout.spinner_layout);
             }
         }

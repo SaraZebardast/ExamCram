@@ -16,6 +16,9 @@
     <color name="red">#CB0303</color>
     <color name="jungleGreen">#31AF90</color>
 
+    <color name="gold">#FFD700</color>
+    <color name="bronze">#D2691E</color>
+
 
 
 </resources>

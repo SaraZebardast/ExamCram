@@ -30,7 +30,9 @@ public class Main extends AppCompatActivity {
 
     private TextView username;
     private ImageView profilePicture;
-    Dialog dialog;
+    public static String userUniversity;
+
+    private Dialog dialog;
     private FirebaseUser currentUser = SplashScreen.mAuth.getCurrentUser();
     private FirebaseDatabase rootNode;
     private BottomNavigationView bottomNav;
@@ -114,8 +116,14 @@ public class Main extends AppCompatActivity {
                 else if (value.equals("1")) {
                     profilePicture.setImageResource(R.drawable.rosan);
                 }
-                else {
+                else if (value.equals("2")){
                     profilePicture.setImageResource(R.drawable.isac);
+                }
+                else if (value.equals("3")){
+                    profilePicture.setImageResource(R.drawable.einstien);
+                }
+                else if (value.equals("4")){
+                    profilePicture.setImageResource(R.drawable.davinci);
                 }
 
             }
@@ -137,8 +145,18 @@ public class Main extends AppCompatActivity {
             }
         });
 
+        reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/university");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String value = "" + dataSnapshot.getValue();
+                userUniversity = value;
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-
+            }
+        });
 
     }
 
@@ -149,6 +167,14 @@ public class Main extends AppCompatActivity {
         dialog.hide();
         SelectProfilePicture.whereToDirectTo=1;
         startActivity(new Intent(this, SelectProfilePicture.class));
+
+    }
+
+
+    public void changeCourses(View view) {
+        dialog.hide();
+        SelectCourses.comingFrom=1;
+        startActivity(new Intent(this, SelectCourses.class));
 
     }
 
