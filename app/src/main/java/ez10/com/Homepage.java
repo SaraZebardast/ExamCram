@@ -78,6 +78,8 @@ public class Homepage extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
         noOfPeopleOnCampus = view.findViewById(R.id.textpeopleoncampus);
         onCampusStatusSwitch = view.findViewById(R.id.switch1);
         currentlyStudyingSwitch = view.findViewById(R.id.switch2);

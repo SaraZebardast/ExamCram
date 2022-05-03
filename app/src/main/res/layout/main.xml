@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
+        android:id="@+id/userhandle"
         android:gravity="center_vertical">
 
         <TextView
@@ -54,7 +55,8 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
         android:name="ez10.com.Homepage"
-        android:layout_centerInParent="true"
+        android:layout_below="@+id/userhandle"
+        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

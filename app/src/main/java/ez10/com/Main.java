@@ -47,6 +47,7 @@ public class Main extends AppCompatActivity {
         rootNode = FirebaseDatabase.getInstance();
         bottomNav = findViewById(R.id.bottomNav);
 
+
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, new Homepage()).commit();
         bottomNav.setSelectedItemId(R.id.homeNav);
 
@@ -75,7 +76,7 @@ public class Main extends AppCompatActivity {
                     fragment = new Achievements();
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                            .setCustomAnimations();
                             .replace(R.id.fragmentContainerView, fragment)
                             .addToBackStack(null).commit();
                 }

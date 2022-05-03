@@ -12,6 +12,7 @@
         android:id="@+id/nextUnlockLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
@@ -23,6 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginVertical="10dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/semibold"
             android:gravity="center"
             android:text="You studied x hours till now"
@@ -34,7 +36,6 @@
             android:layout_width="175dp"
             android:layout_height="175dp"
             android:layout_below="@id/hoursStudiedSoFartxt"
-            android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
             android:src="@drawable/davinci"></ImageView>
 
