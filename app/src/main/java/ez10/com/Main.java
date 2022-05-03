@@ -50,23 +50,35 @@ public class Main extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, new Homepage()).commit();
         bottomNav.setSelectedItemId(R.id.homeNav);
 
+
         bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment fragment = null; //todo make it so that it doesnt start from 0 every time
-
-                switch (item.getItemId()){
-                    case R.id.homeNav:
-                        if (fragment==null) fragment = new Homepage();
-                        break;
-                    case R.id.chatsNav:
-                        break;
-                    case R.id.achievementsNav:
-                        fragment = new Achievements();
-
-                        break;
+                Fragment fragment = null;
+                if (item.getItemId()==R.id.homeNav && bottomNav.getSelectedItemId()!=R.id.homeNav) {
+                    fragment = new Homepage();
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_in_left)
+                            .replace(R.id.fragmentContainerView, fragment)
+                            .addToBackStack(null).commit();
                 }
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, fragment).commit();
+                else if (item.getItemId()==R.id.chatsNav && bottomNav.getSelectedItemId()!=R.id.homeNav) {
+                    fragment = new Achievements();
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_in_left)
+                            .replace(R.id.fragmentContainerView, fragment)
+                            .addToBackStack(null).commit();
+                }
+                else if (item.getItemId()==R.id.achievementsNav && bottomNav.getSelectedItemId()!=R.id.achievementsNav) {
+                    fragment = new Achievements();
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                            .replace(R.id.fragmentContainerView, fragment)
+                            .addToBackStack(null).commit();
+                }
 
                 return true;
             }
@@ -120,10 +132,10 @@ public class Main extends AppCompatActivity {
                     profilePicture.setImageResource(R.drawable.isac);
                 }
                 else if (value.equals("3")){
-                    profilePicture.setImageResource(R.drawable.einstien);
+                    profilePicture.setImageResource(R.drawable.davinci);
                 }
                 else if (value.equals("4")){
-                    profilePicture.setImageResource(R.drawable.davinci);
+                    profilePicture.setImageResource(R.drawable.einstien);
                 }
 
             }

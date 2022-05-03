@@ -37,13 +37,15 @@ public class Achievements extends Fragment {
     private TextView[] friendsRank;
 
     private LottieAnimationView anim;
-    private final int MAX_NO_OF_FRIENDS = 3;
+    private final int MAX_NO_OF_FRIENDS = 5;
 
     private int userTimeStudied;
     private TextView hoursStudiedSoFarTXT;
     private TextView timeLeftUntilNextTXT;
     private ProgressBar progressBar;
     private ImageView rewards;
+
+    private int continueFrom =0;
 
 
     public Achievements() {
@@ -96,6 +98,16 @@ public class Achievements extends Fragment {
         friendsNames[2] = view.findViewById(R.id.friendname2);
         friendsStatus[2] = view.findViewById(R.id.friendstatus2);
 
+        friendsLayout[3] = view.findViewById(R.id.friend3);
+        friendsProfilePic[3] = view.findViewById(R.id.profilepicfriend3);
+        friendsNames[3] = view.findViewById(R.id.friendname3);
+        friendsStatus[3] = view.findViewById(R.id.friendstatus3);
+
+        friendsLayout[4] = view.findViewById(R.id.friend4);
+        friendsProfilePic[4] = view.findViewById(R.id.profilepicfriend4);
+        friendsNames[4] = view.findViewById(R.id.friendname4);
+        friendsStatus[4] = view.findViewById(R.id.friendstatus4);
+
         friendsRank[0] = view.findViewById(R.id.firstTXT);
         friendsRank[1] = view.findViewById(R.id.secondTXT);
         friendsRank[2] = view.findViewById(R.id.thirdTXT);
@@ -109,7 +121,22 @@ public class Achievements extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         for (int i=0; i<MAX_NO_OF_FRIENDS; i++) {
-            loadUserFriends(i);
+            DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/userFriends/friend" + i);
+            reference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String friendUID = "" + dataSnapshot.getValue();
+                    if (!(friendUID.equals("-") || friendUID.equals("null"))) {
+                        anim.setVisibility(View.INVISIBLE);
+                        noFriendsTxt.setVisibility(View.INVISIBLE);
+                        loadUserFriends(friendUID);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
         }
 
         loadUserTimeStudied();
@@ -120,15 +147,20 @@ public class Achievements extends Fragment {
         if (userTimeStudied<10) {
             int differenceUntilNextUnlock = 10 - userTimeStudied;
 
-
             progressBar.setMax(10);
             progressBar.setProgress( userTimeStudied, true);
-
             rewards.setImageDrawable(viewMain.getResources().getDrawable(R.drawable.davinci));
-
-
             timeLeftUntilNextTXT.setText("Study " + differenceUntilNextUnlock + " hours more to unlock");
         }
+
+        else if (userTimeStudied>=30) {
+
+            progressBar.setMax(userTimeStudied);
+            progressBar.setProgress( userTimeStudied, true);
+            rewards.setImageDrawable(viewMain.getResources().getDrawable(R.drawable.ic_baseline_thumb_up_24));
+            timeLeftUntilNextTXT.setText("You have unlocked all rewards.");
+        }
+
         else if (userTimeStudied>=10) {
             int differenceUntilNextUnlock = 30 - userTimeStudied;
 
@@ -159,74 +191,66 @@ public class Achievements extends Fragment {
         });
     }
 
-    private void loadUserFriends(int i) {
-        DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/userFriends/friend" + i);
+
+    private void loadUserFriends(String friendUID) {
+        int i = continueFrom;
+        continueFrom++;
+
+        friendsLayout[i].setVisibility(View.VISIBLE);
+        if (i<3) friendsRank[i].setVisibility(View.VISIBLE);
+        DatabaseReference reference = rootNode.getReference("Registered Users/" + friendUID + "/timeStudied");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String friendUID = "" + dataSnapshot.getValue();
-                if (friendUID.equals("-")) return;
-                anim.setVisibility(View.INVISIBLE);
-                noFriendsTxt.setVisibility(View.INVISIBLE);
-                friendsLayout[i].setVisibility(View.VISIBLE);
-                friendsRank[i].setVisibility(View.VISIBLE);
-                DatabaseReference reference = rootNode.getReference("Registered Users/" + friendUID + "/timeStudied");
-                reference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        Double temp = (double) snapshot.getValue();
-                        int temp2 = temp.intValue();
-                        friendsStatus[i].setText("" + temp2);
-
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                    }
-                });
-                reference = rootNode.getReference("Registered Users/" + friendUID + "/firstName");
-                reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String temp = "" + snapshot.getValue();
-                        friendsNames[i].setText(temp);
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                    }
-                });
-                reference = rootNode.getReference("Registered Users/" + friendUID + "/profilePictureID");
-                reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String value = "" + snapshot.getValue();
-                        if (value.equals("0")) {
-                            friendsProfilePic[i].setImageResource(R.drawable.steve);
-                        }
-                        else if (value.equals("1")) {
-                            friendsProfilePic[i].setImageResource(R.drawable.rosan);
-                        }
-                        else if (value.equals("2")){
-                            friendsProfilePic[i].setImageResource(R.drawable.isac);
-                        }
-                        else if (value.equals("3")){
-                            friendsProfilePic[i].setImageResource(R.drawable.einstien);
-                        }
-                        else if (value.equals("4")){
-                            friendsProfilePic[i].setImageResource(R.drawable.davinci);
-                        }
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                    }
-                });
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Double temp = (double) snapshot.getValue();
+                int temp2 = temp.intValue();
+                friendsStatus[i].setText("" + temp2);
             }
-
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-
+        reference = rootNode.getReference("Registered Users/" + friendUID + "/firstName");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (friendUID.equals(currentUser.getUid())) {
+                    friendsNames[i].setText("You");
+                }
+                else {
+                    String temp = "" + snapshot.getValue();
+                    friendsNames[i].setText(temp);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+        reference = rootNode.getReference("Registered Users/" + friendUID + "/profilePictureID");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String value = "" + snapshot.getValue();
+                if (value.equals("0")) {
+                    friendsProfilePic[i].setImageResource(R.drawable.steve);
+                }
+                else if (value.equals("1")) {
+                    friendsProfilePic[i].setImageResource(R.drawable.rosan);
+                }
+                else if (value.equals("2")){
+                    friendsProfilePic[i].setImageResource(R.drawable.isac);
+                }
+                else if (value.equals("3")){
+                    friendsProfilePic[i].setImageResource(R.drawable.davinci);
+                }
+                else if (value.equals("4")){
+                    friendsProfilePic[i].setImageResource(R.drawable.einstien);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
 
     }
 }

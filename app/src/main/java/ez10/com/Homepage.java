@@ -47,7 +47,10 @@ public class Homepage extends Fragment {
     private TextView[] friendsStatus;
     private TextView noFriendsTxt;
     private LottieAnimationView anim;
-    private final int MAX_NO_OF_FRIENDS = 4;
+    private final int MAX_NO_OF_FRIENDS = 5;
+
+    private int continueFrom=0;
+
 
 
 
@@ -108,6 +111,11 @@ public class Homepage extends Fragment {
         friendsNames[3] = view.findViewById(R.id.friendname3);
         friendsStatus[3] = view.findViewById(R.id.friendstatus3);
 
+        friendsLayout[4] = view.findViewById(R.id.friend4);
+        friendsProfilePic[4] = view.findViewById(R.id.profilepicfriend4);
+        friendsNames[4] = view.findViewById(R.id.friendname4);
+        friendsStatus[4] = view.findViewById(R.id.friendstatus4);
+
         loadUserDataForHomePage();
 
 
@@ -135,8 +143,26 @@ public class Homepage extends Fragment {
             }
         });
 
+
+
+
         for (int i=0; i<MAX_NO_OF_FRIENDS; i++) {
-            loadUserFriends(i);
+            DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/userFriends/friend" + i);
+            reference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String friendUID = "" + dataSnapshot.getValue();
+                    if (!(friendUID.equals("-") || friendUID.equals(currentUser.getUid()) || friendUID.equals("null"))) {
+                        anim.setVisibility(View.INVISIBLE);
+                        noFriendsTxt.setVisibility(View.INVISIBLE);
+                        loadUserFriends(friendUID);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
         }
     }
 
@@ -196,102 +222,82 @@ public class Homepage extends Fragment {
         });
     }
 
-    private void loadUserFriends(int i) {
-        DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/userFriends/friend" + i);
+    private void loadUserFriends(String friendUID) {
+        int i = continueFrom;
+        continueFrom++;
+        friendsLayout[i].setVisibility(View.VISIBLE);
+        DatabaseReference reference = rootNode.getReference("Registered Users/" + friendUID + "/studying");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String friendUID = "" + dataSnapshot.getValue();
-                if (friendUID.equals("-")) return;
-                anim.setVisibility(View.INVISIBLE);
-                noFriendsTxt.setVisibility(View.INVISIBLE);
-                friendsLayout[i].setVisibility(View.VISIBLE);
-                DatabaseReference reference = rootNode.getReference("Registered Users/" + friendUID + "/studying");
-                reference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String temp = "" + snapshot.getValue();
-                        boolean friendStudying = Boolean.parseBoolean(temp);
-                        if (!friendStudying) {
-                            friendsStatus[i].setText("Not Studying");
-                            friendsStatus[i].setTextColor(viewMain.getResources().getColor(R.color.faded_white));
-
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String temp = "" + snapshot.getValue();
+                boolean friendStudying = Boolean.parseBoolean(temp);
+                if (!friendStudying) {
+                    friendsStatus[i].setText("Not Studying");
+                    friendsStatus[i].setTextColor(viewMain.getResources().getColor(R.color.faded_white));
+                }
+                else {
+                    DatabaseReference reference = rootNode.getReference("Registered Users/" + friendUID + "/startStudyStreakTime");
+                    reference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            String temp = "" + snapshot.getValue();
+                            Long time = Long.parseLong(temp);
+                            String studyStatus = "Studying since ";
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                LocalDateTime date =
+                                        LocalDateTime.ofInstant(Instant.ofEpochMilli(time), ZoneId.systemDefault());
+                                studyStatus += date.toString().substring(11,16);
+                            }
+                            friendsStatus[i].setText(studyStatus);
+                            friendsStatus[i].setTextColor(viewMain.getResources().getColor(R.color.jungleGreen));
                         }
-                        else {
-
-                            DatabaseReference reference = rootNode.getReference("Registered Users/" + friendUID + "/startStudyStreakTime");
-                            reference.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    String temp = "" + snapshot.getValue();
-                                    Long time = Long.parseLong(temp);
-                                    String studyStatus = "Studying since ";
-
-                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                        LocalDateTime date =
-                                                LocalDateTime.ofInstant(Instant.ofEpochMilli(time), ZoneId.systemDefault());
-                                        studyStatus += date.toString().substring(11,16);
-                                    }
-                                    friendsStatus[i].setText(studyStatus);
-                                    friendsStatus[i].setTextColor(viewMain.getResources().getColor(R.color.jungleGreen));
-
-
-                                }
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-                                }
-                            });
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
                         }
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                    }
-                });
-                reference = rootNode.getReference("Registered Users/" + friendUID + "/firstName");
-                reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String temp = "" + snapshot.getValue();
-                        friendsNames[i].setText(temp);
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                    }
-                });
-                reference = rootNode.getReference("Registered Users/" + friendUID + "/profilePictureID");
-                reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String value = "" + snapshot.getValue();
-                        if (value.equals("0")) {
-                            friendsProfilePic[i].setImageResource(R.drawable.steve);
-                        }
-                        else if (value.equals("1")) {
-                            friendsProfilePic[i].setImageResource(R.drawable.rosan);
-                        }
-                        else if (value.equals("2")){
-                            friendsProfilePic[i].setImageResource(R.drawable.isac);
-                        }
-                        else if (value.equals("3")){
-                            friendsProfilePic[i].setImageResource(R.drawable.einstien);
-                        }
-                        else if (value.equals("4")){
-                            friendsProfilePic[i].setImageResource(R.drawable.davinci);
-                        }
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                    }
-                });
+                    });
+                }
             }
-
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-
-
+        reference = rootNode.getReference("Registered Users/" + friendUID + "/firstName");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String temp = "" + snapshot.getValue();
+                friendsNames[i].setText(temp);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+        reference = rootNode.getReference("Registered Users/" + friendUID + "/profilePictureID");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String value = "" + snapshot.getValue();
+                if (value.equals("0")) {
+                    friendsProfilePic[i].setImageResource(R.drawable.steve);
+                }
+                else if (value.equals("1")) {
+                    friendsProfilePic[i].setImageResource(R.drawable.rosan);
+                }
+                else if (value.equals("2")){
+                    friendsProfilePic[i].setImageResource(R.drawable.isac);
+                        }
+                else if (value.equals("3")){
+                    friendsProfilePic[i].setImageResource(R.drawable.davinci);
+                }
+                else if (value.equals("4")){
+                    friendsProfilePic[i].setImageResource(R.drawable.einstien);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
     }
 
     public void setOnCampus() {
