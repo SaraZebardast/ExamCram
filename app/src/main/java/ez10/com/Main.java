@@ -10,7 +10,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,6 +39,14 @@ public class Main extends AppCompatActivity {
     private FirebaseDatabase rootNode;
     private BottomNavigationView bottomNav;
 
+    final int MAX_NO_OF_REQUESTS = 3;
+    private RelativeLayout[] requestsLayout;
+    private ImageView[] requestsProfilePic;
+    private TextView[] requestsNames;
+    private Button[] requestsButtons;
+    int continueFrom = 0;
+    private TextView test;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +56,9 @@ public class Main extends AppCompatActivity {
         username = findViewById(R.id.name);
         rootNode = FirebaseDatabase.getInstance();
         bottomNav = findViewById(R.id.bottomNav);
+
+
+
 
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, new Homepage()).commit();
@@ -60,7 +73,7 @@ public class Main extends AppCompatActivity {
                     fragment = new Homepage();
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_in_left)
+                            .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_in_right)
                             .replace(R.id.fragmentContainerView, fragment)
                             .addToBackStack(null).commit();
                 }
@@ -68,7 +81,7 @@ public class Main extends AppCompatActivity {
                     fragment = new Achievements();
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_in_left)
+                            .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_in_right)
                             .replace(R.id.fragmentContainerView, fragment)
                             .addToBackStack(null).commit();
                 }
@@ -76,7 +89,7 @@ public class Main extends AppCompatActivity {
                     fragment = new Achievements();
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .setCustomAnimations();
+                            .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_in_left)
                             .replace(R.id.fragmentContainerView, fragment)
                             .addToBackStack(null).commit();
                 }
@@ -175,7 +188,6 @@ public class Main extends AppCompatActivity {
 
 
 
-
     public void changeProfilePicture(View view) {
         dialog.hide();
         SelectProfilePicture.whereToDirectTo=1;
@@ -190,6 +202,140 @@ public class Main extends AppCompatActivity {
         startActivity(new Intent(this, SelectCourses.class));
 
     }
+
+    public void displayFriendReqs(View view) {
+        dialog.hide();
+        dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.friend_requests);
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.getWindow().setGravity(Gravity.CENTER);
+
+        requestsLayout = new RelativeLayout[MAX_NO_OF_REQUESTS];
+        requestsProfilePic = new ImageView[MAX_NO_OF_REQUESTS];
+        requestsNames = new TextView[MAX_NO_OF_REQUESTS];
+        requestsButtons = new Button[MAX_NO_OF_REQUESTS];
+
+        requestsLayout[0] = dialog.findViewById(R.id.friendReq0);
+        requestsProfilePic[0] = dialog.findViewById(R.id.friendReqPP0);
+        requestsNames[0] = dialog.findViewById(R.id.friendReqName0);
+        requestsButtons[0] = dialog.findViewById(R.id.accept0);
+
+        requestsLayout[1] = dialog.findViewById(R.id.friendReq1);
+        requestsProfilePic[1] = dialog.findViewById(R.id.friendReqPP1);
+        requestsNames[1] = dialog.findViewById(R.id.friendReqName1);
+        requestsButtons[1] = dialog.findViewById(R.id.accept1);
+
+        requestsLayout[2] = dialog.findViewById(R.id.friendReq2);
+        requestsProfilePic[2] = dialog.findViewById(R.id.friendReqPP2);
+        requestsNames[2] = dialog.findViewById(R.id.friendReqName2);
+        requestsButtons[2] = dialog.findViewById(R.id.accept2);
+
+
+        for (int i=0; i<MAX_NO_OF_REQUESTS; i++) {
+            loadFriendRequest(i);
+        }
+
+
+    }
+    private void loadFriendRequest(int i) {
+
+        DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/friendRequests/request" + i);
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String requestUID = "" + dataSnapshot.getValue();
+                if (!(requestUID.equals("-") || requestUID.equals("null"))) {
+                    requestsLayout[i].setVisibility(View.VISIBLE);
+                    requestsButtons[i].setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/friendRequests/request" + i);
+                            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    String requestUID = "" + dataSnapshot.getValue();
+                                    reference.setValue("-");
+                                    DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/noOfFriends");
+                                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            String temp = "" + snapshot.getValue();
+                                            int result = Integer.parseInt(temp);
+                                            reference.setValue(result+1);
+                                            DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/userFriends/friend" + result);
+                                            reference.setValue(requestUID);
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                }
+                            });
+                            dialog.hide();
+                        }
+                    });
+
+                    DatabaseReference reference = rootNode.getReference("Registered Users/" + requestUID + "/firstName");
+                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            String temp = "" + snapshot.getValue();
+                            requestsNames[i].setText(temp);
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                        }
+                    });
+
+                    reference = rootNode.getReference("Registered Users/" + requestUID + "/profilePictureID");
+                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            String value = "" + snapshot.getValue();
+                            if (value.equals("0")) {
+                                requestsProfilePic[i].setImageResource(R.drawable.steve);
+                            }
+                            else if (value.equals("1")) {
+                                requestsProfilePic[i].setImageResource(R.drawable.rosan);
+                            }
+                            else if (value.equals("2")){
+                                requestsProfilePic[i].setImageResource(R.drawable.isac);
+                            }
+                            else if (value.equals("3")){
+                                requestsProfilePic[i].setImageResource(R.drawable.davinci);
+                            }
+                            else if (value.equals("4")){
+                                requestsProfilePic[i].setImageResource(R.drawable.einstien);
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                        }
+                    });
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
+
+
+
+
+    }
+
+
 
 
 

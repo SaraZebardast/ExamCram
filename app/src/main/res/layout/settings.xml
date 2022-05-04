@@ -14,18 +14,24 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:text="Settings"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
         android:textColor="@color/white"
         android:fontFamily="@font/fullbold"
         android:textSize="25dp"
         android:textStyle="bold"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_centerInParent="true"
+        android:background="@color/black2"/>
 
     <LinearLayout
         android:id="@+id/changeProfilePicture"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="4dp"
         android:layout_gravity="center_vertical"
         android:onClick="changeProfilePicture"
         android:padding="8dp">
@@ -47,10 +53,16 @@
             android:textSize="16sp"/>
 
     </LinearLayout>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_centerInParent="true"
+        android:background="@color/black2"/>
     <LinearLayout
         android:id="@+id/viewFriendRequests"
         android:orientation="horizontal"
+        android:layout_marginVertical="4dp"
+        android:onClick="displayFriendReqs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp">
@@ -73,11 +85,17 @@
             android:textSize="16sp"/>
 
     </LinearLayout>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_centerInParent="true"
+        android:background="@color/black2"/>
     <LinearLayout
         android:id="@+id/changeCourses"
         android:orientation="horizontal"
         android:layout_width="match_parent"
+        android:layout_marginVertical="4dp"
+
         android:layout_height="wrap_content"
         android:onClick="changeCourses"
         android:padding="8dp">
@@ -100,11 +118,17 @@
             android:textSize="16sp"/>
 
     </LinearLayout>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_centerInParent="true"
+        android:background="@color/black2"/>
     <LinearLayout
         android:id="@+id/layoutPrint"
         android:orientation="horizontal"
         android:layout_width="match_parent"
+        android:layout_marginVertical="4dp"
+
         android:layout_height="wrap_content"
         android:onClick="onSignOutButtonTap"
         android:padding="8dp">

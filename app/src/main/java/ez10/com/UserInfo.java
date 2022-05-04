@@ -93,6 +93,12 @@ public class UserInfo {
     String email, firstName, lastName, country, university, profilePictureID;
     long endStudyStreakTime, startStudyStreakTime;
     double timeStudied;
+
+    public int getNoOfFriends() { return noOfFriends; }
+
+    public void setNoOfFriends(int noOfFriends) { this.noOfFriends = noOfFriends; }
+
+    int noOfFriends;
     boolean onCampus, studying;
 
     public UserInfo(String email, String firstName, String lastName, String country, String university) {
@@ -101,9 +107,10 @@ public class UserInfo {
         this.lastName = lastName;
         this.country= country;
         this.university = university;
+        noOfFriends = 0;
         profilePictureID = "0";
         startStudyStreakTime = 0;
-        timeStudied = 0.0000001;
+        timeStudied = 0.00001;
         endStudyStreakTime = 0;
         onCampus = false;
         studying = false;
