@@ -17,9 +17,9 @@ public class SelectUniversity extends AppCompatActivity {
 
     private TextView errorMessages, spinnerFormat;
     private LinearLayout errorMessagesLayout;
-    Spinner universityChoices, countryChoices;
     private LottieAnimationView anim;
-    ArrayAdapter<CharSequence> universityAdapter, countryAdapter;
+    private Spinner universityChoices, countryChoices;
+    private ArrayAdapter<CharSequence> universityAdapter, countryAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class SelectUniversity extends AppCompatActivity {
         countryAdapter = ArrayAdapter.createFromResource(this, R.array.countries, R.layout.spinner_layout);
         countryChoices.setAdapter(countryAdapter);
 
-        universityAdapter = ArrayAdapter.createFromResource(this, R.array.uni, R.layout.spinner_layout);
+        universityAdapter = ArrayAdapter.createFromResource(this, R.array.uni, R.layout.disabled_spinner_layout);
         universityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         countryChoices.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -78,7 +78,7 @@ public class SelectUniversity extends AppCompatActivity {
                 else {
                     universityChoices.setClickable(false);
                     universityChoices.setEnabled(false);
-                    universityAdapter = ArrayAdapter.createFromResource(SelectUniversity.this, R.array.uni, R.layout.spinner_layout);
+                    universityAdapter = ArrayAdapter.createFromResource(SelectUniversity.this, R.array.uni, R.layout.disabled_spinner_layout);
                     universityChoices.setAdapter(universityAdapter);
                 }
 

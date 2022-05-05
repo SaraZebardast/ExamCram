@@ -19,7 +19,7 @@
         <item>Germany</item>
     </string-array>
     <string-array name="bilkent_courses">
-        <item>Select Courses</item>
+        <item>Select Course</item>
         <item>MATH 101</item>
         <item>MATH 102</item>
         <item>MATH 132</item>
@@ -27,15 +27,12 @@
         <item>PHYS 102</item>
         <item>CS 101</item>
         <item>CS 102</item>
-        <item>CS 115</item>
         <item>CS 201</item>
         <item>CS 202</item>
-        <item>ENG 101</item>
-        <item>ENG 102</item>
     </string-array>
 
     <string-array name="harvard_courses">
-        <item>Select Courses</item>
+        <item>Select Course</item>
         <item>CALC 1000</item>
         <item>CALC 2000</item>
         <item>CS 77</item>
@@ -50,10 +47,35 @@
         <item>ENG 01</item>
     </string-array>
 
-<<<<<<< Updated upstream
-=======
-    <string-array name="Math101">
-        <item>Select a sub category</item>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <string-array name="Bilkent_Math101">
+        <item>Topic</item>
+
         <item>Limits and Continuity</item>
         <item>Differentiation</item>
         <item>Applications of Derivatives</item>
@@ -62,8 +84,9 @@
         <item>Techniques of Integration</item>
     </string-array>
 
-    <string-array name="Math102">
-        <item>Select a sub category</item>
+    <string-array name="Bilkent_Math102">
+        <item>Topic</item>
+
         <item>Sequences and Series</item>
         <item>Vectors</item>
         <item>Lines, Planes, Curve</item>
@@ -71,26 +94,27 @@
         <item>Multiple Integrals</item>
     </string-array>
 
-    <string-array name="Math132">
-    <item>Select a sub category</item>
-    <item>Sets, functions, cardinality of sets</item>
-    <item>Modular arithmetic, primes and greatest common divisor</item>
-    <item>Congruences and their applications</item>
-    <item>Induction and well-ordering</item>
-    <item>The pigeonhole principle</item>
-    <item>Permutations and combinations</item>
-    <item>Recurrence relations</item>
-    <item>Generating functions</item>
-    <item>Inclusion/exclusion</item>
-    <item>General theory</item>
-</string-array>
+    <string-array name="Bilkent_Math132">
+        <item>Topic</item>
 
-    <string-array name="PHYS101">
-        <item>Select a sub category</item>
+        <item>Sets, functions, cardinality of sets</item>
+        <item>Modular arithmetic, primes and greatest common divisor</item>
+        <item>Congruences and their applications</item>
+        <item>Induction and well-ordering</item>
+        <item>The pigeonhole principle</item>
+        <item>Permutations and combinations</item>
+        <item>Recurrence relations</item>
+        <item>Generating functions</item>
+        <item>Inclusion/exclusion</item>
+        <item>General theory</item>
+    </string-array>
+
+    <string-array name="Bilkent_PHYS101">
+        <item>Topic</item>
         <item>Units, Physical Quantities, and Vectors</item>
         <item>Motion Along a Straight Line</item>
-        <item>Newton's Laws of Motion</item>
-        <item>Applying Newton's Laws</item>
+        <item>Newtons Laws of Motion</item>
+        <item>Applying Newtons Laws</item>
         <item>Work and Kinetic Energy</item>
         <item>Potential Energy and Energy Conservation</item>
         <item>Momentum, Impulse, and Collisions</item>
@@ -99,8 +123,8 @@
         <item>Gravitation</item>
     </string-array>
 
-    <string-array name="PHYS102">
-        <item>Select a sub category</item>
+    <string-array name="Bilkent_PHYS102">
+        <item>Topic</item>
         <item>Electric Charge and Electric Field</item>
         <item>Gauss`s law</item>
         <item>Electric Potential</item>
@@ -114,8 +138,8 @@
         <item>Electromagnetic Waves</item>
     </string-array>
 
-    <string-array name="CS101">
-        <item>Select a sub category</item>
+    <string-array name="Bilkent_CS101">
+        <item>Topic</item>
         <item>Algorithms</item>
         <item>Computer Architecture</item>
         <item>Fundamental Data Types</item>
@@ -129,34 +153,20 @@
         <item>Partially-filled arrays</item>
     </string-array>
 
-    <string-array name="CS102">
-        <item>Select a sub category</item>
+    <string-array name="Bilkent_CS102">
+        <item>Topic</item>
         <item>Inheritance and polymorphism</item>
         <item>Abstract classes and interfaces</item>
-        <item>GUI's</item>
+        <item>GUIs</item>
         <item>Recursion</item>
         <item>Data Structures</item>
         <item>Repetition</item>
-        <item>exceptions</item>
+        <item>Exceptions</item>
     </string-array>
 
-    <string-array name="CS115">
-        <item>Select a sub category</item>
-        <item>Branching, Strings, Input, Iteration</item>
-        <item>Simple numerical programs</item>
-        <item>Functions, Scoping, and Abstraction</item>
-        <item>Global Variables, Modules, Files</item>
-        <item>Structured Types, Mutability, and Higher-Order Functions </item>
-        <item>Arrays</item>
-        <item>Classes and Object-Oriented Programming</item>
-        <item>Algorithmic Complexity</item>
-        <item>Plotting</item>
-        <item>Data Visualization</item>
-        <item>Understanding Experimental Data</item>
-    </string-array>
+    <string-array name="Bilkent_CS201">
+        <item>Topic</item>
 
-    <string-array name="CS201">
-        <item>Select a sub category</item>
         <item>Functions</item>
         <item>Arrays</item>
         <item>Pointers</item>
@@ -167,8 +177,8 @@
         <item>Queues</item>
     </string-array>
 
-    <string-array name="CS202">
-        <item>Select a sub category</item>
+    <string-array name="Bilkent_CS202">
+        <item>Topic</item>
         <item>Algorithm Efficiency and Sorting</item>
         <item>Trees</item>
         <item>Tables and Priority Queues</item>
@@ -176,22 +186,13 @@
         <item>Graphs</item>
     </string-array>
 
-    <string-array name="ENG101">
-        <item>Select a sub category</item>
-        <item>Analysis and discussion of readings for academic essay 1</item>
-        <item>Analysis and discussion of readings for academic essay 2</item>
-        <item>Brainstorming and outlining for academic essay</item>
-        <item>presentations</item>
+
+
+
+    <string-array name="topic">
+        <item>Topic</item>
     </string-array>
 
-    <string-array name="ENG102">
-        <item>Select a sub category</item>
-        <item>Analysis and discussion of texts for essay</item>
-        <item>Research Paper input and practice</item>
-        <item>Library Skills Task</item>
-        <item>End of Course Interview rehearsal</item>
-    </string-array>
->>>>>>> Stashed changes
 
     <string-array name="turk_unis">
         <item>University</item>
@@ -214,6 +215,4 @@
     <string-array name="uni">
         <item>University</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

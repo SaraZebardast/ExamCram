@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginHorizontal="20dp"
+    android:gravity="center_horizontal"
+    tools:context=".Main"
+    android:background="@drawable/roundedbackground2">
+
+    <TextView
+        android:id="@+id/choosetxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="What do you wanna study?"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/fullbold"
+        android:textSize="23dp"
+        android:textStyle="bold"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_centerInParent="true"
+        android:background="@color/black2"/>
+
+    <LinearLayout
+        android:id="@+id/course_layout"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_marginTop="10dp"
+        android:layout_above="@+id/university_layout"
+        android:layout_marginBottom="35dp"
+        android:gravity="center">
+
+        <Spinner
+            android:id="@+id/course"
+            android:layout_width="275dp"
+            android:layout_height="45dp"
+            android:background="@drawable/roundedbutton"
+            android:popupBackground="@drawable/roundedbutton"
+            android:popupElevation="10dp"></Spinner>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_arrow_drop_down_24"></ImageView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/subCourse_layout"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_above="@+id/university_layout"
+        android:layout_marginBottom="35dp"
+        android:gravity="center">
+
+        <Spinner
+            android:id="@+id/subCourse"
+            android:layout_width="275dp"
+            android:layout_height="45dp"
+            android:background="@drawable/roundedbutton"
+            android:popupBackground="@drawable/roundedbutton"
+            android:popupElevation="10dp"></Spinner>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_arrow_drop_down_24"></ImageView>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_centerInParent="true"
+        android:background="@color/black2"/>
+
+    <Button
+        android:id="@+id/searchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:backgroundTint="@color/jungleGreen"
+        android:fontFamily="@font/semibold"
+        android:gravity="center"
+        android:text="Search"
+        android:textColor="@color/white"
+        android:textSize="17sp" />
+
+
+
+
+</LinearLayout>

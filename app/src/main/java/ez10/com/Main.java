@@ -44,8 +44,6 @@ public class Main extends AppCompatActivity {
     private ImageView[] requestsProfilePic;
     private TextView[] requestsNames;
     private Button[] requestsButtons;
-    int continueFrom = 0;
-    private TextView test;
 
 
     @Override
@@ -235,12 +233,14 @@ public class Main extends AppCompatActivity {
         requestsButtons[2] = dialog.findViewById(R.id.accept2);
 
 
+        j=-1;
         for (int i=0; i<MAX_NO_OF_REQUESTS; i++) {
             loadFriendRequest(i);
         }
 
 
     }
+    int j=-1;
     private void loadFriendRequest(int i) {
 
         DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/friendRequests/request" + i);
@@ -249,8 +249,9 @@ public class Main extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String requestUID = "" + dataSnapshot.getValue();
                 if (!(requestUID.equals("-") || requestUID.equals("null"))) {
-                    requestsLayout[i].setVisibility(View.VISIBLE);
-                    requestsButtons[i].setOnClickListener(new View.OnClickListener() {
+                    j++;
+                    requestsLayout[j].setVisibility(View.VISIBLE);
+                    requestsButtons[j].setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/friendRequests/request" + i);
@@ -290,7 +291,7 @@ public class Main extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             String temp = "" + snapshot.getValue();
-                            requestsNames[i].setText(temp);
+                            requestsNames[j].setText(temp);
                         }
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
@@ -303,19 +304,19 @@ public class Main extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             String value = "" + snapshot.getValue();
                             if (value.equals("0")) {
-                                requestsProfilePic[i].setImageResource(R.drawable.steve);
+                                requestsProfilePic[j].setImageResource(R.drawable.steve);
                             }
                             else if (value.equals("1")) {
-                                requestsProfilePic[i].setImageResource(R.drawable.rosan);
+                                requestsProfilePic[j].setImageResource(R.drawable.rosan);
                             }
                             else if (value.equals("2")){
-                                requestsProfilePic[i].setImageResource(R.drawable.isac);
+                                requestsProfilePic[j].setImageResource(R.drawable.isac);
                             }
                             else if (value.equals("3")){
-                                requestsProfilePic[i].setImageResource(R.drawable.davinci);
+                                requestsProfilePic[j].setImageResource(R.drawable.davinci);
                             }
                             else if (value.equals("4")){
-                                requestsProfilePic[i].setImageResource(R.drawable.einstien);
+                                requestsProfilePic[j].setImageResource(R.drawable.einstien);
                             }
                         }
                         @Override
@@ -334,9 +335,6 @@ public class Main extends AppCompatActivity {
 
 
     }
-
-
-
 
 
 }

@@ -185,8 +185,4 @@ public class SelectCourses extends AppCompatActivity {
         }
         return true;
     }
-
-    public String getCourses(int index) {
-        return courses[index];
-    }
 }

@@ -7,6 +7,8 @@
 
     <color name="white">#FFFFFFFF</color>
     <color name="faded_white">#CACACA</color>
+    <color name="more_faded_white">#8f8f8f</color>
+
     ## color palette for the app! [yohan you]
     <color name="peachCrayola">#F7C59F</color>
     <color name="spaceCadet">#2A324B</color>

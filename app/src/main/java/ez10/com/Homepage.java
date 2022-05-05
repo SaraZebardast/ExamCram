@@ -1,12 +1,21 @@
 package ez10.com;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -50,6 +59,10 @@ public class Homepage extends Fragment {
     private final int MAX_NO_OF_FRIENDS = 5;
 
     private int continueFrom=0;
+
+    private Dialog dialog;
+    private Button searchButton;
+
 
 
 
@@ -117,6 +130,15 @@ public class Homepage extends Fragment {
         friendsProfilePic[4] = view.findViewById(R.id.profilepicfriend4);
         friendsNames[4] = view.findViewById(R.id.friendname4);
         friendsStatus[4] = view.findViewById(R.id.friendstatus4);
+
+        searchButton = view.findViewById(R.id.searchButton);
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggleSearch();
+            }
+        });
 
         loadUserDataForHomePage();
 
@@ -375,6 +397,135 @@ public class Homepage extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+    }
+
+    Spinner subCourseChoices, courseChoices;
+    ArrayAdapter<CharSequence> subCourseAdapter, courseAdapter;
+
+    public void toggleSearch() {
+        if (dialog!=null) dialog.hide();
+        dialog = new Dialog(getContext());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.search);
+
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.getWindow().setGravity(Gravity.CENTER);
+
+
+
+
+        courseChoices = dialog.findViewById(R.id.course);
+
+        courseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.bilkent_courses, R.layout.spinner_layout);
+        courseChoices.setAdapter(courseAdapter);
+
+        subCourseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.topic, R.layout.disabled_spinner_layout);
+        subCourseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        courseChoices.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                subCourseChoices = dialog.findViewById(R.id.subCourse);
+
+
+                String selectedCourse = courseChoices.getSelectedItem().toString().trim();
+
+
+                if (selectedCourse.equals("MATH 101")) {
+
+                    subCourseChoices.setClickable(true);
+                    subCourseChoices.setEnabled(true);
+                    subCourseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Bilkent_Math101, R.layout.spinner_layout);
+                    subCourseChoices.setAdapter(subCourseAdapter);
+
+                } else if (selectedCourse.equals("MATH 102")) {
+
+                    subCourseChoices.setClickable(true);
+                    subCourseChoices.setEnabled(true);
+                    subCourseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Bilkent_Math102, R.layout.spinner_layout);
+                    subCourseChoices.setAdapter(subCourseAdapter);
+
+                } else if (selectedCourse.equals("CS 101")) {
+
+                    subCourseChoices.setClickable(true);
+                    subCourseChoices.setEnabled(true);
+                    subCourseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Bilkent_CS101, R.layout.spinner_layout);
+                    subCourseChoices.setAdapter(subCourseAdapter);
+
+                } else if (selectedCourse.equals("CS 102")) {
+
+                    subCourseChoices.setClickable(true);
+                    subCourseChoices.setEnabled(true);
+                    subCourseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Bilkent_CS102, R.layout.spinner_layout);
+                    subCourseChoices.setAdapter(subCourseAdapter);
+
+                }
+                else if (selectedCourse.equals("CS 102")) {
+
+                    subCourseChoices.setClickable(true);
+                    subCourseChoices.setEnabled(true);
+                    subCourseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Bilkent_CS102, R.layout.spinner_layout);
+                    subCourseChoices.setAdapter(subCourseAdapter);
+
+                }
+                else if (selectedCourse.equals("PHYS 101")) {
+
+                    subCourseChoices.setClickable(true);
+                    subCourseChoices.setEnabled(true);
+                    subCourseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Bilkent_PHYS101, R.layout.spinner_layout);
+                    subCourseChoices.setAdapter(subCourseAdapter);
+
+                }
+                else if (selectedCourse.equals("PHYS 102")) {
+
+                    subCourseChoices.setClickable(true);
+                    subCourseChoices.setEnabled(true);
+                    subCourseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Bilkent_PHYS102, R.layout.spinner_layout);
+                    subCourseChoices.setAdapter(subCourseAdapter);
+
+                }
+                else if (selectedCourse.equals("MATH 132")) {
+
+                    subCourseChoices.setClickable(true);
+                    subCourseChoices.setEnabled(true);
+                    subCourseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Bilkent_Math132, R.layout.spinner_layout);
+                    subCourseChoices.setAdapter(subCourseAdapter);
+
+                }
+                else if (selectedCourse.equals("CS 201")) {
+
+                    subCourseChoices.setClickable(true);
+                    subCourseChoices.setEnabled(true);
+                    subCourseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Bilkent_CS201, R.layout.spinner_layout);
+                    subCourseChoices.setAdapter(subCourseAdapter);
+
+                }
+                else if (selectedCourse.equals("CS 202")) {
+
+                    subCourseChoices.setClickable(true);
+                    subCourseChoices.setEnabled(true);
+                    subCourseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Bilkent_CS202, R.layout.spinner_layout);
+                    subCourseChoices.setAdapter(subCourseAdapter);
+
+                }
+                else {
+                    subCourseChoices.setClickable(false);
+                    subCourseChoices.setEnabled(false);
+                    subCourseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.topic, R.layout.disabled_spinner_layout);
+                    subCourseChoices.setAdapter(subCourseAdapter);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                subCourseChoices.setClickable(false);
+                subCourseChoices.setEnabled(false);
             }
         });
     }
