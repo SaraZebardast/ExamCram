@@ -34,6 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 
 
 public class Homepage extends Fragment {
@@ -63,7 +64,7 @@ public class Homepage extends Fragment {
     private Dialog dialog;
     private Button searchButton;
 
-
+    private final int MAX_NO_OF_COURSES = 5;
 
 
 
@@ -402,7 +403,10 @@ public class Homepage extends Fragment {
     }
 
     Spinner subCourseChoices, courseChoices;
-    ArrayAdapter<CharSequence> subCourseAdapter, courseAdapter;
+    ArrayAdapter<String> courseAdapter;
+    ArrayAdapter<CharSequence> subCourseAdapter;
+    Button finalSearch;
+    String selectedCourse, selectedTopic;
 
     public void toggleSearch() {
         if (dialog!=null) dialog.hide();
@@ -417,115 +421,159 @@ public class Homepage extends Fragment {
         dialog.getWindow().setGravity(Gravity.CENTER);
 
 
-
-
+        finalSearch = dialog.findViewById(R.id.searchButton);
         courseChoices = dialog.findViewById(R.id.course);
 
-        courseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.bilkent_courses, R.layout.spinner_layout);
-        courseChoices.setAdapter(courseAdapter);
-
-        subCourseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.topic, R.layout.disabled_spinner_layout);
-        subCourseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        courseChoices.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        finalSearch.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                subCourseChoices = dialog.findViewById(R.id.subCourse);
+            public void onClick(View view) {
+                selectedCourse = courseChoices.getSelectedItem().toString().trim();
+                selectedTopic = subCourseChoices.getSelectedItem().toString().trim();
 
-
-                String selectedCourse = courseChoices.getSelectedItem().toString().trim();
-
-
-                if (selectedCourse.equals("MATH 101")) {
-
-                    subCourseChoices.setClickable(true);
-                    subCourseChoices.setEnabled(true);
-                    subCourseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Bilkent_Math101, R.layout.spinner_layout);
-                    subCourseChoices.setAdapter(subCourseAdapter);
-
-                } else if (selectedCourse.equals("MATH 102")) {
-
-                    subCourseChoices.setClickable(true);
-                    subCourseChoices.setEnabled(true);
-                    subCourseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Bilkent_Math102, R.layout.spinner_layout);
-                    subCourseChoices.setAdapter(subCourseAdapter);
-
-                } else if (selectedCourse.equals("CS 101")) {
-
-                    subCourseChoices.setClickable(true);
-                    subCourseChoices.setEnabled(true);
-                    subCourseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Bilkent_CS101, R.layout.spinner_layout);
-                    subCourseChoices.setAdapter(subCourseAdapter);
-
-                } else if (selectedCourse.equals("CS 102")) {
-
-                    subCourseChoices.setClickable(true);
-                    subCourseChoices.setEnabled(true);
-                    subCourseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Bilkent_CS102, R.layout.spinner_layout);
-                    subCourseChoices.setAdapter(subCourseAdapter);
-
+                if (!(selectedCourse.equals("Select Course") || selectedTopic.equals("Topic"))) {
+                    dialog.hide();
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_in_right)
+                            .replace(R.id.fragmentContainerView, new Results())
+                            .addToBackStack(null).commit();
                 }
-                else if (selectedCourse.equals("CS 102")) {
 
-                    subCourseChoices.setClickable(true);
-                    subCourseChoices.setEnabled(true);
-                    subCourseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Bilkent_CS102, R.layout.spinner_layout);
-                    subCourseChoices.setAdapter(subCourseAdapter);
+            }
+        });
 
+        loadCourses();
+
+    }
+
+    private void loadCourses() {
+        DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/userCourses");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                ArrayList<String> temp = new ArrayList<>();
+
+                temp.add("Select Course");
+
+                for (int i=0; i<MAX_NO_OF_COURSES; i++) {
+                    if (!dataSnapshot.child("course" + i).getValue().equals("0")) temp.add("" + dataSnapshot.child("course" + i).getValue());
                 }
-                else if (selectedCourse.equals("PHYS 101")) {
 
-                    subCourseChoices.setClickable(true);
-                    subCourseChoices.setEnabled(true);
-                    subCourseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Bilkent_PHYS101, R.layout.spinner_layout);
-                    subCourseChoices.setAdapter(subCourseAdapter);
+                courseAdapter = new ArrayAdapter<String>(getContext(), R.layout.spinner_layout, temp);
 
-                }
-                else if (selectedCourse.equals("PHYS 102")) {
+                courseChoices.setAdapter(courseAdapter);
 
-                    subCourseChoices.setClickable(true);
-                    subCourseChoices.setEnabled(true);
-                    subCourseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Bilkent_PHYS102, R.layout.spinner_layout);
-                    subCourseChoices.setAdapter(subCourseAdapter);
+                subCourseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.topic, R.layout.disabled_spinner_layout);
+                subCourseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-                }
-                else if (selectedCourse.equals("MATH 132")) {
+                courseChoices.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                    subCourseChoices.setClickable(true);
-                    subCourseChoices.setEnabled(true);
-                    subCourseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Bilkent_Math132, R.layout.spinner_layout);
-                    subCourseChoices.setAdapter(subCourseAdapter);
+                        subCourseChoices = dialog.findViewById(R.id.subCourse);
+                        String selectedCourse = courseChoices.getSelectedItem().toString().trim();
 
-                }
-                else if (selectedCourse.equals("CS 201")) {
 
-                    subCourseChoices.setClickable(true);
-                    subCourseChoices.setEnabled(true);
-                    subCourseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Bilkent_CS201, R.layout.spinner_layout);
-                    subCourseChoices.setAdapter(subCourseAdapter);
+                        if (selectedCourse.equals("MATH 101")) {
 
-                }
-                else if (selectedCourse.equals("CS 202")) {
+                            subCourseChoices.setClickable(true);
+                            subCourseChoices.setEnabled(true);
+                            subCourseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Bilkent_Math101, R.layout.spinner_layout);
+                            subCourseChoices.setAdapter(subCourseAdapter);
 
-                    subCourseChoices.setClickable(true);
-                    subCourseChoices.setEnabled(true);
-                    subCourseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Bilkent_CS202, R.layout.spinner_layout);
-                    subCourseChoices.setAdapter(subCourseAdapter);
+                        } else if (selectedCourse.equals("MATH 102")) {
 
-                }
-                else {
-                    subCourseChoices.setClickable(false);
-                    subCourseChoices.setEnabled(false);
-                    subCourseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.topic, R.layout.disabled_spinner_layout);
-                    subCourseChoices.setAdapter(subCourseAdapter);
-                }
+                            subCourseChoices.setClickable(true);
+                            subCourseChoices.setEnabled(true);
+                            subCourseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Bilkent_Math102, R.layout.spinner_layout);
+                            subCourseChoices.setAdapter(subCourseAdapter);
+
+                        } else if (selectedCourse.equals("CS 101")) {
+
+                            subCourseChoices.setClickable(true);
+                            subCourseChoices.setEnabled(true);
+                            subCourseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Bilkent_CS101, R.layout.spinner_layout);
+                            subCourseChoices.setAdapter(subCourseAdapter);
+
+                        } else if (selectedCourse.equals("CS 102")) {
+
+                            subCourseChoices.setClickable(true);
+                            subCourseChoices.setEnabled(true);
+                            subCourseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Bilkent_CS102, R.layout.spinner_layout);
+                            subCourseChoices.setAdapter(subCourseAdapter);
+
+                        }
+                        else if (selectedCourse.equals("CS 102")) {
+
+                            subCourseChoices.setClickable(true);
+                            subCourseChoices.setEnabled(true);
+                            subCourseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Bilkent_CS102, R.layout.spinner_layout);
+                            subCourseChoices.setAdapter(subCourseAdapter);
+
+                        }
+                        else if (selectedCourse.equals("PHYS 101")) {
+
+                            subCourseChoices.setClickable(true);
+                            subCourseChoices.setEnabled(true);
+                            subCourseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Bilkent_PHYS101, R.layout.spinner_layout);
+                            subCourseChoices.setAdapter(subCourseAdapter);
+
+                        }
+                        else if (selectedCourse.equals("PHYS 102")) {
+
+                            subCourseChoices.setClickable(true);
+                            subCourseChoices.setEnabled(true);
+                            subCourseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Bilkent_PHYS102, R.layout.spinner_layout);
+                            subCourseChoices.setAdapter(subCourseAdapter);
+
+                        }
+                        else if (selectedCourse.equals("MATH 132")) {
+
+                            subCourseChoices.setClickable(true);
+                            subCourseChoices.setEnabled(true);
+                            subCourseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Bilkent_Math132, R.layout.spinner_layout);
+                            subCourseChoices.setAdapter(subCourseAdapter);
+
+                        }
+                        else if (selectedCourse.equals("CS 201")) {
+
+                            subCourseChoices.setClickable(true);
+                            subCourseChoices.setEnabled(true);
+                            subCourseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Bilkent_CS201, R.layout.spinner_layout);
+                            subCourseChoices.setAdapter(subCourseAdapter);
+
+                        }
+                        else if (selectedCourse.equals("CS 202")) {
+
+                            subCourseChoices.setClickable(true);
+                            subCourseChoices.setEnabled(true);
+                            subCourseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Bilkent_CS202, R.layout.spinner_layout);
+                            subCourseChoices.setAdapter(subCourseAdapter);
+
+                        }
+                        else {
+                            subCourseChoices.setClickable(false);
+                            subCourseChoices.setEnabled(false);
+                            subCourseAdapter = ArrayAdapter.createFromResource(getContext(), R.array.topic, R.layout.disabled_spinner_layout);
+                            subCourseChoices.setAdapter(subCourseAdapter);
+                        }
+
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+                        subCourseChoices.setClickable(false);
+                        subCourseChoices.setEnabled(false);
+                    }
+                });
+
+
 
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                subCourseChoices.setClickable(false);
-                subCourseChoices.setEnabled(false);
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }

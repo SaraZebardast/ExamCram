@@ -43,7 +43,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="5dp"
-            android:src="@drawable/rosan"></ImageView>
+            android:src="@drawable/profilepicture"></ImageView>
 
         <TextView
             android:id="@+id/friendReqName0"
@@ -53,7 +53,7 @@
             android:layout_marginStart="5dp"
             android:layout_toEndOf="@+id/friendReqPP0"
             android:fontFamily="@font/semibold"
-            android:text="Name"
+            android:text="-"
             android:textColor="@color/white"
             android:textSize="13sp"></TextView>
 
@@ -95,7 +95,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="5dp"
-            android:src="@drawable/rosan"></ImageView>
+            android:src="@drawable/profilepicture"></ImageView>
 
         <TextView
             android:id="@+id/friendReqName1"
@@ -105,7 +105,7 @@
             android:layout_marginStart="5dp"
             android:layout_toEndOf="@+id/friendReqPP1"
             android:fontFamily="@font/semibold"
-            android:text="Name"
+            android:text="-"
             android:textColor="@color/white"
             android:textSize="13sp"></TextView>
 
@@ -146,7 +146,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="5dp"
-            android:src="@drawable/rosan"></ImageView>
+            android:src="@drawable/profilepicture"></ImageView>
 
         <TextView
             android:id="@+id/friendReqName2"
@@ -156,7 +156,7 @@
             android:layout_marginStart="5dp"
             android:layout_toEndOf="@+id/friendReqPP2"
             android:fontFamily="@font/semibold"
-            android:text="Name"
+            android:text="-"
             android:textColor="@color/white"
             android:textSize="13sp"></TextView>
 

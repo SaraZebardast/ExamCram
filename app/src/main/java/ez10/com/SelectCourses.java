@@ -81,7 +81,7 @@ public class SelectCourses extends AppCompatActivity {
 
                 String selectedCourse = courseChoices.getSelectedItem().toString();
 
-                if (selectedCourse.equals("Select Courses")) {
+                if (selectedCourse.equals("Select Course")) {
                     // do nothing
                 }
                 else if (course1.getText().toString().trim().equals("Empty") && !contains(selectedCourse)) {

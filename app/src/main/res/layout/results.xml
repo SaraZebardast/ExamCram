@@ -5,164 +5,63 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/black"
-    tools:context=".Achievements">
-
-
-    <RelativeLayout
-        android:id="@+id/nextUnlockLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/roundedbackground2">
-
-        <TextView
-            android:id="@+id/hoursStudiedSoFartxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginVertical="10dp"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/semibold"
-            android:gravity="center"
-            android:text="You studied - hours till now"
-            android:textColor="@color/white"
-            android:textSize="18sp"></TextView>
-
-        <ImageView
-            android:id="@+id/rewardImageview"
-            android:layout_width="175dp"
-            android:layout_height="175dp"
-            android:layout_below="@id/hoursStudiedSoFartxt"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/davinci"></ImageView>
-
-        <ProgressBar
-            android:id="@+id/progressbar"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/rewardImageview"
-            android:layout_centerHorizontal="true"
-            android:layout_marginVertical="10dp"></ProgressBar>
-
-        <TextView
-            android:id="@+id/studyxtounlocktxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/progressbar"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="10dp"
-            android:fontFamily="@font/semibold"
-            android:gravity="center"
-            android:text="Study - more to unlock"
-            android:textColor="@color/jungleGreen"
-            android:textSize="18sp"></TextView>
-
-    </RelativeLayout>
+    tools:context=".Results">
 
     <TextView
-        android:id="@+id/yourfriends"
+        android:id="@+id/resultsTXT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/nextUnlockLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="100dp"
+        android:fontFamily="@font/fullbold"
+        android:text="Results"
+        android:textColor="@color/white"
+        android:textSize="35sp"></TextView>
+
+    <TextView
+        android:id="@+id/peopleWithSimiliarCriteriaTXT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/resultsTXT"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="10dp"
         android:fontFamily="@font/regular"
-        android:text="Your friends (Hours Studied)"
+        android:text="People with similar criteria"
         android:textColor="@color/faded_white"
         android:textSize="13sp"></TextView>
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/yourfriends">
+        android:layout_below="@id/peopleWithSimiliarCriteriaTXT">
 
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/noFriends"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
+            android:id="@+id/loadingResults"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerInParent="true"
             android:visibility="visible"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:lottie_rawRes="@raw/lonely" />
-
-        <TextView
-            android:id="@+id/noFriendstxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/noFriends"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="-27dp"
-            android:fontFamily="@font/regular"
-            android:gravity="center"
-            android:text="You have no friends. Add friends to view their status, communicate, and more!"
-            android:textColor="@color/white"
-            android:textSize="14sp"></TextView>
-
-        <TextView
-            android:id="@+id/firstTXT"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="30dp"
-            android:fontFamily="@font/fullbold"
-            android:visibility="invisible"
-            android:text="1st"
-            android:textColor="@color/gold"
-            android:textSize="15sp"></TextView>
-
-        <TextView
-            android:id="@+id/secondTXT"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/firstTXT"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="50dp"
-            android:fontFamily="@font/fullbold"
-            android:visibility="invisible"
-
-            android:text="2nd"
-            android:textColor="@color/faded_white"
-            android:textSize="15sp"></TextView>
-
-        <TextView
-            android:id="@+id/thirdTXT"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/secondTXT"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="50dp"
-            android:fontFamily="@font/fullbold"
-            android:visibility="invisible"
-            android:text="3rd"
-            android:textColor="@color/bronze"
-            android:textSize="15sp"></TextView>
+            app:lottie_rawRes="@raw/loading_icon" />
 
         <LinearLayout
-            android:id="@+id/friendslayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="50dp"
-            android:layout_weight="1"
             android:orientation="vertical">
 
             <RelativeLayout
-                android:id="@+id/friend0"
+                android:id="@+id/result0Layout"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/roundedbackground2"
-                android:visibility="invisible">
+                android:visibility="visible">
 
                 <ImageView
-                    android:id="@+id/profilepicfriend0"
+                    android:id="@+id/result0ProfilePicture"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginStart="2dp"
@@ -172,44 +71,49 @@
                     android:src="@drawable/profilepicture"></ImageView>
 
                 <TextView
-                    android:id="@+id/friendname0"
+                    android:id="@+id/result0name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="5dp"
-                    android:layout_toEndOf="@+id/profilepicfriend0"
+                    android:layout_toEndOf="@+id/result0ProfilePicture"
                     android:fontFamily="@font/semibold"
                     android:text="-"
                     android:textColor="@color/white"
                     android:textSize="16sp"></TextView>
 
+                <ImageView
+                    android:id="@+id/message0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@id/addFriend0"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="35dp"
+                    android:src="@drawable/ic_baseline_message_24"></ImageView>
 
-                <TextView
-                    android:id="@+id/friendstatus0"
+                <ImageView
+                    android:id="@+id/addFriend0"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="65dp"
                     android:layout_marginEnd="25dp"
-                    android:fontFamily="@font/regular"
-                    android:text="-"
-                    android:textColor="@color/jungleGreen"
-                    android:textSize="16sp"></TextView>
+                    android:src="@drawable/ic_baseline_person_add_24"></ImageView>
+
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/friend1"
+                android:id="@+id/result1Layout"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginHorizontal="20dp"
-
                 android:layout_marginTop="10dp"
                 android:background="@drawable/roundedbackground2"
                 android:visibility="invisible">
 
                 <ImageView
-                    android:id="@+id/profilepicfriend1"
+                    android:id="@+id/result1ProfilePicture"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginStart="2dp"
@@ -219,34 +123,40 @@
                     android:src="@drawable/profilepicture"></ImageView>
 
                 <TextView
-                    android:id="@+id/friendname1"
+                    android:id="@+id/result1name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="5dp"
-                    android:layout_toEndOf="@+id/profilepicfriend1"
+                    android:layout_toEndOf="@+id/result1ProfilePicture"
                     android:fontFamily="@font/semibold"
                     android:text="-"
                     android:textColor="@color/white"
                     android:textSize="16sp"></TextView>
 
+                <ImageView
+                    android:id="@+id/message1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@id/addFriend1"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="35dp"
+                    android:src="@drawable/ic_baseline_message_24"></ImageView>
 
-                <TextView
-                    android:id="@+id/friendstatus1"
+                <ImageView
+                    android:id="@+id/addFriend1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="65dp"
                     android:layout_marginEnd="25dp"
-                    android:fontFamily="@font/regular"
-                    android:text="-"
-                    android:textColor="@color/jungleGreen"
-                    android:textSize="16sp"></TextView>
+                    android:src="@drawable/ic_baseline_person_add_24"></ImageView>
+
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/friend2"
+                android:id="@+id/result2Layout"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginHorizontal="20dp"
@@ -255,7 +165,7 @@
                 android:visibility="invisible">
 
                 <ImageView
-                    android:id="@+id/profilepicfriend2"
+                    android:id="@+id/result2ProfilePicture"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginStart="2dp"
@@ -265,34 +175,40 @@
                     android:src="@drawable/profilepicture"></ImageView>
 
                 <TextView
-                    android:id="@+id/friendname2"
+                    android:id="@+id/result2name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="5dp"
-                    android:layout_toEndOf="@+id/profilepicfriend2"
+                    android:layout_toEndOf="@+id/result2ProfilePicture"
                     android:fontFamily="@font/semibold"
                     android:text="-"
                     android:textColor="@color/white"
                     android:textSize="16sp"></TextView>
 
+                <ImageView
+                    android:id="@+id/message2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@id/addFriend2"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="35dp"
+                    android:src="@drawable/ic_baseline_message_24"></ImageView>
 
-                <TextView
-                    android:id="@+id/friendstatus2"
+                <ImageView
+                    android:id="@+id/addFriend2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="65dp"
                     android:layout_marginEnd="25dp"
-                    android:fontFamily="@font/regular"
-                    android:text="-"
-                    android:textColor="@color/jungleGreen"
-                    android:textSize="16sp"></TextView>
+                    android:src="@drawable/ic_baseline_person_add_24"></ImageView>
+
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/friend3"
+                android:id="@+id/result3Layout"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginHorizontal="20dp"
@@ -301,7 +217,7 @@
                 android:visibility="invisible">
 
                 <ImageView
-                    android:id="@+id/profilepicfriend3"
+                    android:id="@+id/result3ProfilePicture"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginStart="2dp"
@@ -311,34 +227,40 @@
                     android:src="@drawable/profilepicture"></ImageView>
 
                 <TextView
-                    android:id="@+id/friendname3"
+                    android:id="@+id/result3name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="5dp"
-                    android:layout_toEndOf="@+id/profilepicfriend3"
+                    android:layout_toEndOf="@+id/result3ProfilePicture"
                     android:fontFamily="@font/semibold"
                     android:text="-"
                     android:textColor="@color/white"
                     android:textSize="16sp"></TextView>
 
+                <ImageView
+                    android:id="@+id/message3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@id/addFriend3"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="35dp"
+                    android:src="@drawable/ic_baseline_message_24"></ImageView>
 
-                <TextView
-                    android:id="@+id/friendstatus3"
+                <ImageView
+                    android:id="@+id/addFriend3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="65dp"
                     android:layout_marginEnd="25dp"
-                    android:fontFamily="@font/regular"
-                    android:text="-"
-                    android:textColor="@color/faded_white"
-                    android:textSize="16sp"></TextView>
+                    android:src="@drawable/ic_baseline_person_add_24"></ImageView>
+
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/friend4"
+                android:id="@+id/result4Layout"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginHorizontal="20dp"
@@ -347,7 +269,7 @@
                 android:visibility="invisible">
 
                 <ImageView
-                    android:id="@+id/profilepicfriend4"
+                    android:id="@+id/result4ProfilePicture"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginStart="2dp"
@@ -357,30 +279,36 @@
                     android:src="@drawable/profilepicture"></ImageView>
 
                 <TextView
-                    android:id="@+id/friendname4"
+                    android:id="@+id/result4name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="5dp"
-                    android:layout_toEndOf="@+id/profilepicfriend4"
+                    android:layout_toEndOf="@+id/result4ProfilePicture"
                     android:fontFamily="@font/semibold"
                     android:text="-"
                     android:textColor="@color/white"
                     android:textSize="16sp"></TextView>
 
+                <ImageView
+                    android:id="@+id/message4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@id/addFriend4"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="35dp"
+                    android:src="@drawable/ic_baseline_message_24"></ImageView>
 
-                <TextView
-                    android:id="@+id/friendstatus4"
+                <ImageView
+                    android:id="@+id/addFriend4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="65dp"
                     android:layout_marginEnd="25dp"
-                    android:fontFamily="@font/regular"
-                    android:text="-"
-                    android:textColor="@color/faded_white"
-                    android:textSize="16sp"></TextView>
+                    android:src="@drawable/ic_baseline_person_add_24"></ImageView>
+
             </RelativeLayout>
 
         </LinearLayout>

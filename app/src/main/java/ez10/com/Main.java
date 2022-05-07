@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,6 +47,7 @@ public class Main extends AppCompatActivity {
     private Button[] requestsButtons;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,12 +58,8 @@ public class Main extends AppCompatActivity {
         bottomNav = findViewById(R.id.bottomNav);
 
 
-
-
-
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, new Homepage()).commit();
         bottomNav.setSelectedItemId(R.id.homeNav);
-
 
         bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -75,13 +73,8 @@ public class Main extends AppCompatActivity {
                             .replace(R.id.fragmentContainerView, fragment)
                             .addToBackStack(null).commit();
                 }
-                else if (item.getItemId()==R.id.chatsNav && bottomNav.getSelectedItemId()!=R.id.homeNav) {
-                    fragment = new Achievements();
-                    getSupportFragmentManager()
-                            .beginTransaction()
-                            .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_in_right)
-                            .replace(R.id.fragmentContainerView, fragment)
-                            .addToBackStack(null).commit();
+                else if (item.getItemId()==R.id.chatsNav) {
+                    Toast.makeText(Main.this, "This feature is yet to come :(", Toast.LENGTH_SHORT).show();
                 }
                 else if (item.getItemId()==R.id.achievementsNav && bottomNav.getSelectedItemId()!=R.id.achievementsNav) {
                     fragment = new Achievements();
@@ -269,6 +262,25 @@ public class Main extends AppCompatActivity {
                                             reference.setValue(result+1);
                                             DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/userFriends/friend" + result);
                                             reference.setValue(requestUID);
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+
+                                    DatabaseReference reference2 = rootNode.getReference("Registered Users/" + requestUID + "/noOfFriends");
+                                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            String temp = "" + snapshot.getValue();
+                                            int result = Integer.parseInt(temp);
+                                            reference2.setValue(result+1);
+                                            DatabaseReference reference = rootNode.getReference("Registered Users/" + requestUID + "/userFriends/friend" + result);
+                                            reference.setValue(currentUser.getUid());
+
                                         }
 
                                         @Override
