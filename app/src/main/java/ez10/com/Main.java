@@ -178,7 +178,6 @@ public class Main extends AppCompatActivity {
     }
 
 
-
     public void changeProfilePicture(View view) {
         dialog.hide();
         SelectProfilePicture.whereToDirectTo=1;
@@ -225,127 +224,76 @@ public class Main extends AppCompatActivity {
         requestsNames[2] = dialog.findViewById(R.id.friendReqName2);
         requestsButtons[2] = dialog.findViewById(R.id.accept2);
 
-
-        j=-1;
-        for (int i=0; i<MAX_NO_OF_REQUESTS; i++) {
-            loadFriendRequest(i);
-        }
+        j=0;
+        j2=0;
+        loadFriendRequest();
 
 
     }
-    int j=-1;
-    private void loadFriendRequest(int i) {
 
-        DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/friendRequests/request" + i);
+    int j=0;
+    int j2=0;
+    private void loadFriendRequest() {
+
+        DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/friendRequests");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String requestUID = "" + dataSnapshot.getValue();
-                if (!(requestUID.equals("-") || requestUID.equals("null"))) {
-                    j++;
-                    requestsLayout[j].setVisibility(View.VISIBLE);
-                    requestsButtons[j].setOnClickListener(new View.OnClickListener() {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot requestIndex : snapshot.getChildren()) {
+                    requestsLayout[j2].setVisibility(View.VISIBLE);
+                    DatabaseReference reference = rootNode.getReference("Registered Users/" + requestIndex.getKey());
+                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onClick(View view) {
-                            DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/friendRequests/request" + i);
-                            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            requestsNames[j].setText(snapshot.child("firstName").getValue() + "");
+                            String value = "" + snapshot.child("profilePictureID").getValue();
+                            readProfilePicture(value);
+                            requestsButtons[j].setOnClickListener(new View.OnClickListener() {
                                 @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    String requestUID = "" + dataSnapshot.getValue();
-                                    reference.setValue("-");
-                                    DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/noOfFriends");
-                                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            String temp = "" + snapshot.getValue();
-                                            int result = Integer.parseInt(temp);
-                                            reference.setValue(result+1);
-                                            DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/userFriends/friend" + result);
-                                            reference.setValue(requestUID);
-
-                                        }
-
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError error) {
-
-                                        }
-                                    });
-
-                                    DatabaseReference reference2 = rootNode.getReference("Registered Users/" + requestUID + "/noOfFriends");
-                                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            String temp = "" + snapshot.getValue();
-                                            int result = Integer.parseInt(temp);
-                                            reference2.setValue(result+1);
-                                            DatabaseReference reference = rootNode.getReference("Registered Users/" + requestUID + "/userFriends/friend" + result);
-                                            reference.setValue(currentUser.getUid());
-
-                                        }
-
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError error) {
-
-                                        }
-                                    });
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
+                                public void onClick(View view) {
+                                    DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/friendRequests/" + snapshot.getKey());
+                                    reference.removeValue();
+                                    reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/userFriends/" + snapshot.getKey());
+                                    reference.setValue("");
+                                    reference = rootNode.getReference("Registered Users/" + snapshot.getKey() + "/userFriends/" + currentUser.getUid());
+                                    reference.setValue("");
+                                    dialog.hide();
                                 }
                             });
-                            dialog.hide();
-                        }
-                    });
-
-                    DatabaseReference reference = rootNode.getReference("Registered Users/" + requestUID + "/firstName");
-                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            String temp = "" + snapshot.getValue();
-                            requestsNames[j].setText(temp);
+                            j++;
                         }
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
                         }
                     });
-
-                    reference = rootNode.getReference("Registered Users/" + requestUID + "/profilePictureID");
-                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            String value = "" + snapshot.getValue();
-                            if (value.equals("0")) {
-                                requestsProfilePic[j].setImageResource(R.drawable.steve);
-                            }
-                            else if (value.equals("1")) {
-                                requestsProfilePic[j].setImageResource(R.drawable.rosan);
-                            }
-                            else if (value.equals("2")){
-                                requestsProfilePic[j].setImageResource(R.drawable.isac);
-                            }
-                            else if (value.equals("3")){
-                                requestsProfilePic[j].setImageResource(R.drawable.davinci);
-                            }
-                            else if (value.equals("4")){
-                                requestsProfilePic[j].setImageResource(R.drawable.einstien);
-                            }
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                        }
-                    });
+                    j2++;
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 
+    }
 
-
-
-
+    private void readProfilePicture(String value) {
+        if (value.equals("0")) {
+            requestsProfilePic[j].setImageResource(R.drawable.steve);
+        }
+        else if (value.equals("1")) {
+            requestsProfilePic[j].setImageResource(R.drawable.rosan);
+        }
+        else if (value.equals("2")){
+            requestsProfilePic[j].setImageResource(R.drawable.isac);
+        }
+        else if (value.equals("3")){
+            requestsProfilePic[j].setImageResource(R.drawable.davinci);
+        }
+        else if (value.equals("4")){
+            requestsProfilePic[j].setImageResource(R.drawable.einstien);
+        }
     }
 
 

@@ -46,6 +46,31 @@
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/loading_icon" />
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/noResults"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="75dp"
+            android:visibility="invisible"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/lonely2" />
+
+        <TextView
+            android:id="@+id/noResultsTXT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_below="@+id/noResults"
+            android:layout_marginTop="0dp"
+            android:fontFamily="@font/regular"
+            android:visibility="invisible"
+            android:gravity="center"
+            android:text="There are no students with similar criteria FOR NOW. Hang tight while we search for others."
+            android:textColor="@color/white"
+            android:textSize="14sp"></TextView>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -58,7 +83,7 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/roundedbackground2"
-                android:visibility="visible">
+                android:visibility="invisible">
 
                 <ImageView
                     android:id="@+id/result0ProfilePicture"

@@ -193,7 +193,7 @@
                     android:layout_marginStart="65dp"
                     android:layout_marginEnd="25dp"
                     android:fontFamily="@font/regular"
-                    android:text="-"
+                    android:text="0"
                     android:textColor="@color/jungleGreen"
                     android:textSize="16sp"></TextView>
             </RelativeLayout>
@@ -240,7 +240,7 @@
                     android:layout_marginStart="65dp"
                     android:layout_marginEnd="25dp"
                     android:fontFamily="@font/regular"
-                    android:text="-"
+                    android:text="0"
                     android:textColor="@color/jungleGreen"
                     android:textSize="16sp"></TextView>
             </RelativeLayout>
@@ -286,7 +286,7 @@
                     android:layout_marginStart="65dp"
                     android:layout_marginEnd="25dp"
                     android:fontFamily="@font/regular"
-                    android:text="-"
+                    android:text="0"
                     android:textColor="@color/jungleGreen"
                     android:textSize="16sp"></TextView>
             </RelativeLayout>
@@ -332,7 +332,7 @@
                     android:layout_marginStart="65dp"
                     android:layout_marginEnd="25dp"
                     android:fontFamily="@font/regular"
-                    android:text="-"
+                    android:text="0"
                     android:textColor="@color/faded_white"
                     android:textSize="16sp"></TextView>
             </RelativeLayout>
@@ -378,7 +378,7 @@
                     android:layout_marginStart="65dp"
                     android:layout_marginEnd="25dp"
                     android:fontFamily="@font/regular"
-                    android:text="-"
+                    android:text="0"
                     android:textColor="@color/faded_white"
                     android:textSize="16sp"></TextView>
             </RelativeLayout>

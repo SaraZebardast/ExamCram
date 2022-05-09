@@ -99,6 +99,17 @@ public class UserInfo {
     public void setNoOfFriends(int noOfFriends) { this.noOfFriends = noOfFriends; }
 
     int noOfFriends;
+
+    public int getInterestCounter() {
+        return interestCounter;
+    }
+
+    public void setInterestCounter(int interestCounter) {
+        this.interestCounter = interestCounter;
+    }
+
+    int interestCounter;
+
     boolean onCampus, studying;
 
     public UserInfo(String email, String firstName, String lastName, String country, String university) {
@@ -114,5 +125,6 @@ public class UserInfo {
         endStudyStreakTime = 0;
         onCampus = false;
         studying = false;
+        interestCounter = 0;
     }
 }

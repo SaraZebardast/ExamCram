@@ -1,5 +1,6 @@
 package ez10.com;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -120,6 +121,7 @@ public class Achievements extends Fragment {
 
         super.onViewCreated(view, savedInstanceState);
 
+        loadFriends();
         for (int i=0; i<MAX_NO_OF_FRIENDS; i++) {
             DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/userFriends/friend" + i);
             reference.addValueEventListener(new ValueEventListener() {
@@ -189,6 +191,93 @@ public class Achievements extends Fragment {
 
             }
         });
+    }
+
+    int z=0;
+    int z1=0;
+    private void loadFriends() {
+        DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/userFriends");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot datasnapshot) {
+                for (DataSnapshot friendIndex : datasnapshot.getChildren()) {
+                    anim.setVisibility(View.INVISIBLE);
+                    noFriendsTxt.setVisibility(View.INVISIBLE);
+                    friendsLayout[z1].setVisibility(View.VISIBLE);
+                    if (z1<3) friendsRank[z1].setVisibility(View.VISIBLE);
+                    DatabaseReference reference = rootNode.getReference("Registered Users/" + friendIndex.getKey());
+                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (!friendIndex.getKey().equals(currentUser.getUid())) friendsNames[z].setText(snapshot.child("firstName").getValue() + "");
+                            else friendsNames[z].setText("You");
+                            String value = "" + snapshot.child("profilePictureID").getValue();
+                            readProfilePic(value, z);
+                            Double temp = (double) snapshot.child("timeStudied").getValue();
+                            int temp2 = temp.intValue();
+                            friendsStatus[z].setText("" + temp2);
+                            if (z== datasnapshot.getChildrenCount()-1) order();
+                            z++;
+
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                        }
+                    });
+                    z1++;
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+    private void order() {
+        boolean sorted = false;
+        while (!sorted) {
+            sorted = true;
+            for (int i = 0; i < 4; i++) {
+                if (Integer.parseInt(friendsStatus[i].getText() + "") < Integer.parseInt(friendsStatus[i+1].getText() + "") ) {
+
+                    String temp = friendsStatus[i].getText() + "";
+                    friendsStatus[i].setText(friendsStatus[i+1].getText());
+                    friendsStatus[i+1].setText(temp);
+
+                    temp = friendsNames[i].getText() + "";
+                    friendsNames[i].setText(friendsNames[i+1].getText());
+                    friendsNames[i+1].setText(temp);
+
+                    Drawable tempDrawable = friendsProfilePic[i].getDrawable();
+                    friendsProfilePic[i].setImageDrawable(friendsProfilePic[i+1].getDrawable());
+                    friendsProfilePic[i+1].setImageDrawable(tempDrawable);
+
+                    sorted = false;
+                }
+            }
+        }
+
+
+
+
+    }
+
+    private void readProfilePic(String value, int z) {
+        if (value.equals("0")) {
+            friendsProfilePic[z].setImageResource(R.drawable.steve);
+        } else if (value.equals("1")) {
+            friendsProfilePic[z].setImageResource(R.drawable.rosan);
+        } else if (value.equals("2")) {
+            friendsProfilePic[z].setImageResource(R.drawable.isac);
+        } else if (value.equals("3")) {
+            friendsProfilePic[z].setImageResource(R.drawable.davinci);
+        } else if (value.equals("4")) {
+            friendsProfilePic[z].setImageResource(R.drawable.einstien);
+        }
     }
 
 

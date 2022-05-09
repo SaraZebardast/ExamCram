@@ -170,18 +170,9 @@ public class SignUp extends AppCompatActivity {
 
                             reference.child(currentUser.getUid()).setValue(user);
 
+
                             reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/userFriends");
-
-                            for (int i=0; i<4; i++) {
-                                reference.child("friend" + i).setValue("-");
-                            }
-                            reference.child("friend" + 4).setValue(currentUser.getUid());
-
-                            reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/friendRequests");
-
-                            for (int i=0; i<3; i++) {
-                                reference.child("request" + i).setValue("-");
-                            }
+                            reference.child(currentUser.getUid()).setValue("");
 
                             reference = rootNode.getReference("Registered Universities/" + university + "/NoOfPeopleOnCampus");
                             reference.addListenerForSingleValueEvent(new ValueEventListener() {

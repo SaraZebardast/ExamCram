@@ -169,26 +169,25 @@ public class Homepage extends Fragment {
         });
 
 
-
-
-        for (int i=0; i<MAX_NO_OF_FRIENDS; i++) {
-            DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/userFriends/friend" + i);
-            reference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    String friendUID = "" + dataSnapshot.getValue();
-                    if (!(friendUID.equals("-") || friendUID.equals(currentUser.getUid()) || friendUID.equals("null"))) {
-                        anim.setVisibility(View.INVISIBLE);
-                        noFriendsTxt.setVisibility(View.INVISIBLE);
-                        loadUserFriends(friendUID);
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                }
-            });
-        }
+        loadFriends();
+//        for (int i=0; i<MAX_NO_OF_FRIENDS; i++) {
+//            DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/userFriends/friend" + i);
+//            reference.addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(DataSnapshot dataSnapshot) {
+//                    String friendUID = "" + dataSnapshot.getValue();
+//                    if (!(friendUID.equals("-") || friendUID.equals(currentUser.getUid()) || friendUID.equals("null"))) {
+//                        anim.setVisibility(View.INVISIBLE);
+//                        noFriendsTxt.setVisibility(View.INVISIBLE);
+//                        loadUserFriends(friendUID);
+//                    }
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError error) {
+//                }
+//            });
+//        }
     }
 
     public void startStudyCounter() {
@@ -247,6 +246,78 @@ public class Homepage extends Fragment {
         });
     }
 
+    int z=0;
+    int z1=0;
+    private void loadFriends() {
+        DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/userFriends");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot friendIndex : snapshot.getChildren()) {
+                    if (!friendIndex.getKey().equals(currentUser.getUid())) {
+                        anim.setVisibility(View.INVISIBLE);
+                        noFriendsTxt.setVisibility(View.INVISIBLE);
+                        friendsLayout[z1].setVisibility(View.VISIBLE);
+                        DatabaseReference reference = rootNode.getReference("Registered Users/" + friendIndex.getKey());
+                        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                friendsNames[z].setText(snapshot.child("firstName").getValue() + "");
+                                String value = "" + snapshot.child("profilePictureID").getValue();
+                                readProfilePic(value, z);
+                                boolean friendStudying = Boolean.parseBoolean(snapshot.child("studying").getValue() + "");
+                                if (!friendStudying) {
+                                    friendsStatus[z].setText("Not Studying");
+                                    friendsStatus[z].setTextColor(viewMain.getResources().getColor(R.color.faded_white));
+                                }
+                                else {
+                                    String temp = "" + snapshot.child("startStudyStreakTime").getValue();
+                                    Long time = Long.parseLong(temp);
+                                    String studyStatus = "Studying since ";
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                        LocalDateTime date =
+                                                LocalDateTime.ofInstant(Instant.ofEpochMilli(time), ZoneId.systemDefault());
+                                        studyStatus += date.toString().substring(11,16);
+                                    }
+                                    friendsStatus[z].setText(studyStatus);
+                                    friendsStatus[z].setTextColor(viewMain.getResources().getColor(R.color.jungleGreen));
+                                }
+                                z++;
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                        z1++;
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+    private void readProfilePic(String value, int z) {
+        if (value.equals("0")) {
+            friendsProfilePic[z].setImageResource(R.drawable.steve);
+        } else if (value.equals("1")) {
+            friendsProfilePic[z].setImageResource(R.drawable.rosan);
+        } else if (value.equals("2")) {
+            friendsProfilePic[z].setImageResource(R.drawable.isac);
+        } else if (value.equals("3")) {
+            friendsProfilePic[z].setImageResource(R.drawable.davinci);
+        } else if (value.equals("4")) {
+            friendsProfilePic[z].setImageResource(R.drawable.einstien);
+        }
+    }
+
     private void loadUserFriends(String friendUID) {
         int i = continueFrom;
         continueFrom++;
@@ -303,21 +374,7 @@ public class Homepage extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String value = "" + snapshot.getValue();
-                if (value.equals("0")) {
-                    friendsProfilePic[i].setImageResource(R.drawable.steve);
-                }
-                else if (value.equals("1")) {
-                    friendsProfilePic[i].setImageResource(R.drawable.rosan);
-                }
-                else if (value.equals("2")){
-                    friendsProfilePic[i].setImageResource(R.drawable.isac);
-                        }
-                else if (value.equals("3")){
-                    friendsProfilePic[i].setImageResource(R.drawable.davinci);
-                }
-                else if (value.equals("4")){
-                    friendsProfilePic[i].setImageResource(R.drawable.einstien);
-                }
+                readProfilePic(value, i);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -406,7 +463,7 @@ public class Homepage extends Fragment {
     ArrayAdapter<String> courseAdapter;
     ArrayAdapter<CharSequence> subCourseAdapter;
     Button finalSearch;
-    String selectedCourse, selectedTopic;
+    static String selectedCourse, selectedTopic;
 
     public void toggleSearch() {
         if (dialog!=null) dialog.hide();
@@ -431,10 +488,34 @@ public class Homepage extends Fragment {
                 selectedTopic = subCourseChoices.getSelectedItem().toString().trim();
 
                 if (!(selectedCourse.equals("Select Course") || selectedTopic.equals("Topic"))) {
+                    DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/interestCounter");
+                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            int val = Integer.parseInt(""+snapshot.getValue());
+                            DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/studyInterests/interest" + val);
+                            reference.setValue(selectedTopic);
+                            reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/interestCounter");
+                            if (val==2) {
+                                reference.setValue(0);
+                            }
+                            else {
+                                reference.setValue(val+1);
+                            }
+                            reference = rootNode.getReference("Registered Universities/" + Main.userUniversity + "/" + selectedCourse + "/" + selectedTopic);
+                            reference.child(currentUser.getUid()).setValue("");
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                     dialog.hide();
                     getActivity().getSupportFragmentManager().beginTransaction()
                             .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_in_right)
-                            .replace(R.id.fragmentContainerView, new Results())
+                            .replace(R.id.fragmentContainerView, new Results(selectedCourse, selectedTopic))
                             .addToBackStack(null).commit();
                 }
 
@@ -444,6 +525,7 @@ public class Homepage extends Fragment {
         loadCourses();
 
     }
+
 
     private void loadCourses() {
         DatabaseReference reference = rootNode.getReference("Registered Users/" + currentUser.getUid() + "/userCourses");
